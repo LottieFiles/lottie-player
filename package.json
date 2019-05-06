@@ -1,0 +1,40 @@
+{
+  "name": "@lottiefiles/lottie-player",
+  "version": "0.0.1",
+  "description": "Lottie animation player web component.",
+  "main": "dist/lottie-player.js",
+  "module": "dist/lottie-player.js",
+  "types": "dist/lottie-player.d.ts",
+  "author": "Jawish Hameed <jawish@lottiefiles.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "parcel build src/main.ts --detailed-report 50 --out-file lottie-player.js",
+    "start": "parcel src/index.html"
+  },
+  "dependencies": {
+    "lit-element": "^2.1.0",
+    "lottie-web": "^5.5.2"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.3",
+    "typescript": "^3.4.5"
+  },
+  "files": [
+    "dist/"
+  ],
+  "keywords": [
+    "lottie",
+    "animation",
+    "lottiefiles",
+    "web component",
+    "component",
+    "lit-element",
+    "player"
+  ],
+  "browserslist": [
+    "> 3%"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
