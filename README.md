@@ -1,33 +1,43 @@
-# lottie-player Web Component
+## lottie-player Web Component
 
-This is a Web Component for easily embedding Lottie animations in websites.
+This is a Web Component for easily embedding and playing Lottie animations in websites.
 
-[![Published on npm](https://img.shields.io/npm/v/@lottiefiles/lottie-player.svg)](https://www.npmjs.com/package/@lottiefiles/lottie-player)
-[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/@lottiefiles/lottie-player)
+[![npm](https://img.shields.io/npm/v/@lottiefiles/lottie-player.svg)](https://www.npmjs.com/package/@lottiefiles/lottie-player)
+[![webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/@lottiefiles/lottie-player)
+
+## Demo
+![screencast](https://i.imgur.com/miLzIkJ.gif)
+
+View editable examples on [CodeSandBox](https://codesandbox.io/s/y2nxyvomyj)
 
 ## Installation
 
-* In HTML:
+#### In HTML, import from CDN or from the local Installation:
 
-Import element from a CDN.
+- Import from CDN.
 ```html
 <script src="https://unpkg.com/@lottiefiles/lottie-player@0.0.4/dist/lottie-player.js"></script>
 ```
 
-* In Javascript or TypeScript:
+- Import from local node_modules directory.
+```html
+<script src="/node_modules/@lottiefiles/lottie-player/dist/lottie-player.js"></script>
+```
 
-Install package using npm or yarn.
+#### In Javascript or TypeScript:
+
+1. Install package using npm or yarn.
 ```shell
 npm install --save @lottiefiles/lottie-player
 ```
 
-Import package in your code.
+2. Import package in your code.
 ```javascript
-import '@lottiefiles/lottie-player/lottie-player.js';
+import '@lottiefiles/lottie-player';
 ```
 
 ## Usage
-
+Add the element `lottie-player` and set the `src` property to a URL pointing to a valid Bodymovin JSON. 
 ```html
 <lottie-player
     autoplay
@@ -39,9 +49,6 @@ import '@lottiefiles/lottie-player/lottie-player.js';
 >
 </lottie-player>
 ```
-
-## Examples
-- View editable examples on [CodeSandBox](https://codesandbox.io/s/y2nxyvomyj)
 
 ## Properties
 
