@@ -29,6 +29,9 @@ This is a Web Component for easily embedding Lottie animations in websites.
 </html>
 ```
 
+## Examples
+- View editable examples on [CodeSandBox](https://codesandbox.io/s/y2nxyvomyj)
+
 ## Properties
 
 | Property           | Attribute    | Description                         | Type                                 | Default           |
