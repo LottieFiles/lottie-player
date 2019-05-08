@@ -2,6 +2,10 @@
 
 This is a Web Component for easily embedding Lottie animations in websites.
 
+[![Published on npm](https://img.shields.io/npm/v/@lottiefiles/lottie-player.svg)](https://www.npmjs.com/package/@lottiefiles/lottie-player)
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/owner/my-element)
+
+
 ## Using this component
 
 ```html
