@@ -114,6 +114,7 @@ export class LottiePlayer extends LitElement {
 
   private io?: any;
   private lottie?: any;
+  private prevState?: any;
   private counter = 0;
 
   /**
@@ -134,9 +135,7 @@ export class LottiePlayer extends LitElement {
       }
     });
 
-    if (this.shadowRoot) {
-      this.io.observe(this.container);
-    }
+    this.io.observe(this.container);
   }
 
   /**
@@ -232,8 +231,10 @@ export class LottiePlayer extends LitElement {
           }
 
           setTimeout(() => {
-            this.lottie.setDirection(this.lottie.playDirection * -1);
-            this.lottie.play();
+            if (this.currentState === PlayerState.Playing) {
+              this.lottie.setDirection(this.lottie.playDirection * -1);
+              this.lottie.play();
+            }
           }, this.intermission);
         } else {
           if (this.count) {
@@ -241,8 +242,10 @@ export class LottiePlayer extends LitElement {
           }
 
           window.setTimeout(() => {
-            this.lottie.stop();
-            this.lottie.play();
+            if (this.currentState === PlayerState.Playing) {
+              this.lottie.stop();
+              this.lottie.play();
+            }
           }, this.intermission);
         }
       });
@@ -276,35 +279,28 @@ export class LottiePlayer extends LitElement {
   }
 
   /**
-   * Freeze animation play.
-   * This internal state pauses animation and is used to differentiate between
-   * user requested pauses and component instigated pauses.
-   */
-  private freeze(): void {
-    if (!this.lottie) {
-      return
-    }
-
-    this.lottie.pause();
-    this.currentState = PlayerState.Frozen;
-  }
-
-  /**
    * Handles click and drag actions on the progress track.
    */
   private handleSeekChange(e: any): void {
-    if (!this.lottie || !isNaN(e.target.value)) {
+    if (!this.lottie || isNaN(e.target.value)) {
       return;
     }
 
-    const frameNumber: string = ((e.target.value / 100) * this.lottie.totalFrames).toFixed(2);
+    const frame: number = ((e.target.value / 100) * this.lottie.totalFrames);
 
     if (this.currentState === PlayerState.Playing) {
-      this.lottie.goToAndPlay(frameNumber, true);
+      this.lottie.goToAndPlay(frame, true);
     } else {
-      this.lottie.goToAndStop(frameNumber, true);
-      this.freeze();
+      this.lottie.goToAndStop(frame, true);
+      this.lottie.pause();
     }
+  }
+
+  /**
+   * Returns the lottie-web instance used in the component.
+   */
+  public getLottie(): any {
+    return this.lottie;
   }
 
   /**
@@ -342,6 +338,20 @@ export class LottiePlayer extends LitElement {
     this.counter = 0;
     this.lottie.stop();
     this.currentState = PlayerState.Stopped;
+  }
+
+  /**
+   * Freeze animation play.
+   * This internal state pauses animation and is used to differentiate between
+   * user requested pauses and component instigated pauses.
+   */
+  private freeze(): void {
+    if (!this.lottie) {
+      return
+    }
+
+    this.lottie.pause();
+    this.currentState = PlayerState.Frozen;
   }
 
   /**
@@ -432,24 +442,27 @@ export class LottiePlayer extends LitElement {
     const isFrozen = this.currentState === PlayerState.Frozen;
 
     return html`
-      <div class='toolbar'>
+      <div class="toolbar">
         <button @click=${this.togglePlay} class=${isPlaying || isPaused ? 'active' : ''}>
           ${isPlaying
-            ? html`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M14.016 5.016H18v13.969h-3.984V5.016zM6 18.984V5.015h3.984v13.969H6z"/></svg>`
-            : html`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M8.016 5.016L18.985 12 8.016 18.984V5.015z"/></svg>`
-          }
+        ? html`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M14.016 5.016H18v13.969h-3.984V5.016zM6 18.984V5.015h3.984v13.969H6z"/></svg>`
+        : html`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M8.016 5.016L18.985 12 8.016 18.984V5.015z"/></svg>`
+      }
         </button>
         <button @click=${this.stop} class=${isStopped ? 'active' : ''}>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M6 6h12v12H6V6z" /></svg>
         </button>
-        <input class='seeker' type='range' min='1' step='1' max='100' .value=${this.seeker} @input=${this.handleSeekChange}
-          @mousedown=${this.freeze} @mouseup=${isFrozen ? this.play : null} @blur=${isFrozen ? this.play : null} />
+        <input class="seeker" type="range" min="0" step="1" max="100" .value=${this.seeker}
+          @input=${this.handleSeekChange} 
+          @mousedown=${() => { this.prevState = this.currentState; this.freeze(); }}
+          @mouseup=${() => { this.prevState === PlayerState.Playing && this.play(); }}
+        />
         <button @click=${this.toggleLooping} class=${this.loop ? 'active' : ''}>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
             <path d="M17.016 17.016v-4.031h1.969v6h-12v3l-3.984-3.984 3.984-3.984v3h10.031zM6.984 6.984v4.031H5.015v-6h12v-3l3.984 3.984-3.984 3.984v-3H6.984z"/>
           </svg>  
         </button>
-        <a href='https://www.lottiefiles.com/' target='_blank'>
+        <a href="https://www.lottiefiles.com/" target="_blank">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 320 320" fill-rule="nonzero"><rect fill="#adadad" x=".5" y=".5" width="100%" height="100%" rx="26.73"/><path d="M251.304 65.44a16.55 16.55 0 0 1 13.927 18.789c-1.333 9.04-9.73 15.292-18.762 13.954-15.992-2.37-39.95 22.534-66.77 73.74-34.24 65.37-66.113 96.517-99.667 94.032-9.102-.674-15.93-8.612-15.258-17.723s8.592-15.96 17.695-15.286c16.57 1.227 40.908-24.737 67.97-76.4 34.46-65.79 66.764-96.157 100.866-91.105z" fill="#fff"/></svg>
         </a>
       </div>
@@ -459,8 +472,8 @@ export class LottiePlayer extends LitElement {
   render(): TemplateResult | void {
     return html`
       <div class=${'main ' + this.controls ? ' controls' : ''}>
-        <div class='animation' style=${'background:' + this.background }>
-          ${this.currentState === PlayerState.Error ? html`<div class='error'>⚠️</div>` : undefined}
+        <div class="animation" style=${'background:' + this.background }>
+          ${this.currentState === PlayerState.Error ? html`<div class="error">⚠️</div>` : undefined}
         </div>
         ${this.controls ? this.renderControls() : undefined}
       </div>`
