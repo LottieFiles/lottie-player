@@ -6,17 +6,13 @@ export default css`
 }
 
 :host {
-  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Droid Sans", "Helvetica Neue", sans-serif;
-  --font-size: 13px;
-  --text-color: #555;
-  --toolbar-height: 35px;
-  --toolbar-background-color: transparent;
-  --toolbar-icon-color: #999;
-  --toolbar-icon-hover-color: #222;
-  --toolbar-icon-active-color: #555;
-  --drawer-background-color: #FFF;
-  --seeker-track-color: #CCC;
-  --seeker-thumb-color: rgba(0, 107, 120, 0.8);
+  --lottie-player-toolbar-height: 35px;
+  --lottie-player-toolbar-background-color: transparent;
+  --lottie-player-toolbar-icon-color: #999;
+  --lottie-player-toolbar-icon-hover-color: #222;
+  --lottie-player-toolbar-icon-active-color: #555;
+  --lottie-player-seeker-track-color: #CCC;
+  --lottie-player-seeker-thumb-color: rgba(0, 107, 120, 0.8);
 
   display: block;
   width: 100%;
@@ -34,12 +30,12 @@ export default css`
 }
 
 .main.controls {
-  grid-template-rows: 1fr var(--toolbar-height);
+  grid-template-rows: 1fr var(--lottie-player-toolbar-height);
 }
 
 .animation {
   overflow: hidden;
-  height: calc(1fr - var(--toolbar-height));
+  height: calc(1fr - var(--lottie-player-toolbar-height));
 }
 
 .toolbar {
@@ -47,12 +43,12 @@ export default css`
   grid-template-columns: 32px 32px 1fr 32px 32px;
   align-items: center;
   justify-items: center;
-  background-color: var(--toolbar-background-color);
+  background-color: var(--lottie-player-toolbar-background-color);
 }
 
 .toolbar button {
   cursor: pointer;
-  fill: var(--toolbar-icon-color);
+  fill: var(--lottie-player-toolbar-icon-color);
   display: flex;
   background: none;
   border: 0;
@@ -62,11 +58,11 @@ export default css`
 }
 
 .toolbar button:hover {
-  fill: var(--toolbar-icon-hover-color);
+  fill: var(--lottie-player-toolbar-icon-hover-color);
 }
 
 .toolbar button.active {
-  fill: var(--toolbar-icon-active-color);
+  fill: var(--lottie-player-toolbar-icon-active-color);
 }
 
 .toolbar button svg {
@@ -94,69 +90,6 @@ export default css`
 .toolbar a svg {
 }
 
-.drawer {
-  font-family: var(--font-family);
-  font-size: var(--font-size);
-  color: var(--text-color);
-  background-color: var(--drawer-background-color);
-  position: absolute;
-  height: 50%;
-  bottom: 30px;
-  opacity: 0;
-  width: 100%;
-  transition: opacity .5s 0s;
-  z-index: 10;
-  box-shadow: 0 -12px 6px 6px rgba(0, 0,0, 0.2);
-}
-
-.drawer.visible {
-  opacity: 1;
-  z-index: 100;
-}
-
-.drawer-close {
-  font-size: 18px;
-  cursor: pointer;
-  padding: 10px 15px;
-  color: rgba(0, 0, 0, 0.5);
-  transition: opacity .25s;
-  position: absolute;
-  right: 5px;
-  top: 0;
-  display: flex;
-  height: 30px;
-  align-items: center;
-}
-.drawer-close:hover {
-  color: rgba(0, 0, 0, 1);
-}
-
-.drawer-title {
-  border-bottom: 1px #ccc solid;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.drawer-content {
-  padding: 20px;
-}
-
-.drawer-content h3 {
-  margin-top: 0;
-}
-
-.avatar {
-  float: right;
-  width: 100px;
-  height: 100px;
-}
-
-.created, .updated {
-  font-size: 12px;
-}
-
 .seeker {
   -webkit-appearance: none;
   width: 95%;
@@ -167,14 +100,14 @@ export default css`
   width: 100%;
   height: 5px;
   cursor: pointer;
-  background: var(--seeker-track-color);
+  background: var(--lottie-player-seeker-track-color);
   border-radius: 3px;
 }
 .seeker::-webkit-slider-thumb {
   height: 15px;
   width: 15px;
   border-radius: 50%;
-  background: var(--seeker-thumb-color);
+  background: var(--lottie-player-seeker-thumb-color);
   cursor: pointer;
   -webkit-appearance: none;
   margin-top: -5px;
@@ -186,14 +119,14 @@ export default css`
   width: 100%;
   height: 5px;
   cursor: pointer;
-  background: var(--seeker-track-color);
+  background: var(--lottie-player-seeker-track-color);
   border-radius: 3px;
 }
 .seeker::-moz-range-thumb {
   height: 15px;
   width: 15px;
   border-radius: 50%;
-  background: var(--seeker-thumb-color);
+  background: var(--lottie-player-seeker-thumb-color);
   cursor: pointer;
 }
 .seeker::-ms-track {
@@ -205,11 +138,11 @@ export default css`
   color: transparent;
 }
 .seeker::-ms-fill-lower {
-  background: var(--seeker-track-color);
+  background: var(--lottie-player-seeker-track-color);
   border-radius: 3px;
 }
 .seeker::-ms-fill-upper {
-  background: var(--seeker-track-color);
+  background: var(--lottie-player-seeker-track-color);
   border-radius: 3px;
 }
 .seeker::-ms-thumb {
@@ -217,14 +150,14 @@ export default css`
   height: 15px;
   width: 15px;
   border-radius: 50%;
-  background: var(--seeker-thumb-color);
+  background: var(--lottie-player-seeker-thumb-color);
   cursor: pointer;
 }
 .seeker:focus::-ms-fill-lower {
-  background: var(--seeker-track-color);
+  background: var(--lottie-player-seeker-track-color);
 }
 .seeker:focus::-ms-fill-upper {
-  background: var(--seeker-track-color);
+  background: var(--lottie-player-seeker-track-color);
 }
 
 .error {
