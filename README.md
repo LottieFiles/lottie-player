@@ -3,30 +3,41 @@
 This is a Web Component for easily embedding Lottie animations in websites.
 
 [![Published on npm](https://img.shields.io/npm/v/@lottiefiles/lottie-player.svg)](https://www.npmjs.com/package/@lottiefiles/lottie-player)
-[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/owner/my-element)
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/@lottiefiles/lottie-player)
 
+## Installation
 
-## Using this component
+* In HTML:
+
+Import element from a CDN.
+```html
+<script src="https://unpkg.com/@lottiefiles/lottie-player@0.0.4/dist/lottie-player.js"></script>
+```
+
+* In Javascript or TypeScript:
+
+Install package using npm or yarn.
+```shell
+npm install --save @lottiefiles/lottie-player
+```
+
+Import package in your code.
+```javascript
+import '@lottiefiles/lottie-player/lottie-player.js';
+```
+
+## Usage
 
 ```html
-<!doctype html>
-<html>
-  <head>
-    <script type="module" src="https://unpkg.com/@lottiefiles/lottie-player@0.0.2/dist/lottie-player.js"></script>
-  </head>
-
-  <body>
-    <lottie-player
-      autoplay
-      controls
-      loop
-      mode="normal"
-      src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json"
-      style="width: 320px"
-    >
-    </lottie-player>
-  </body>
-</html>
+<lottie-player
+    autoplay
+    controls
+    loop
+    mode="normal"
+    src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json"
+    style="width: 320px"
+>
+</lottie-player>
 ```
 
 ## Examples
@@ -156,6 +167,18 @@ Toggle playing state.
 #### Returns
 
 Type: `void`
+
+## Styling
+
+Custom property | Description | Default
+----------------|-------------|---------
+--lottie-player-toolbar-height | Toolbar height | 35px
+--lottie-player-toolbar-background-color | Toolbar background color | transparent
+--lottie-player-toolbar-icon-color | Toolbar icon color | #999
+--lottie-player-toolbar-icon-hover-color| Toolbar icon hover color | #222
+--lottie-player-toolbar-icon-active-color | Toolbar icon active color | #555
+--lottie-player-seeker-track-color | Seeker track color | #CCC
+--lottie-player-seeker-thumb-color | Seeker thumb color | rgba(0, 107, 120, 0.8)
 
 ## License
 
