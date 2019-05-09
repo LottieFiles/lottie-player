@@ -16,7 +16,7 @@ View editable examples on [CodeSandBox](https://codesandbox.io/s/y2nxyvomyj)
 
 - Import from CDN.
 ```html
-<script src="https://unpkg.com/@lottiefiles/lottie-player@0.0.4/dist/lottie-player.js"></script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@0.0.5/dist/lottie-player.js"></script>
 ```
 
 - Import from local node_modules directory.
@@ -155,6 +155,24 @@ Stops animation play.
 
 Type: `void`
 
+
+### `seek(frame: number) => void`
+
+Seek to a given frame.
+
+#### Returns
+
+Type: `void`
+
+
+### `snapshot(download?: boolean) => string`
+
+Snapshot the current frame as SVG.
+If 'download' argument is boolean true, then a download is triggered in browser.
+
+#### Returns
+
+Type: `string`
 
 
 ### `toggleLooping() => void`
