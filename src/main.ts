@@ -1,5 +1,4 @@
 import { customElement, LitElement, html, property, query, TemplateResult } from 'lit-element';
-
 import * as lottie from 'lottie-web/build/player/lottie_svg';
 
 import styles from './styles';
@@ -338,6 +337,33 @@ export class LottiePlayer extends LitElement {
     this.counter = 0;
     this.lottie.stop();
     this.currentState = PlayerState.Stopped;
+  }
+
+  /**
+   * Snapshot the current frame as SVG.
+   * 
+   * If 'download' argument is boolean true, then a download is triggered in browser.
+   */
+  public snapshot(download: boolean = true): string | void {
+    if (!this.shadowRoot) return;
+
+    // Get SVG element and serialize markup
+    const svgElement = this.shadowRoot.querySelector('.animation svg') as Node;
+    const data = (new XMLSerializer()).serializeToString(svgElement);
+
+    // Trigger file download
+    if (download) {
+      const element = document.createElement('a');
+      element.href = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(data);
+      element.download = 'download_' + this.seeker + '.svg';
+      document.body.appendChild(element);
+
+      element.click();
+
+      document.body.removeChild(element);
+    }
+
+    return data;
   }
 
   /**
