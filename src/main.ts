@@ -287,12 +287,7 @@ export class LottiePlayer extends LitElement {
 
     const frame: number = ((e.target.value / 100) * this.lottie.totalFrames);
 
-    if (this.currentState === PlayerState.Playing) {
-      this.lottie.goToAndPlay(frame, true);
-    } else {
-      this.lottie.goToAndStop(frame, true);
-      this.lottie.pause();
-    }
+    this.seek(frame);
   }
 
   /**
@@ -337,6 +332,24 @@ export class LottiePlayer extends LitElement {
     this.counter = 0;
     this.lottie.stop();
     this.currentState = PlayerState.Stopped;
+  }
+
+  /**
+   * Seek to a given frame.
+   */
+  public seek(frame: number): void {
+    if (!this.lottie) {
+      return;
+    }
+
+    this.seeker = frame;
+    
+    if (this.currentState === PlayerState.Playing) {
+      this.lottie.goToAndPlay(frame, true);
+    } else {
+      this.lottie.goToAndStop(frame, true);
+      this.lottie.pause();
+    }
   }
 
   /**
