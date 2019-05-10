@@ -156,9 +156,9 @@ Stops animation play.
 Type: `void`
 
 
-### `seek(frame: number) => void`
+### `seek(value: number | string) => void`
 
-Seek to a given frame.
+Seek to a given frame. Frame value can be a number or a percent string (e.g. 50%).
 
 #### Returns
 

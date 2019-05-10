@@ -337,13 +337,26 @@ export class LottiePlayer extends LitElement {
   /**
    * Seek to a given frame.
    */
-  public seek(frame: number): void {
+  public seek(value: number | string): void {
     if (!this.lottie) {
       return;
     }
 
+    // Extract frame number from either number or percentage value
+    const matches = value.toString().match(/^([0-9]+)(%?)$/);
+    if (!matches) {
+      return;
+    }
+
+    // Calculate and set the frame number
+    const frame = matches[2] === '%'
+      ? this.lottie.totalFrames * Number(matches[1]) / 100
+      : matches[1];
+
+    // Set seeker to new frame number
     this.seeker = frame;
     
+    // Send lottie player to the new frame
     if (this.currentState === PlayerState.Playing) {
       this.lottie.goToAndPlay(frame, true);
     } else {
