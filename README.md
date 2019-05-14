@@ -17,7 +17,7 @@ This is a Web Component for easily embedding and playing Lottie animations in we
 
 - Import from CDN.
 ```html
-<script src="https://unpkg.com/@lottiefiles/lottie-player@0.0.5/dist/lottie-player.js"></script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@0.0.6/dist/lottie-player.js"></script>
 ```
 
 - Import from local node_modules directory.
