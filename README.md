@@ -16,7 +16,7 @@ View editable examples on [CodeSandBox](https://codesandbox.io/s/y2nxyvomyj)
 
 - Import from CDN.
 ```html
-<script src="https://unpkg.com/@lottiefiles/lottie-player@0.0.5/dist/lottie-player.js"></script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@0.0.7/dist/lottie-player.js"></script>
 ```
 
 - Import from local node_modules directory.
