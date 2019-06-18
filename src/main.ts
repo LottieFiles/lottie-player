@@ -220,7 +220,6 @@ export class LottiePlayer extends LitElement {
         }
 
         if (!this.loop || (this.count && this.counter >= this.count)) {
-          this.stop();
           return;
         }
 
