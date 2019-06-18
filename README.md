@@ -8,7 +8,8 @@ This is a Web Component for easily embedding and playing Lottie animations in we
 ## Demo
 ![screencast](https://i.imgur.com/miLzIkJ.gif)
 
-View editable examples on [CodeSandBox](https://codesandbox.io/s/y2nxyvomyj)
+- [Basic usage examples](https://codesandbox.io/s/y2nxyvomyj)
+- [Scrolling effects demo](https://ypxk7zvpq1.codesandbox.io/)
 
 ## Installation
 
@@ -16,7 +17,7 @@ View editable examples on [CodeSandBox](https://codesandbox.io/s/y2nxyvomyj)
 
 - Import from CDN.
 ```html
-<script src="https://unpkg.com/@lottiefiles/lottie-player@0.0.5/dist/lottie-player.js"></script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@0.0.7/dist/lottie-player.js"></script>
 ```
 
 - Import from local node_modules directory.
