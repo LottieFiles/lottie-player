@@ -189,10 +189,39 @@ export class LottiePlayer extends LitElement {
     }
   }
 
+  private parseSrc(src: string | object): string | object {
+    if (typeof src === 'object') {
+      return src;
+    }
+
+    try {
+      return JSON.parse(src);
+    } catch (e) {
+      // Try construct an absolute URL from the src URL
+      const srcUrl: URL = new URL(src, window.location.href);
+
+      return srcUrl.toString();
+    }
+  }
+
+  /**
+   * Handles click and drag actions on the progress track.
+   */
+  private handleSeekChange(e: any): void {
+    if (!this.lottie || isNaN(e.target.value)) {
+      return;
+    }
+
+    const frame: number = ((e.target.value / 100) * this.lottie.totalFrames);
+
+    this.seek(frame);
+  }
+
+  
   /**
    * Configure and initialize lottie-web player instance.
    */
-  private setupLottie(): void {
+  public load(src: string | object): void {
     if (!this.shadowRoot) {
       return;
     }
@@ -212,11 +241,14 @@ export class LottiePlayer extends LitElement {
 
     // Load the resource information
     try {
-      // Try construct an absolute URL from the src URL
-      const srcUrl: URL = new URL(this.src, window.location.href);
+      const srcParsed = this.parseSrc(src);
+      const srcAttrib = typeof srcParsed === 'string' ? 'path' : 'animationData';
 
       // Initialize lottie player and load animation
-      this.lottie = lottie.loadAnimation({ ...options, path: srcUrl.toString() });
+      this.lottie = lottie.loadAnimation({
+        ...options,
+        [srcAttrib]: srcParsed
+      });
     } catch (err) {
       this.currentState = PlayerState.Error;
 
@@ -256,7 +288,7 @@ export class LottiePlayer extends LitElement {
 
           setTimeout(() => {
             this.dispatchEvent(new CustomEvent(PlayerEvents.Loop));
-
+            
             if (this.currentState === PlayerState.Playing) {
               this.lottie.setDirection(this.lottie.playDirection * -1);
               this.lottie.play();
@@ -269,7 +301,7 @@ export class LottiePlayer extends LitElement {
 
           window.setTimeout(() => {
             this.dispatchEvent(new CustomEvent(PlayerEvents.Loop));
-            
+
             if (this.currentState === PlayerState.Playing) {
               this.lottie.stop();
               this.lottie.play();
@@ -316,19 +348,6 @@ export class LottiePlayer extends LitElement {
         this.play();
       }
     }
-  }
-
-  /**
-   * Handles click and drag actions on the progress track.
-   */
-  private handleSeekChange(e: any): void {
-    if (!this.lottie || isNaN(e.target.value)) {
-      return;
-    }
-
-    const frame: number = ((e.target.value / 100) * this.lottie.totalFrames);
-
-    this.seek(frame);
   }
 
   /**
@@ -525,7 +544,9 @@ export class LottiePlayer extends LitElement {
     this.addVisibilityListener();
 
     // Setup lottie player
-    this.setupLottie();
+    if (this.src) {
+      this.load(this.src);
+    }
   }
 
   /**
