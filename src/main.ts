@@ -34,6 +34,24 @@ enum PlayerEvents {
 };
 
 /**
+ * Parse a resource into a JSON object or a URL string
+ */
+function parseSrc(src: string | object): string | object {
+  if (typeof src === 'object') {
+    return src;
+  }
+
+  try {
+    return JSON.parse(src);
+  } catch (e) {
+    // Try construct an absolute URL from the src URL
+    const srcUrl: URL = new URL(src, window.location.href);
+
+    return srcUrl.toString();
+  }
+}
+
+/**
  * LottiePlayer web component class
  *
  * @export
@@ -112,7 +130,7 @@ export class LottiePlayer extends LitElement {
    * Bodymovin JSON data or URL to JSON.
    */
   @property({ type: String })
-  public src!: string;
+  public src?: string;
 
   /**
    * Player state.
@@ -126,62 +144,15 @@ export class LottiePlayer extends LitElement {
   @property()
   public intermission: number = 1;
 
-  private io?: any;
-  private lottie?: any;
-  private prevState?: any;
-  private counter = 0;
-
-  /**
-   * Add intersection observer for detecting component being out-of-view.
-   */
-  private addIntersectionObserver(): void {
-    if (!('IntersectionObserver' in window)) {
-      return;
-    }
-
-    this.io = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
-      if (entries[0].isIntersecting) {
-        if (this.currentState === PlayerState.Frozen) {
-          this.play();
-        }
-      } else if (this.currentState === PlayerState.Playing) {
-        this.freeze();
-      }
-    });
-
-    this.io.observe(this.container);
-  }
-
-  /**
-   * Remove intersection observer for detecting component being out-of-view.
-   */
-  private removeIntersectionObserver(): void {
-    if (this.io) {
-      this.io.disconnect();
-      this.io = undefined;
-    }
-  }
-
-  /**
-   * Add listener for Visibility API's change event.
-   */
-  private addVisibilityListener(): void {
-    if (typeof document.hidden !== 'undefined') {
-      document.addEventListener('visibilitychange', () => this.onVisibilityChange());
-    }
-  }
-
-  /**
-   * Remove the attached Visibility API's change event listener.
-   */
-  private removeVisibilityListener(): void {
-    document.removeEventListener('visibilitychange', () => this.onVisibilityChange());
-  }
+  private _io?: any;
+  private _lottie?: any;
+  private _prevState?: any;
+  private _counter = 0;
 
   /**
    * Handle visibility change events.
    */
-  private onVisibilityChange(): void {
+  private _onVisibilityChange(): void {
     if (document.hidden === true && this.currentState === PlayerState.Playing) {
       this.freeze();
     } else if (this.currentState === PlayerState.Frozen) {
@@ -189,35 +160,19 @@ export class LottiePlayer extends LitElement {
     }
   }
 
-  private parseSrc(src: string | object): string | object {
-    if (typeof src === 'object') {
-      return src;
-    }
-
-    try {
-      return JSON.parse(src);
-    } catch (e) {
-      // Try construct an absolute URL from the src URL
-      const srcUrl: URL = new URL(src, window.location.href);
-
-      return srcUrl.toString();
-    }
-  }
-
   /**
    * Handles click and drag actions on the progress track.
    */
-  private handleSeekChange(e: any): void {
-    if (!this.lottie || isNaN(e.target.value)) {
+  private _handleSeekChange(e: any): void {
+    if (!this._lottie || isNaN(e.target.value)) {
       return;
     }
 
-    const frame: number = ((e.target.value / 100) * this.lottie.totalFrames);
+    const frame: number = ((e.target.value / 100) * this._lottie.totalFrames);
 
     this.seek(frame);
   }
 
-  
   /**
    * Configure and initialize lottie-web player instance.
    */
@@ -241,11 +196,16 @@ export class LottiePlayer extends LitElement {
 
     // Load the resource information
     try {
-      const srcParsed = this.parseSrc(src);
+      const srcParsed = parseSrc(src);
       const srcAttrib = typeof srcParsed === 'string' ? 'path' : 'animationData';
 
+      // Clear previous animation, if any
+      if (this._lottie) {
+        this._lottie.destroy();
+      }
+
       // Initialize lottie player and load animation
-      this.lottie = lottie.loadAnimation({
+      this._lottie = lottie.loadAnimation({
         ...options,
         [srcAttrib]: srcParsed
       });
@@ -256,72 +216,72 @@ export class LottiePlayer extends LitElement {
       return;
     }
 
-    if (this.lottie) {
+    if (this._lottie) {
       // Calculate and save the current progress of the animation
-      this.lottie.addEventListener('enterFrame', () => {
-        this.seeker = (this.lottie.currentFrame / this.lottie.totalFrames) * 100;
+      this._lottie.addEventListener('enterFrame', () => {
+        this.seeker = (this._lottie.currentFrame / this._lottie.totalFrames) * 100;
 
         this.dispatchEvent(new CustomEvent(PlayerEvents.Frame, {
           detail: {
-            frame: this.lottie.currentFrame,
+            frame: this._lottie.currentFrame,
             seeker: this.seeker
           }
         }));
       });
 
       // Handle animation play complete
-      this.lottie.addEventListener('complete', () => {
+      this._lottie.addEventListener('complete', () => {
         if (this.currentState !== PlayerState.Playing) {
           this.dispatchEvent(new CustomEvent(PlayerEvents.Complete));
           return;
         }
 
-        if (!this.loop || (this.count && this.counter >= this.count)) {
+        if (!this.loop || (this.count && this._counter >= this.count)) {
           this.dispatchEvent(new CustomEvent(PlayerEvents.Complete));
           return;
         }
 
         if (this.mode === PlayMode.Bounce) {
           if (this.count) {
-            this.counter += 0.5;
+            this._counter += 0.5;
           }
 
           setTimeout(() => {
             this.dispatchEvent(new CustomEvent(PlayerEvents.Loop));
             
             if (this.currentState === PlayerState.Playing) {
-              this.lottie.setDirection(this.lottie.playDirection * -1);
-              this.lottie.play();
+              this._lottie.setDirection(this._lottie.playDirection * -1);
+              this._lottie.play();
             }
           }, this.intermission);
         } else {
           if (this.count) {
-            this.counter += 1;
+            this._counter += 1;
           }
 
           window.setTimeout(() => {
             this.dispatchEvent(new CustomEvent(PlayerEvents.Loop));
 
             if (this.currentState === PlayerState.Playing) {
-              this.lottie.stop();
-              this.lottie.play();
+              this._lottie.stop();
+              this._lottie.play();
             }
           }, this.intermission);
         }
       });
 
       // Handle lottie-web ready event
-      this.lottie.addEventListener('DOMLoaded', () => {
+      this._lottie.addEventListener('DOMLoaded', () => {
         this.dispatchEvent(new CustomEvent(PlayerEvents.Ready));
       });
 
       // Handle animation data load complete
-      this.lottie.addEventListener('data_ready', () => {
+      this._lottie.addEventListener('data_ready', () => {
         this.dispatchEvent(new CustomEvent(PlayerEvents.Load));
       });
 
       // Set error state when animation load fail event triggers
-      this.lottie.addEventListener('data_failed', () => {
+      this._lottie.addEventListener('data_failed', () => {
         this.currentState = PlayerState.Error;
 
         this.dispatchEvent(new CustomEvent(PlayerEvents.Error));
@@ -354,18 +314,18 @@ export class LottiePlayer extends LitElement {
    * Returns the lottie-web instance used in the component.
    */
   public getLottie(): any {
-    return this.lottie;
+    return this._lottie;
   }
 
   /**
    * Start playing animation.
    */
   public play() {
-    if (!this.lottie) {
+    if (!this._lottie) {
       return
     }
 
-    this.lottie.play();
+    this._lottie.play();
     this.currentState = PlayerState.Playing;
 
     this.dispatchEvent(new CustomEvent(PlayerEvents.Play));
@@ -375,11 +335,11 @@ export class LottiePlayer extends LitElement {
    * Pause animation play.
    */
   public pause(): void {
-    if (!this.lottie) {
+    if (!this._lottie) {
       return
     }
 
-    this.lottie.pause();
+    this._lottie.pause();
     this.currentState = PlayerState.Paused;
 
     this.dispatchEvent(new CustomEvent(PlayerEvents.Pause));
@@ -389,12 +349,12 @@ export class LottiePlayer extends LitElement {
    * Stops animation play.
    */
   public stop(): void {
-    if (!this.lottie) {
+    if (!this._lottie) {
       return
     }
 
-    this.counter = 0;
-    this.lottie.stop();
+    this._counter = 0;
+    this._lottie.stop();
     this.currentState = PlayerState.Stopped;
 
     this.dispatchEvent(new CustomEvent(PlayerEvents.Stop));
@@ -404,7 +364,7 @@ export class LottiePlayer extends LitElement {
    * Seek to a given frame.
    */
   public seek(value: number | string): void {
-    if (!this.lottie) {
+    if (!this._lottie) {
       return;
     }
 
@@ -416,24 +376,24 @@ export class LottiePlayer extends LitElement {
 
     // Calculate and set the frame number
     const frame = matches[2] === '%'
-      ? this.lottie.totalFrames * Number(matches[1]) / 100
+      ? this._lottie.totalFrames * Number(matches[1]) / 100
       : matches[1];
 
     // Set seeker to new frame number
     this.seeker = frame;
-    
+
     // Send lottie player to the new frame
     if (this.currentState === PlayerState.Playing) {
-      this.lottie.goToAndPlay(frame, true);
+      this._lottie.goToAndPlay(frame, true);
     } else {
-      this.lottie.goToAndStop(frame, true);
-      this.lottie.pause();
+      this._lottie.goToAndStop(frame, true);
+      this._lottie.pause();
     }
   }
 
   /**
    * Snapshot the current frame as SVG.
-   * 
+   *
    * If 'download' argument is boolean true, then a download is triggered in browser.
    */
   public snapshot(download: boolean = true): string | void {
@@ -464,11 +424,11 @@ export class LottiePlayer extends LitElement {
    * user requested pauses and component instigated pauses.
    */
   private freeze(): void {
-    if (!this.lottie) {
+    if (!this._lottie) {
       return
     }
 
-    this.lottie.pause();
+    this._lottie.pause();
     this.currentState = PlayerState.Frozen;
 
     this.dispatchEvent(new CustomEvent(PlayerEvents.Freeze));
@@ -480,11 +440,11 @@ export class LottiePlayer extends LitElement {
    * @param value Playback speed.
    */
   public setSpeed(value = 1): void {
-    if (!this.lottie) {
+    if (!this._lottie) {
       return;
     }
 
-    this.lottie.setSpeed(value);
+    this._lottie.setSpeed(value);
   }
 
   /**
@@ -493,11 +453,11 @@ export class LottiePlayer extends LitElement {
    * @param value Direction values.
    */
   public setDirection(value: number): void {
-    if (!this.lottie) {
+    if (!this._lottie) {
       return;
     }
 
-    this.lottie.setDirection(value);
+    this._lottie.setDirection(value);
   }
 
   /**
@@ -506,9 +466,9 @@ export class LottiePlayer extends LitElement {
    * @param value Whether to enable looping. Boolean true enables looping.
    */
   public setLooping(value: boolean): void {
-    if (this.lottie) {
+    if (this._lottie) {
       this.loop = value;
-      this.lottie.loop = value;
+      this._lottie.loop = value;
     }
   }
 
@@ -539,9 +499,25 @@ export class LottiePlayer extends LitElement {
    * Initialize everything on component first render.
    */
   protected firstUpdated(): void {
-    // Setup global event handlers
-    this.addIntersectionObserver();
-    this.addVisibilityListener();
+    // Add intersection observer for detecting component being out-of-view.
+    if ('IntersectionObserver' in window) {
+      this._io = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
+        if (entries[0].isIntersecting) {
+          if (this.currentState === PlayerState.Frozen) {
+            this.play();
+          }
+        } else if (this.currentState === PlayerState.Playing) {
+          this.freeze();
+        }
+      });
+
+      this._io.observe(this.container);
+    }
+
+    // Add listener for Visibility API's change event.
+    if (typeof document.hidden !== 'undefined') {
+      document.addEventListener('visibilitychange', () => this._onVisibilityChange());
+    }
 
     // Setup lottie player
     if (this.src) {
@@ -553,8 +529,14 @@ export class LottiePlayer extends LitElement {
    * Cleanup on component destroy.
    */
   public disconnectedCallback(): void {
-    this.removeIntersectionObserver();
-    this.removeVisibilityListener();
+    // Remove intersection observer for detecting component being out-of-view.
+    if (this._io) {
+      this._io.disconnect();
+      this._io = undefined;
+    }
+
+    // Remove the attached Visibility API's change event listener.
+    document.removeEventListener('visibilitychange', () => this._onVisibilityChange());
   }
 
   protected renderControls() {
@@ -574,14 +556,14 @@ export class LottiePlayer extends LitElement {
           <svg width="24" height="24"><path d="M6 6h12v12H6V6z" /></svg>
         </button>
         <input class="seeker" type="range" min="0" step="1" max="100" .value=${this.seeker}
-          @input=${this.handleSeekChange} 
-          @mousedown=${() => { this.prevState = this.currentState; this.freeze(); }}
-          @mouseup=${() => { this.prevState === PlayerState.Playing && this.play(); }}
+          @input=${this._handleSeekChange}
+          @mousedown=${() => { this._prevState = this.currentState; this.freeze(); }}
+          @mouseup=${() => { this._prevState === PlayerState.Playing && this.play(); }}
         />
         <button @click=${this.toggleLooping} class=${this.loop ? 'active' : ''}>
           <svg width="24" height="24">
             <path d="M17.016 17.016v-4.031h1.969v6h-12v3l-3.984-3.984 3.984-3.984v3h10.031zM6.984 6.984v4.031H5.015v-6h12v-3l3.984 3.984-3.984 3.984v-3H6.984z"/>
-          </svg>  
+          </svg>
         </button>
         <a href="https://www.lottiefiles.com/" target="_blank">
           <svg width="24" height="24" viewBox="0 0 320 320" fill-rule="nonzero"><rect fill="#adadad" x=".5" y=".5" width="100%" height="100%" rx="26.73"/><path d="M251.304 65.44a16.55 16.55 0 0 1 13.927 18.789c-1.333 9.04-9.73 15.292-18.762 13.954-15.992-2.37-39.95 22.534-66.77 73.74-34.24 65.37-66.113 96.517-99.667 94.032-9.102-.674-15.93-8.612-15.258-17.723s8.592-15.96 17.695-15.286c16.57 1.227 40.908-24.737 67.97-76.4 34.46-65.79 66.764-96.157 100.866-91.105z" fill="#fff"/></svg>
