@@ -13,10 +13,25 @@ enum PlayerState {
   Error = 'error'
 };
 
+// Define play modes
 enum PlayMode {
   Normal = 'normal',
   Bounce = 'bounce'
-}
+};
+
+// Define player events
+enum PlayerEvents {
+  Load = 'load',
+  Error = 'error',
+  Ready = 'ready',
+  Play = 'play',
+  Pause = 'pause',
+  Stop = 'stop',
+  Freeze = 'freeze',
+  Loop = 'loop',
+  Complete = 'complete',
+  Frame = 'frame'
+};
 
 /**
  * LottiePlayer web component class
@@ -204,6 +219,8 @@ export class LottiePlayer extends LitElement {
       this.lottie = lottie.loadAnimation({ ...options, path: srcUrl.toString() });
     } catch (err) {
       this.currentState = PlayerState.Error;
+
+      this.dispatchEvent(new CustomEvent(PlayerEvents.Error));
       return;
     }
 
@@ -211,15 +228,24 @@ export class LottiePlayer extends LitElement {
       // Calculate and save the current progress of the animation
       this.lottie.addEventListener('enterFrame', () => {
         this.seeker = (this.lottie.currentFrame / this.lottie.totalFrames) * 100;
+
+        this.dispatchEvent(new CustomEvent(PlayerEvents.Frame, {
+          detail: {
+            frame: this.lottie.currentFrame,
+            seeker: this.seeker
+          }
+        }));
       });
 
       // Handle animation play complete
       this.lottie.addEventListener('complete', () => {
         if (this.currentState !== PlayerState.Playing) {
+          this.dispatchEvent(new CustomEvent(PlayerEvents.Complete));
           return;
         }
 
         if (!this.loop || (this.count && this.counter >= this.count)) {
+          this.dispatchEvent(new CustomEvent(PlayerEvents.Complete));
           return;
         }
 
@@ -229,6 +255,8 @@ export class LottiePlayer extends LitElement {
           }
 
           setTimeout(() => {
+            this.dispatchEvent(new CustomEvent(PlayerEvents.Loop));
+
             if (this.currentState === PlayerState.Playing) {
               this.lottie.setDirection(this.lottie.playDirection * -1);
               this.lottie.play();
@@ -240,6 +268,8 @@ export class LottiePlayer extends LitElement {
           }
 
           window.setTimeout(() => {
+            this.dispatchEvent(new CustomEvent(PlayerEvents.Loop));
+            
             if (this.currentState === PlayerState.Playing) {
               this.lottie.stop();
               this.lottie.play();
@@ -248,9 +278,21 @@ export class LottiePlayer extends LitElement {
         }
       });
 
+      // Handle lottie-web ready event
+      this.lottie.addEventListener('DOMLoaded', () => {
+        this.dispatchEvent(new CustomEvent(PlayerEvents.Ready));
+      });
+
+      // Handle animation data load complete
+      this.lottie.addEventListener('data_ready', () => {
+        this.dispatchEvent(new CustomEvent(PlayerEvents.Load));
+      });
+
       // Set error state when animation load fail event triggers
       this.lottie.addEventListener('data_failed', () => {
         this.currentState = PlayerState.Error;
+
+        this.dispatchEvent(new CustomEvent(PlayerEvents.Error));
       });
 
       // Set handlers to auto play animation on hover if enabled
@@ -306,6 +348,8 @@ export class LottiePlayer extends LitElement {
 
     this.lottie.play();
     this.currentState = PlayerState.Playing;
+
+    this.dispatchEvent(new CustomEvent(PlayerEvents.Play));
   }
 
   /**
@@ -318,6 +362,8 @@ export class LottiePlayer extends LitElement {
 
     this.lottie.pause();
     this.currentState = PlayerState.Paused;
+
+    this.dispatchEvent(new CustomEvent(PlayerEvents.Pause));
   }
 
   /**
@@ -331,6 +377,8 @@ export class LottiePlayer extends LitElement {
     this.counter = 0;
     this.lottie.stop();
     this.currentState = PlayerState.Stopped;
+
+    this.dispatchEvent(new CustomEvent(PlayerEvents.Stop));
   }
 
   /**
@@ -403,6 +451,8 @@ export class LottiePlayer extends LitElement {
 
     this.lottie.pause();
     this.currentState = PlayerState.Frozen;
+
+    this.dispatchEvent(new CustomEvent(PlayerEvents.Freeze));
   }
 
   /**
@@ -490,7 +540,6 @@ export class LottiePlayer extends LitElement {
     const isPlaying = this.currentState === PlayerState.Playing;
     const isPaused = this.currentState === PlayerState.Paused;
     const isStopped = this.currentState === PlayerState.Stopped;
-    const isFrozen = this.currentState === PlayerState.Frozen;
 
     return html`
       <div class="toolbar">
