@@ -51,6 +51,26 @@ Add the element `lottie-player` and set the `src` property to a URL pointing to 
 </lottie-player>
 ```
 
+You may set and load animations programatically as well.
+
+```html
+<lottie-player
+    autoplay
+    controls
+    loop
+    mode="normal"
+    style="width: 320px"
+>
+</lottie-player>
+```
+```js
+const player = document.querySelector('lottie-player');
+player.load('https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json');
+
+// or load via a Bodymovin JSON string/object
+player.load('{"v":"5.3.4","fr":30,"ip":0,"op":38,"w":315,"h":600,"nm":"new", ... }');
+```
+
 ## Properties
 
 | Property           | Attribute    | Description                         | Type                                 | Default           |
@@ -77,6 +97,21 @@ Returns the instance of lottie player used in the component.
 #### Returns
 
 Type: `Promise<any>`
+
+
+### `load(src: string | object) => void`
+
+Load (and play) a given Bodymovin animation.
+
+#### Parameters
+
+| Name    | Type     | Description       |
+| ------- | -------- | ----------------- |
+| `src` | `string` or `object` | URL, or a JSON string or object representing a Bodymovin JSON. |
+
+#### Returns
+
+Type: `void`
 
 
 
@@ -193,6 +228,23 @@ Toggle playing state.
 #### Returns
 
 Type: `void`
+
+## Events
+
+The following events are exposed and can be listened to via `addEventListener` calls.
+
+| Name        | Description       |
+| ----------- | ----------------- |
+| `load`      | Animation data is loaded. |
+| `error`     | An animation source cannot be parsed or fails to load. |
+| `ready`     | Animation data is loaded and player is ready. |
+| `play`      | Animation starts playing. |
+| `pause`     | Animation is paused. |
+| `stop`      | Animation is stopped. |
+| `freeze`    | Animation is paused. |
+| `loop`      | An animation loop is completed. |
+| `complete`  | Animation is complete (all loops completed). |
+| `frame`     | A new frame is entered. |
 
 ## Styling
 
