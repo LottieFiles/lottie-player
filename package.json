@@ -11,12 +11,16 @@
   "author": "Jawish Hameed <jawish@lottiefiles.com>",
   "license": "MIT",
   "scripts": {
-    "build": "parcel build src/main.ts --detailed-report 50 --out-file lottie-player.js",
+    "build": "yarn build-lottie && yarn build-tgs",
+    "build-lottie": "parcel build src/lottie-player.ts --detailed-report 50 --out-file lottie-player.js",
+    "build-tgs": "parcel build src/tgs-player.ts --detailed-report 50 --out-file tgs-player.js",
     "start": "parcel src/index.html"
   },
   "dependencies": {
+    "@types/pako": "^1.0.1",
     "lit-element": "^2.1.0",
-    "lottie-web": "^5.5.2"
+    "lottie-web": "^5.5.2",
+    "pako": "^1.0.10"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.3",
@@ -32,7 +36,9 @@
     "web component",
     "component",
     "lit-element",
-    "player"
+    "player",
+    "telegram sticker",
+    "tgs"
   ],
   "browserslist": [
     "> 3%"

@@ -1,10 +1,10 @@
 import { customElement, LitElement, html, property, query, TemplateResult } from 'lit-element';
 import * as lottie from 'lottie-web/build/player/lottie_svg';
 
-import styles from './styles';
+import styles from './lottie-player.styles';
 
 // Define valid player states
-enum PlayerState {
+export enum PlayerState {
   Loading = 'loading',
   Playing = 'playing',
   Paused = 'paused',
@@ -14,13 +14,13 @@ enum PlayerState {
 };
 
 // Define play modes
-enum PlayMode {
+export enum PlayMode {
   Normal = 'normal',
   Bounce = 'bounce'
 };
 
 // Define player events
-enum PlayerEvents {
+export enum PlayerEvents {
   Load = 'load',
   Error = 'error',
   Ready = 'ready',
@@ -36,7 +36,7 @@ enum PlayerEvents {
 /**
  * Parse a resource into a JSON object or a URL string
  */
-function parseSrc(src: string | object): string | object {
+export function parseSrc(src: string | object): string | object {
   if (typeof src === 'object') {
     return src;
   }
