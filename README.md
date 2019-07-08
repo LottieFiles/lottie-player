@@ -24,6 +24,7 @@ This is a Web Component for easily embedding and playing Lottie animations and t
 - Import from local node_modules directory.
 ```html
 <script src="/node_modules/@lottiefiles/lottie-player/dist/lottie-player.js"></script>
+```
 
 ##### Telegram Sticker (TGS) Player:
 - Import from CDN.
