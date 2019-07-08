@@ -1,6 +1,6 @@
 ## lottie-player Web Component
 
-This is a Web Component for easily embedding and playing Lottie animations in websites.
+This is a Web Component for easily embedding and playing Lottie animations and the Lottie-based Telegram Sticker (tgs) animations in websites.
 
 [![npm](https://img.shields.io/npm/v/@lottiefiles/lottie-player.svg)](https://www.npmjs.com/package/@lottiefiles/lottie-player)
 [![webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/@lottiefiles/lottie-player)
@@ -15,14 +15,25 @@ This is a Web Component for easily embedding and playing Lottie animations in we
 
 #### In HTML, import from CDN or from the local Installation:
 
+##### Lottie Player:
 - Import from CDN.
 ```html
-<script src="https://unpkg.com/@lottiefiles/lottie-player@0.0.7/dist/lottie-player.js"></script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@0.2.0/dist/lottie-player.js"></script>
 ```
 
 - Import from local node_modules directory.
 ```html
 <script src="/node_modules/@lottiefiles/lottie-player/dist/lottie-player.js"></script>
+
+##### Telegram Sticker (TGS) Player:
+- Import from CDN.
+```html
+<script src="https://unpkg.com/@lottiefiles/lottie-player@0.2.0/dist/tgs-player.js"></script>
+```
+
+- Import from local node_modules directory.
+```html
+<script src="/node_modules/@lottiefiles/lottie-player/dist/tgs-player.js"></script>
 ```
 
 #### In Javascript or TypeScript:
@@ -38,6 +49,8 @@ import '@lottiefiles/lottie-player';
 ```
 
 ## Usage
+
+### Lottie-Player
 Add the element `lottie-player` and set the `src` property to a URL pointing to a valid Bodymovin JSON. 
 ```html
 <lottie-player
@@ -70,6 +83,19 @@ player.load('https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json');
 // or load via a Bodymovin JSON string/object
 player.load('{"v":"5.3.4","fr":30,"ip":0,"op":38,"w":315,"h":600,"nm":"new", ... }');
 ```
+
+### TGS-Player
+Add the element `tgs-player` and set the `src` property to a URL pointing to a valid TGS JSON. 
+```html
+<tgs-player
+    autoplay
+    loop
+    mode="normal"
+    src="https//domain/example.tgs"
+>
+</tgs-player>
+```
+
 
 ## Properties
 
@@ -236,12 +262,12 @@ The following events are exposed and can be listened to via `addEventListener` c
 | Name        | Description       |
 | ----------- | ----------------- |
 | `load`      | Animation data is loaded. |
-| `error`     | An animation source cannot be parsed or fails to load. |
+| `error`     | An animation source cannot be parsed, fails to load or has format errors. |
 | `ready`     | Animation data is loaded and player is ready. |
 | `play`      | Animation starts playing. |
 | `pause`     | Animation is paused. |
 | `stop`      | Animation is stopped. |
-| `freeze`    | Animation is paused. |
+| `freeze`    | Animation is paused due to player being invisible. |
 | `loop`      | An animation loop is completed. |
 | `complete`  | Animation is complete (all loops completed). |
 | `frame`     | A new frame is entered. |
