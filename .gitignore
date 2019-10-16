@@ -15,6 +15,7 @@ log.txt
 .idea/
 .vscode/
 .versions/
+.history/
 node_modules/
 yarn-error.log
 
