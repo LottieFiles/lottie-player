@@ -248,7 +248,7 @@ export class LottiePlayer extends LitElement {
 
           setTimeout(() => {
             this.dispatchEvent(new CustomEvent(PlayerEvents.Loop));
-            
+
             if (this.currentState === PlayerState.Playing) {
               this._lottie.setDirection(this._lottie.playDirection * -1);
               this._lottie.play();
@@ -573,8 +573,10 @@ export class LottiePlayer extends LitElement {
   }
 
   render(): TemplateResult | void {
+    const className = this.controls ? 'main controls' : 'main';
+
     return html`
-      <div class=${'main ' + this.controls ? ' controls' : ''}>
+      <div class=${className}>
         <div class="animation" style=${'background:' + this.background }>
           ${this.currentState === PlayerState.Error ? html`<div class="error">⚠️</div>` : undefined}
         </div>
