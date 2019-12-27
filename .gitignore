@@ -1,6 +1,5 @@
 dist/
-docs/
-book
+docs/book
 .cache
 
 *~

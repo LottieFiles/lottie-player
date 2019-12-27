@@ -1,0 +1,11 @@
+[book]
+authors = ["Jawish Hameed","Mazin Ahmed"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Lottie Player Web Component"
+description = "This is a Web Component for easily embedding and playing Lottie animations and the Lottie-based Telegram Sticker (tgs) animations in websites."
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "light"
