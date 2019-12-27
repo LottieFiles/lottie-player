@@ -1,0 +1,403 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Lottie Player Web Component</title>
+        
+        <meta name="robots" content="noindex" />
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="This is a Web Component for easily embedding and playing Lottie animations and the Lottie-based Telegram Sticker (tgs) animations in websites.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded "><a href="getting-started.html"><strong aria-hidden="true">1.</strong> Getting started</a></li><li class="expanded "><a href="installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="expanded "><a href="usage.html"><strong aria-hidden="true">3.</strong> Usage</a></li><li class="expanded "><a href="properties.html"><strong aria-hidden="true">4.</strong> Properties</a></li><li class="expanded "><a href="methods.html"><strong aria-hidden="true">5.</strong> Methods</a></li><li class="expanded "><a href="events.html"><strong aria-hidden="true">6.</strong> Events</a></li><li class="expanded "><a href="styling.html"><strong aria-hidden="true">7.</strong> Styling</a></li><li class="expanded "><a href="license.html"><strong aria-hidden="true">8.</strong> License</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Lottie Player Web Component</h1>
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#lottie-player-web-component" id="lottie-player-web-component">lottie-player Web Component</a></h2>
+<p>This is a Web Component for easily embedding and playing Lottie animations and the Lottie-based Telegram Sticker (tgs) animations in websites.</p>
+<p><a href="https://www.npmjs.com/package/@lottiefiles/lottie-player"><img src="https://img.shields.io/npm/v/@lottiefiles/lottie-player.svg" alt="npm" /></a>
+<a href="https://www.webcomponents.org/element/@lottiefiles/lottie-player"><img src="https://img.shields.io/badge/webcomponents.org-published-blue.svg" alt="webcomponents.org" /></a></p>
+<h2><a class="header" href="#demo" id="demo">Demo</a></h2>
+<p><img src="https://i.imgur.com/miLzIkJ.gif" alt="screencast" /></p>
+<ul>
+<li><a href="https://codesandbox.io/s/y2nxyvomyj">Basic usage examples</a></li>
+<li><a href="https://ypxk7zvpq1.codesandbox.io/">Scrolling effects demo</a></li>
+</ul>
+<h2><a class="header" href="#installation" id="installation">Installation</a></h2>
+<h4><a class="header" href="#in-html-import-from-cdn-or-from-the-local-installation" id="in-html-import-from-cdn-or-from-the-local-installation">In HTML, import from CDN or from the local Installation:</a></h4>
+<h5><a class="header" href="#lottie-player" id="lottie-player">Lottie Player:</a></h5>
+<ul>
+<li>Import from CDN.</li>
+</ul>
+<pre><code class="language-html">&lt;script src=&quot;https://unpkg.com/@lottiefiles/lottie-player@0.2.0/dist/lottie-player.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<ul>
+<li>Import from local node_modules directory.</li>
+</ul>
+<pre><code class="language-html">&lt;script src=&quot;/node_modules/@lottiefiles/lottie-player/dist/lottie-player.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<h5><a class="header" href="#telegram-sticker-tgs-player" id="telegram-sticker-tgs-player">Telegram Sticker (TGS) Player:</a></h5>
+<ul>
+<li>Import from CDN.</li>
+</ul>
+<pre><code class="language-html">&lt;script src=&quot;https://unpkg.com/@lottiefiles/lottie-player@0.2.0/dist/tgs-player.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<ul>
+<li>Import from local node_modules directory.</li>
+</ul>
+<pre><code class="language-html">&lt;script src=&quot;/node_modules/@lottiefiles/lottie-player/dist/tgs-player.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<h4><a class="header" href="#in-javascript-or-typescript" id="in-javascript-or-typescript">In Javascript or TypeScript:</a></h4>
+<ol>
+<li>Install package using npm or yarn.</li>
+</ol>
+<pre><code class="language-shell">npm install --save @lottiefiles/lottie-player
+</code></pre>
+<ol start="2">
+<li>Import package in your code.</li>
+</ol>
+<pre><code class="language-javascript">import '@lottiefiles/lottie-player';
+</code></pre>
+<h2><a class="header" href="#usage" id="usage">Usage</a></h2>
+<h3><a class="header" href="#lottie-player-1" id="lottie-player-1">Lottie-Player</a></h3>
+<p>Add the element <code>lottie-player</code> and set the <code>src</code> property to a URL pointing to a valid Bodymovin JSON. </p>
+<pre><code class="language-html">&lt;lottie-player
+    autoplay
+    controls
+    loop
+    mode=&quot;normal&quot;
+    src=&quot;https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json&quot;
+    style=&quot;width: 320px&quot;
+&gt;
+&lt;/lottie-player&gt;
+</code></pre>
+<p>You may set and load animations programatically as well.</p>
+<pre><code class="language-html">&lt;lottie-player
+    autoplay
+    controls
+    loop
+    mode=&quot;normal&quot;
+    style=&quot;width: 320px&quot;
+&gt;
+&lt;/lottie-player&gt;
+</code></pre>
+<pre><code class="language-js">const player = document.querySelector('lottie-player');
+player.load('https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json');
+
+// or load via a Bodymovin JSON string/object
+player.load('{&quot;v&quot;:&quot;5.3.4&quot;,&quot;fr&quot;:30,&quot;ip&quot;:0,&quot;op&quot;:38,&quot;w&quot;:315,&quot;h&quot;:600,&quot;nm&quot;:&quot;new&quot;, ... }');
+</code></pre>
+<h3><a class="header" href="#tgs-player" id="tgs-player">TGS-Player</a></h3>
+<p>Add the element <code>tgs-player</code> and set the <code>src</code> property to a URL pointing to a valid TGS JSON. </p>
+<pre><code class="language-html">&lt;tgs-player
+    autoplay
+    loop
+    mode=&quot;normal&quot;
+    src=&quot;https//domain/example.tgs&quot;
+&gt;
+&lt;/tgs-player&gt;
+</code></pre>
+<h2><a class="header" href="#properties" id="properties">Properties</a></h2>
+<table><thead><tr><th>Property</th><th>Attribute</th><th>Description</th><th>Type</th><th>Default</th></tr></thead><tbody>
+<tr><td><code>autoplay</code></td><td><code>autoplay</code></td><td>Autoplay animation on load.</td><td><code>boolean</code></td><td><code>false</code></td></tr>
+<tr><td><code>background</code></td><td><code>background</code></td><td>Background color.</td><td><code>string</code></td><td><code>undefined</code></td></tr>
+<tr><td><code>controls</code></td><td><code>controls</code></td><td>Show controls.</td><td><code>boolean</code></td><td><code>false</code></td></tr>
+<tr><td><code>count</code></td><td><code>count</code></td><td>Number of times to loop animation.</td><td><code>number</code></td><td><code>undefined</code></td></tr>
+<tr><td><code>direction</code></td><td><code>direction</code></td><td>Direction of animation.</td><td><code>number</code></td><td><code>1</code></td></tr>
+<tr><td><code>hover</code></td><td><code>hover</code></td><td>Whether to play on mouse hover.</td><td><code>boolean</code></td><td><code>false</code></td></tr>
+<tr><td><code>loop</code></td><td><code>loop</code></td><td>Whether to loop animation.</td><td><code>boolean</code></td><td><code>false</code></td></tr>
+<tr><td><code>mode</code></td><td><code>mode</code></td><td>Play mode.</td><td><code>PlayMode.Bounce \| PlayMode.Normal</code></td><td><code>PlayMode.Normal</code></td></tr>
+<tr><td><code>renderer</code></td><td><code>renderer</code></td><td>Renderer to use.</td><td><code>&quot;svg&quot;</code></td><td><code>'svg'</code></td></tr>
+<tr><td><code>speed</code></td><td><code>speed</code></td><td>Animation speed.</td><td><code>number</code></td><td><code>1</code></td></tr>
+<tr><td><code>src</code> <em>(required)</em></td><td><code>src</code></td><td>Bodymovin JSON data or URL to JSON.</td><td><code>string</code></td><td><code>undefined</code></td></tr>
+</tbody></table>
+<h2><a class="header" href="#methods" id="methods">Methods</a></h2>
+<h3><a class="header" href="#getlottie--promiseany" id="getlottie--promiseany"><code>getLottie() =&gt; Promise&lt;any&gt;</code></a></h3>
+<p>Returns the instance of lottie player used in the component.</p>
+<h4><a class="header" href="#returns" id="returns">Returns</a></h4>
+<p>Type: <code>Promise&lt;any&gt;</code></p>
+<h3><a class="header" href="#loadsrc-string--object--void" id="loadsrc-string--object--void"><code>load(src: string | object) =&gt; void</code></a></h3>
+<p>Load (and play) a given Bodymovin animation.</p>
+<h4><a class="header" href="#parameters" id="parameters">Parameters</a></h4>
+<table><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>src</code></td><td><code>string</code> or <code>object</code></td><td>URL, or a JSON string or object representing a Bodymovin JSON.</td></tr>
+</tbody></table>
+<h4><a class="header" href="#returns-1" id="returns-1">Returns</a></h4>
+<p>Type: <code>void</code></p>
+<h3><a class="header" href="#pause--void" id="pause--void"><code>pause() =&gt; void</code></a></h3>
+<p>Pause animation play.</p>
+<h4><a class="header" href="#returns-2" id="returns-2">Returns</a></h4>
+<p>Type: <code>void</code></p>
+<h3><a class="header" href="#play--void" id="play--void"><code>play() =&gt; void</code></a></h3>
+<p>Start playing animation.</p>
+<h4><a class="header" href="#returns-3" id="returns-3">Returns</a></h4>
+<p>Type: <code>void</code></p>
+<h3><a class="header" href="#setdirectionvalue-number--void" id="setdirectionvalue-number--void"><code>setDirection(value: number) =&gt; void</code></a></h3>
+<p>Animation play direction.</p>
+<h4><a class="header" href="#parameters-1" id="parameters-1">Parameters</a></h4>
+<table><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>value</code></td><td><code>number</code></td><td>Direction values.</td></tr>
+</tbody></table>
+<h4><a class="header" href="#returns-4" id="returns-4">Returns</a></h4>
+<p>Type: <code>void</code></p>
+<h3><a class="header" href="#setloopingvalue-boolean--void" id="setloopingvalue-boolean--void"><code>setLooping(value: boolean) =&gt; void</code></a></h3>
+<p>Sets the looping of the animation.</p>
+<h4><a class="header" href="#parameters-2" id="parameters-2">Parameters</a></h4>
+<table><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>value</code></td><td><code>boolean</code></td><td>Whether to enable looping. Boolean true enables looping.</td></tr>
+</tbody></table>
+<h4><a class="header" href="#returns-5" id="returns-5">Returns</a></h4>
+<p>Type: <code>void</code></p>
+<h3><a class="header" href="#setspeedvalue-number--void" id="setspeedvalue-number--void"><code>setSpeed(value?: number) =&gt; void</code></a></h3>
+<p>Sets animation play speed.</p>
+<h4><a class="header" href="#parameters-3" id="parameters-3">Parameters</a></h4>
+<table><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>value</code></td><td><code>number</code></td><td>Playback speed.</td></tr>
+</tbody></table>
+<h4><a class="header" href="#returns-6" id="returns-6">Returns</a></h4>
+<p>Type: <code>void</code></p>
+<h3><a class="header" href="#stop--void" id="stop--void"><code>stop() =&gt; void</code></a></h3>
+<p>Stops animation play.</p>
+<h4><a class="header" href="#returns-7" id="returns-7">Returns</a></h4>
+<p>Type: <code>void</code></p>
+<h3><a class="header" href="#seekvalue-number--string--void" id="seekvalue-number--string--void"><code>seek(value: number | string) =&gt; void</code></a></h3>
+<p>Seek to a given frame. Frame value can be a number or a percent string (e.g. 50%).</p>
+<h4><a class="header" href="#returns-8" id="returns-8">Returns</a></h4>
+<p>Type: <code>void</code></p>
+<h3><a class="header" href="#snapshotdownload-boolean--string" id="snapshotdownload-boolean--string"><code>snapshot(download?: boolean) =&gt; string</code></a></h3>
+<p>Snapshot the current frame as SVG.
+If 'download' argument is boolean true, then a download is triggered in browser.</p>
+<h4><a class="header" href="#returns-9" id="returns-9">Returns</a></h4>
+<p>Type: <code>string</code></p>
+<h3><a class="header" href="#togglelooping--void" id="togglelooping--void"><code>toggleLooping() =&gt; void</code></a></h3>
+<p>Toggles animation looping.</p>
+<h4><a class="header" href="#returns-10" id="returns-10">Returns</a></h4>
+<p>Type: <code>void</code></p>
+<h3><a class="header" href="#toggleplay--void" id="toggleplay--void"><code>togglePlay() =&gt; void</code></a></h3>
+<p>Toggle playing state.</p>
+<h4><a class="header" href="#returns-11" id="returns-11">Returns</a></h4>
+<p>Type: <code>void</code></p>
+<h2><a class="header" href="#events" id="events">Events</a></h2>
+<p>The following events are exposed and can be listened to via <code>addEventListener</code> calls.</p>
+<table><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>load</code></td><td>Animation data is loaded.</td></tr>
+<tr><td><code>error</code></td><td>An animation source cannot be parsed, fails to load or has format errors.</td></tr>
+<tr><td><code>ready</code></td><td>Animation data is loaded and player is ready.</td></tr>
+<tr><td><code>play</code></td><td>Animation starts playing.</td></tr>
+<tr><td><code>pause</code></td><td>Animation is paused.</td></tr>
+<tr><td><code>stop</code></td><td>Animation is stopped.</td></tr>
+<tr><td><code>freeze</code></td><td>Animation is paused due to player being invisible.</td></tr>
+<tr><td><code>loop</code></td><td>An animation loop is completed.</td></tr>
+<tr><td><code>complete</code></td><td>Animation is complete (all loops completed).</td></tr>
+<tr><td><code>frame</code></td><td>A new frame is entered.</td></tr>
+</tbody></table>
+<h2><a class="header" href="#styling" id="styling">Styling</a></h2>
+<table><thead><tr><th>Custom property</th><th>Description</th><th>Default</th></tr></thead><tbody>
+<tr><td>--lottie-player-toolbar-height</td><td>Toolbar height</td><td>35px</td></tr>
+<tr><td>--lottie-player-toolbar-background-color</td><td>Toolbar background color</td><td>transparent</td></tr>
+<tr><td>--lottie-player-toolbar-icon-color</td><td>Toolbar icon color</td><td>#999</td></tr>
+<tr><td>--lottie-player-toolbar-icon-hover-color</td><td>Toolbar icon hover color</td><td>#222</td></tr>
+<tr><td>--lottie-player-toolbar-icon-active-color</td><td>Toolbar icon active color</td><td>#555</td></tr>
+<tr><td>--lottie-player-seeker-track-color</td><td>Seeker track color</td><td>#CCC</td></tr>
+<tr><td>--lottie-player-seeker-thumb-color</td><td>Seeker thumb color</td><td>rgba(0, 107, 120, 0.8)</td></tr>
+</tbody></table>
+<h2><a class="header" href="#license" id="license">License</a></h2>
+<p>MIT License © LottieFiles.com</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+        
+        
+
+    </body>
+</html>
