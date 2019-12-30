@@ -29,6 +29,9 @@
 html {
     font-family: "averta_stdregular", "Open Sans", sans-serif;
     color: var(--fg);
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
     background-color: var(--bg);
     text-size-adjust: none;
 }
@@ -42,6 +45,10 @@ body {
 code {
     font-family: "Source Code Pro", Consolas, "Ubuntu Mono", Menlo, "DejaVu Sans Mono", monospace, monospace !important;
     font-size: 0.875em; /* please adjust the ace font size accordingly in editor.js */
+}
+
+.bold {
+    font-family: "averta_stdbold", "Open Sans", sans-serif; 
 }
 
 .left { float: left; }
