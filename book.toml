@@ -1,0 +1,7 @@
+[book]
+authors = ["Nattu"]
+language = "en"
+multilingual = false
+src = "src"
+[output.html]
+theme = "src/theme"

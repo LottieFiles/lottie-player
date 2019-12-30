@@ -21,10 +21,12 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="{{ path_to_root }}FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="{{ path_to_root }}highlight.css">
+        <link rel="stylesheet" href="{{ path_to_root }}tomorrow-night.css">
         <link rel="stylesheet" href="{{ path_to_root }}ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
@@ -86,6 +88,12 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <div style="margin:5px 15px;">
+                    <img src="https://static.lottiefiles.com/static_uploads/lf_Logo.svg" style="height:50px;">
+                </div>
+                <div  style="margin:5px 20px;">
+                    <h1 class="bold" style="font-size:20px;color:#000;font-weight:bold">{{ book_title }}</h1>
+                </div>
                 {{#toc}}{{/toc}}
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
@@ -101,7 +109,7 @@
                             <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                                 <i class="fa fa-bars"></i>
                             </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+<!--                             <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
@@ -110,7 +118,7 @@
                                 <li role="none"><button role="menuitem" class="theme" id="coal">{{ theme_option "Coal" }}</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">{{ theme_option "Navy" }}</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="ayu">{{ theme_option "Ayu" }}</button></li>
-                            </ul>
+                            </ul> -->
                             {{#if search_enabled}}
                             <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
                                 <i class="fa fa-search"></i>
@@ -118,7 +126,7 @@
                             {{/if}}
                         </div>
 
-                        <h1 class="menu-title">{{ book_title }}</h1>
+                        <!-- <h1 class="menu-title">{{ book_title }}</h1> -->
 
                         <div class="right-buttons">
                             <a href="{{ path_to_root }}print.html" title="Print this book" aria-label="Print this book">
