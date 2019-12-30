@@ -7,5 +7,5 @@ title = "Lottie Player Web Component"
 description = "This is a Web Component for easily embedding and playing Lottie animations and the Lottie-based Telegram Sticker (tgs) animations in websites."
 
 [output.html]
-default-theme = "light"
+default-theme = "theme"
 preferred-dark-theme = "light"
