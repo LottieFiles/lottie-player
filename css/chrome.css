@@ -309,6 +309,7 @@ ul#searchresults span.teaser em {
     left: 0;
     top: 0;
     bottom: 0;
+    border-right:1px solid #ebebeb;
     width: var(--sidebar-width);
     font-size: 0.875em;
     box-sizing: border-box;
@@ -374,6 +375,7 @@ ul#searchresults span.teaser em {
     list-style: none outside none;
     padding-left: 0;
     line-height: 2.2em;
+    margin:20px;
 }
 
 .chapter ol {
@@ -383,6 +385,8 @@ ul#searchresults span.teaser em {
 .chapter li {
     display: flex;
     color: var(--sidebar-non-existant);
+    font-weight: bold;
+    margin:10px 0px;
 }
 .chapter li a {
     display: block;
@@ -397,6 +401,7 @@ ul#searchresults span.teaser em {
 
 .chapter li a.active {
     color: var(--sidebar-active);
+    font-weight: bold;
 }
 
 .chapter li > a.toggle {
@@ -406,6 +411,10 @@ ul#searchresults span.teaser em {
     padding: 0 10px;
     user-select: none;
     opacity: 0.68;
+}
+
+.chapter li > a strong {
+    display: none;
 }
 
 .chapter li > a.toggle div {

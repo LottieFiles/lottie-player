@@ -2,13 +2,32 @@
 
 @import 'variables.css';
 
+@font-face {
+    font-family: 'averta_stdbold';
+    src: url('https://static.lottiefiles.com/fonts/avertastd-bold-webfont.woff2') format('woff2'),
+         url('https://static.lottiefiles.com/fonts/avertastd-bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: auto;
+}
+
+@font-face {
+    font-family: 'averta_stdregular';
+    src: url('https://static.lottiefiles.com/fonts/avertastd-regular-webfont.woff2') format('woff2'),
+         url('https://static.lottiefiles.com/fonts/avertastd-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: auto;
+}
+
+
 :root {
     /* Browser default font-size is 16px, this way 1 rem = 10px */
     font-size: 62.5%;
 }
 
 html {
-    font-family: "Open Sans", sans-serif;
+    font-family: "averta_stdregular", "Open Sans", sans-serif;
     color: var(--fg);
     background-color: var(--bg);
     text-size-adjust: none;
@@ -84,29 +103,39 @@ h4 a.header:target {
 .content .header:link,
 .content .header:visited {
     color: var(--fg);
+    font-weight: normal;
+    font-family: "averta_stdbold", "Open Sans", sans-serif; 
 }
 .content .header:link,
 .content .header:visited:hover {
     text-decoration: none;
 }
 
+*:focus {
+    outline:none;
+}
+
 table {
-    margin: 0 auto;
+    /*margin: 0 auto;*/
     border-collapse: collapse;
 }
 table td {
-    padding: 3px 20px;
+    padding: 15px 10px;
     border: 1px var(--table-border-color) solid;
+    font-size:15px;
 }
 table thead {
     background: var(--table-header-bg);
+    font-family: "averta_stdbold", "Open Sans", sans-serif; 
 }
 table thead td {
-    font-weight: 700;
+    
     border: none;
+
 }
 table thead th {
-    padding: 3px 20px;
+    padding: 15px 20px;
+    border: 1px var(--table-border-color) solid;
 }
 table thead tr {
     border: 1px var(--table-header-bg) solid;
