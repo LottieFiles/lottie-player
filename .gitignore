@@ -1,1 +1,11 @@
 book
+node_modules
+
+.cache
+
+.idea
+.vscode
+.history
+
+
+dist/
