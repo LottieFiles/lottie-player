@@ -18,12 +18,12 @@
   },
   "dependencies": {
     "@types/pako": "^1.0.1",
-    "lit-element": "^2.2.0",
-    "lottie-web": "^5.5.6",
-    "pako": "^1.0.10"
+    "lit-element": "^2.3.1",
+    "lottie-web": "^5.6.6",
+    "pako": "^1.0.11"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.12.3",
+    "parcel-bundler": "^1.12.4",
     "typescript": "^3.4.5"
   },
   "files": [
