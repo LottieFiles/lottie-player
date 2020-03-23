@@ -1,5 +1,6 @@
 import { customElement, LitElement, html, property, query, TemplateResult } from 'lit-element';
-import * as lottie from 'lottie-web/build/player/lottie_svg';
+import * as lottie from 'lottie-web/build/player/lottie';
+import ResizeObserver from 'resize-observer-polyfill';
 
 import styles from './lottie-player.styles';
 
@@ -144,7 +145,8 @@ export class LottiePlayer extends LitElement {
   @property()
   public intermission: number = 1;
 
-  private _io?: any;
+  private _io: IntersectionObserver | undefined = undefined;
+  private _ro: ResizeObserver | undefined = undefined;
   private _lottie?: any;
   private _prevState?: any;
   private _counter = 0;
@@ -188,6 +190,7 @@ export class LottiePlayer extends LitElement {
       renderer: this.renderer,
       rendererSettings: {
         scaleMode: 'noScale',
+        preserveAspectRatio: 'xMinYMin meet',
         clearCanvas: false,
         progressiveLoad: true,
         hideOnTransparent: true,
@@ -489,6 +492,17 @@ export class LottiePlayer extends LitElement {
   }
 
   /**
+   * Resize animation.
+   */
+  public resize() {
+    if (!this._lottie) {
+      return
+    }
+
+    this._lottie.resize();
+  }
+
+  /**
    * Returns the styles for the component.
    */
   static get styles() {
@@ -514,6 +528,15 @@ export class LottiePlayer extends LitElement {
       this._io.observe(this.container);
     }
 
+    // Add resize observer for detecting resize/reflow events affecting element.
+    if ('ResizeObserver' in window) {
+      this._ro = new ResizeObserver(() => {
+        this.resize();
+      });
+
+      this._ro.observe(this.container);
+    }
+
     // Add listener for Visibility API's change event.
     if (typeof document.hidden !== 'undefined') {
       document.addEventListener('visibilitychange', () => this._onVisibilityChange());
@@ -533,6 +556,12 @@ export class LottiePlayer extends LitElement {
     if (this._io) {
       this._io.disconnect();
       this._io = undefined;
+    }
+
+    // Remove resize observer for detecting resize/reflow events affecting element.
+    if (this._ro) {
+      this._ro.disconnect();
+      this._ro = undefined;
     }
 
     // Remove the attached Visibility API's change event listener.
