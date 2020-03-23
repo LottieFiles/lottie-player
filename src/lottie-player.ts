@@ -377,7 +377,7 @@ export class LottiePlayer extends LitElement {
     // Calculate and set the frame number
     const frame = matches[2] === '%'
       ? this._lottie.totalFrames * Number(matches[1]) / 100
-      : matches[1];
+      : Number(matches[1]);
 
     // Set seeker to new frame number
     this.seeker = frame;
