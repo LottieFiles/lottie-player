@@ -1,6 +1,5 @@
 import { customElement, LitElement, html, property, query, TemplateResult } from 'lit-element';
 import * as lottie from 'lottie-web/build/player/lottie';
-import ResizeObserver from 'resize-observer-polyfill';
 
 import styles from './lottie-player.styles';
 
@@ -146,7 +145,6 @@ export class LottiePlayer extends LitElement {
   public intermission: number = 1;
 
   private _io: IntersectionObserver | undefined = undefined;
-  private _ro: ResizeObserver | undefined = undefined;
   private _lottie?: any;
   private _prevState?: any;
   private _counter = 0;
@@ -189,8 +187,7 @@ export class LottiePlayer extends LitElement {
       autoplay: false,
       renderer: this.renderer,
       rendererSettings: {
-        scaleMode: 'noScale',
-        preserveAspectRatio: 'xMinYMin meet',
+        preserveAspectRatio: 'xMidYMid slice',
         clearCanvas: false,
         progressiveLoad: true,
         hideOnTransparent: true,
@@ -526,15 +523,6 @@ export class LottiePlayer extends LitElement {
       });
 
       this._io.observe(this.container);
-    }
-
-    // Add resize observer for detecting resize/reflow events affecting element.
-    if ('ResizeObserver' in window) {
-      this._ro = new ResizeObserver(() => {
-        this.resize();
-      });
-
-      this._ro.observe(this.container);
     }
 
     // Add listener for Visibility API's change event.
