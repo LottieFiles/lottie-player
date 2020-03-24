@@ -40,10 +40,11 @@ export default css`
 
 .toolbar {
   display: grid;
-  grid-template-columns: 32px 32px 1fr 32px 32px;
+  grid-template-columns: 32px 32px 1fr 32px;
   align-items: center;
   justify-items: center;
   background-color: var(--lottie-player-toolbar-background-color);
+  margin: 0 5px;
 }
 
 .toolbar button {
@@ -70,24 +71,6 @@ export default css`
 
 .toolbar button.disabled svg {
   display: none;
-}
-
-.toolbar a {
-  filter: grayscale(100%);
-  display: flex;
-  transition: filter .5s, opacity 0.5s;
-  opacity: 0.4;
-  height: 100%;
-  align-items: center;
-}
-
-.toolbar a:hover {
-  filter: none;
-  display: flex;
-  opacity: 1;
-}
-
-.toolbar a svg {
 }
 
 .seeker {
