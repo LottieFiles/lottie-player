@@ -115,6 +115,12 @@ export class LottiePlayer extends LitElement {
   public loop = false;
 
   /**
+   * Aspect ratio to pass to lottie-web.
+   */
+  @property({ type: String })
+  public preserveAspectRatio: string = 'xMidYMid meet';
+
+  /**
    * Renderer to use.
    */
   @property({ type: String })
@@ -187,7 +193,7 @@ export class LottiePlayer extends LitElement {
       autoplay: false,
       renderer: this.renderer,
       rendererSettings: {
-        preserveAspectRatio: 'xMidYMid slice',
+        preserveAspectRatio: this.preserveAspectRatio,
         clearCanvas: false,
         progressiveLoad: true,
         hideOnTransparent: true,
