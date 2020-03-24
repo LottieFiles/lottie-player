@@ -1,21 +1,74 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>lottie-player web component</title>
+    <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.4.3/webcomponents-loader.js"></script>
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>lottie-player web component</title>
-</head>
+  <body>
+    <h3>Fixed width</h3>
+    <div style="border:1px #000 solid; width: 300px;">
+      <lottie-player
+        renderer="svg"
+        intermission="1000"
+        autoplay
+        controls
+        loop
+        src="/data.json"
+        speed="1"
+        mode="normal"
+      >
+      </lottie-player>
+    </div>
 
-<body>
-  <lottie-player renderer="svg" intermission="1000" autoplay controls loop style="height: 480px" src="/data.json" speed="1"
-    mode="normal">
-  </lottie-player>
+    <h3>Fixed height</h3>
+    <div style="border:1px #000 solid; height: 300px;">
+      <lottie-player
+        renderer="svg"
+        intermission="1000"
+        autoplay
+        controls
+        loop
+        src="/data.json"
+        speed="1"
+        mode="normal"
+      >
+      </lottie-player>
+    </div>
 
-  <tgs-player autoplay controls loop src="/data.tgs" speed="1" mode="normal">
-  </tgs-player>
+    <h3>Fixed width - no controls</h3>
+    <div style="border:1px #000 solid; width: 300px;">
+      <lottie-player
+        renderer="svg"
+        intermission="1000"
+        autoplay
+        loop
+        src="/data.json"
+        speed="1"
+        mode="normal"
+      >
+      </lottie-player>
+    </div>
 
-  <script src="../src/tgs-player.ts"></script>
-</body>
+    <h3>Fixed height - no controls</h3>
+    <div style="border:1px #000 solid; height: 300px;">
+      <lottie-player
+        renderer="canvas"
+        intermission="1000"
+        autoplay
+        loop
+        src="/data.json"
+        speed="1"
+        mode="normal"
+      >
+      </lottie-player>
+    </div>
 
+    <script src="../src/lottie-player.ts"></script>
+  </body>
 </html>
