@@ -3,7 +3,7 @@
   "version": "0.5.1",
   "description": "Lottie animation and Telegram Sticker player web components.",
   "main": "dist/lottie-player.js",
-  "module": "dist/lottie-player.js",
+  "module": "dist/lottie-player.esm.js",
   "types": "dist/lottie-player.d.ts",
   "homepage": "https://lottiefiles.com/web-player",
   "repository": "https://github.com/LottieFiles/lottie-player.git",
@@ -11,10 +11,13 @@
   "author": "Jawish Hameed <jawish@lottiefiles.com>",
   "license": "MIT",
   "scripts": {
-    "build": "yarn build-lottie && yarn build-tgs",
-    "build-lottie": "parcel build src/lottie-player.ts --detailed-report 50 --out-file lottie-player.js",
-    "build-tgs": "parcel build src/tgs-player.ts --detailed-report 50 --out-file tgs-player.js",
-    "start": "parcel src/index.html"
+    "start": "npm run cleanup && rollup -c --watch",
+    "build": "npm run cleanup && npm run build-lottie && npm run build-tgs",
+    "build-lottie": "rollup -c ",
+    "build-tgs": "rollup -c rollup-tgs.config.js",
+    "watch-lottie": "npm run cleanup && rollup -c --watch",
+    "watch-tgs": "npm run cleanup && rollup -c rollup-tgs.config.js --watch",
+    "cleanup": "rm -rf dist && mkdir dist"
   },
   "dependencies": {
     "@types/pako": "^1.0.1",
@@ -25,7 +28,22 @@
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.4",
-    "typescript": "^3.4.5"
+    "typescript": "^3.4.5",
+    "@babel/core": "^7.11.0",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-proposal-decorators": "^7.10.5",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-typescript": "^7.10.4",
+    "@rollup/plugin-babel": "^5.1.0",
+    "@rollup/plugin-commonjs": "^14.0.0",
+    "@rollup/plugin-node-resolve": "^8.4.0",
+    "rollup": "^2.23.0",
+    "rollup-plugin-copy": "^3.3.0",
+    "rollup-plugin-filesize": "^9.0.2",
+    "rollup-plugin-serve": "^1.0.3",
+    "rollup-plugin-terser": "^6.1.0",
+    "rollup-plugin-typescript2": "^0.27.1",
+    "rollup-plugin-visualizer": "^4.0.4"
   },
   "files": [
     "dist/"
