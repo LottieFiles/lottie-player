@@ -106,6 +106,63 @@ Add the element `tgs-player` and set the `src` property to a URL pointing to a v
 </tgs-player>
 ```
 
+### ReactJS & VueJS
+
+Import the player either as
+
+```js
+import * as LottiePlayer from "@lottiefiles/lottie-player";
+```
+
+or
+
+```js
+require("@lottiefiles/lottie-player");
+```
+
+Use as follows
+
+```html
+<lottie-player
+  autoplay
+  controls
+  loop
+  mode="normal"
+  src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json"
+  style="width: 320px"
+></lottie-player>
+```
+
+### NuxtJS
+
+The process for NuxtJS is slightly different. Create a lottie-player.js file in project root inside a folder named 'plugins'. Add the code below to the file
+
+```js
+import * as LottiePlayer from "@lottiefiles/lottie-player";
+```
+
+Open nuxt.config.js file and adjust the plugins array as shown below
+
+```js
+plugins: [{ src: "~/plugins/lottie-player.js", mode: "client" }],
+```
+
+You would then be able to use the player as follows inside any component
+
+```html
+<lottie-player
+  autoplay
+  controls
+  loop
+  style="width:400px"
+  src="https://assets3.lottiefiles.com/packages/lf20_RItkEz.json"
+  speed="1"
+  debug
+></lottie-player>
+```
+
+This is because the player script needs to be rendered on the browser/client side and we must configure nuxtjs to load the script on the client side only.
+
 ## Properties
 
 | Property              | Attribute             | Description                         | Type                                 | Default           |
