@@ -33,7 +33,6 @@ export default {
     commonjs({ include: /node_modules/ }),
     typescript2({
       check: false,
-      useTsconfigDeclarationDir: true,
     }),
     babel({
       extensions: extensions,

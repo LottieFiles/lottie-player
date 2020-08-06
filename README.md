@@ -133,6 +133,43 @@ Use as follows
 ></lottie-player>
 ```
 
+### Typescript ReactJS
+
+Import the player either as
+
+```js
+import * as LottiePlayer from "@lottiefiles/lottie-player";
+```
+
+or
+
+```js
+require("@lottiefiles/lottie-player");
+```
+
+Use as follows
+
+```html
+<lottie-player
+  autoplay
+  controls
+  loop
+  mode="normal"
+  src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json"
+  style="width: 320px"
+></lottie-player>
+```
+
+For typescript projects an added step is required. The component must be declared as a JSX intrinsic element. Create a file 'declarations.d.ts' in the root of your project and add the code below to the file.
+
+```js
+declare namespace JSX {
+  interface IntrinsicElements {
+    "lottie-player": any;
+  }
+}
+```
+
 ### NuxtJS
 
 The process for NuxtJS is slightly different. Create a lottie-player.js file in project root inside a folder named 'plugins'. Add the code below to the file
