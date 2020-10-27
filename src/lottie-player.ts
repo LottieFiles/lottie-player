@@ -1,7 +1,16 @@
 import { customElement, LitElement, html, property, query, TemplateResult } from 'lit-element';
-import * as lottie from 'lottie-web/build/player/lottie';
+import { AnimationDirection, AnimationItem, default as Lottie } from 'lottie-web';
+;
+import styles from './lottie-player.styles.js';
 
-import styles from './lottie-player.styles';
+
+declare global {
+  interface Window {
+      lottie: typeof Lottie;
+  }
+}
+
+const lottie: any = window.lottie;
 
 // Define valid player states
 export enum PlayerState {
@@ -147,11 +156,11 @@ export class LottiePlayer extends LitElement {
   @property()
   public seeker: any;
 
-  @property()
+  @property({type: Number})
   public intermission: number = 1;
 
   private _io: IntersectionObserver | undefined = undefined;
-  private _lottie?: any;
+  private _lottie?: AnimationItem;
   private _prevState?: any;
   private _counter = 0;
 
@@ -256,7 +265,7 @@ export class LottiePlayer extends LitElement {
             this.dispatchEvent(new CustomEvent(PlayerEvents.Loop));
 
             if (this.currentState === PlayerState.Playing) {
-              this._lottie.setDirection(this._lottie.playDirection * -1);
+              this._lottie.setDirection((this._lottie.playDirection * -1) as AnimationDirection);
               this._lottie.play();
             }
           }, this.intermission);
@@ -463,7 +472,7 @@ export class LottiePlayer extends LitElement {
       return;
     }
 
-    this._lottie.setDirection(value);
+    this._lottie.setDirection(value as AnimationDirection);
   }
 
   /**
@@ -551,13 +560,6 @@ export class LottiePlayer extends LitElement {
       this._io.disconnect();
       this._io = undefined;
     }
-
-    // Remove resize observer for detecting resize/reflow events affecting element.
-    if (this._ro) {
-      this._ro.disconnect();
-      this._ro = undefined;
-    }
-
     // Remove the attached Visibility API's change event listener.
     document.removeEventListener('visibilitychange', () => this._onVisibilityChange());
   }

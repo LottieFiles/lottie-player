@@ -1,26 +1,35 @@
 {
   "compilerOptions": {
-    "target": "es2017",
-    "module": "es2015",
+    "target": "esnext",
+    "module": "esnext",
     "moduleResolution": "node",
     "lib": [
       "esnext.array",
       "esnext",
       "es2017",
-      "dom"
+      "dom",
+      "dom.Iterable"
     ],
+    "outDir": "./dist",
     "declaration": true,
     "declarationMap": true,
-    "sourceMap": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
     "inlineSources": true,
-    "strict": true,
+    "noEmitOnError": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "experimentalDecorators": true
+    "preserveConstEnums": true,
+    "preserveSymlinks": true,
+    "pretty": true,
+    "removeComments": false,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
   },
   "include": [
     "src/**/*.ts",
