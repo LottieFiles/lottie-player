@@ -1,6 +1,6 @@
 import { customElement, LitElement, html, property, query, TemplateResult } from 'lit-element';
 import { AnimationDirection, AnimationItem, default as Lottie } from 'lottie-web';
-;
+
 import styles from './lottie-player.styles.js';
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@hmh-cam/lottie-player",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Lottie animation and Telegram Sticker player web components.",
   "main": "dist/lottie-player.js",
   "module": "dist/lottie-player.js",
@@ -8,7 +8,7 @@
   "homepage": "https://lottiefiles.com/web-player",
   "repository": "https://github.com/LottieFiles/lottie-player.git",
   "bugs": "https://github.com/LottieFiles/lottie-player/issues",
-  "author": "Jawish Hameed <jawish@lottiefiles.com>",
+  "author": "Raphael dos Santos <raphael.dossantos@hmhco.com>",
   "license": "MIT",
   "scripts": {
     "build": "tsc -p ./",
