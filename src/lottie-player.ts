@@ -1,3 +1,5 @@
+import 'lottie-web';
+
 import { customElement, LitElement, html, property, query, TemplateResult } from 'lit-element';
 import { AnimationDirection, AnimationItem, default as Lottie } from 'lottie-web';
 
@@ -10,7 +12,7 @@ declare global {
   }
 }
 
-const lottie: any = window.lottie;
+const lottie: typeof Lottie = window.lottie;
 
 // Define valid player states
 export enum PlayerState {
@@ -328,7 +330,7 @@ export class LottiePlayer extends LitElement {
   /**
    * Returns the lottie-web instance used in the component.
    */
-  public getLottie(): any {
+  public getLottie(): AnimationItem {
     return this._lottie;
   }
 
