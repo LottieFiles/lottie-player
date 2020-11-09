@@ -1,6 +1,6 @@
 import 'lottie-web';
 
-import { customElement, LitElement, html, property, query, TemplateResult } from 'lit-element';
+import { customElement, LitElement, html, property, query, TemplateResult, CSSResult, CSSResultArray } from 'lit-element';
 import { AnimationDirection, AnimationItem, default as Lottie } from 'lottie-web';
 
 import styles from './lottie-player.styles.js';
@@ -162,9 +162,9 @@ export class LottiePlayer extends LitElement {
   public intermission: number = 1;
 
   private _io: IntersectionObserver | undefined = undefined;
-  private _lottie?: AnimationItem;
+  protected _lottie?: AnimationItem;
   private _prevState?: any;
-  private _counter = 0;
+  protected _counter = 0;
 
   /**
    * Handle visibility change events.
@@ -440,7 +440,7 @@ export class LottiePlayer extends LitElement {
    * This internal state pauses animation and is used to differentiate between
    * user requested pauses and component instigated pauses.
    */
-  private freeze(): void {
+  protected freeze(): void {
     if (!this._lottie) {
       return
     }
@@ -519,7 +519,7 @@ export class LottiePlayer extends LitElement {
   /**
    * Returns the styles for the component.
    */
-  static get styles() {
+  public static get styles(): CSSResult | CSSResultArray {
     return styles;
   }
 

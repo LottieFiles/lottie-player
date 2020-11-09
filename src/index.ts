@@ -1,1 +1,1 @@
-export { LottiePlayer } from './lottie-player';
+export * from './lottie-player';
