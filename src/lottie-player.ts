@@ -1,6 +1,7 @@
 import 'lottie-web';
 
-import { customElement, LitElement, html, property, query, TemplateResult, CSSResult, CSSResultArray } from 'lit-element';
+import { LitElement, html, property, query, TemplateResult, CSSResult, CSSResultArray } from 'lit-element';
+import { customElement } from './utils/decorators';
 import { AnimationDirection, AnimationItem, default as Lottie } from 'lottie-web';
 
 import styles from './lottie-player.styles.js';
@@ -69,7 +70,7 @@ export function parseSrc(src: string | object): string | object {
  * @class LottiePlayer
  * @extends {LitElement}
  */
-@customElement('lottie-player')
+@customElement('plankton-lottie-player')
 export class LottiePlayer extends LitElement {
   /**
    * Animation container.
