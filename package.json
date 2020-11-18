@@ -1,6 +1,6 @@
 {
   "name": "@hmh-cam/lottie-player",
-  "version": "0.5.8",
+  "version": "0.5.9",
   "description": "Lottie animation and Telegram Sticker player web components.",
   "main": "dist/index.js",
   "module": "dist/index.js",
