@@ -1,5 +1,5 @@
-import { customElement, LitElement, html, property, query, TemplateResult } from 'lit-element';
-import * as lottie from 'lottie-web/build/player/lottie';
+import { CSSResult, CSSResultArray, LitElement, TemplateResult, customElement, html, property, query } from 'lit-element';
+import { default as Lottie, AnimationDirection, AnimationItem } from 'lottie-web';
 
 import styles from './lottie-player.styles';
 
@@ -69,14 +69,14 @@ export class LottiePlayer extends LitElement {
   /**
    * Play mode.
    */
-  @property()
+  @property({type: String})
   public mode: PlayMode = PlayMode.Normal;
 
   /**
    * Autoplay animation on load.
    */
   @property({ type: Boolean })
-  public autoplay = false;
+  public autoplay: boolean = false;
 
   /**
    * Background color.
@@ -88,7 +88,7 @@ export class LottiePlayer extends LitElement {
    * Show controls.
    */
   @property({ type: Boolean })
-  public controls = false;
+  public controls: boolean = false;
 
   /**
    * Number of times to loop animation.
@@ -100,13 +100,13 @@ export class LottiePlayer extends LitElement {
    * Direction of animation.
    */
   @property({ type: Number })
-  public direction = 1;
+  public direction: number = 1;
 
   /**
    * Whether to play on mouse hover
    */
   @property({ type: Boolean })
-  public hover = false;
+  public hover: boolean = false;
 
   /**
    * Whether to loop animation.
@@ -144,14 +144,14 @@ export class LottiePlayer extends LitElement {
   @property({ type: String })
   public currentState: PlayerState = PlayerState.Loading;
 
-  @property()
-  public seeker: any;
+  @property({type:Number})
+  public seeker?: number;
 
-  @property()
+  @property({type: Number})
   public intermission: number = 1;
 
   private _io: IntersectionObserver | undefined = undefined;
-  private _lottie?: any;
+  private _lottie!: AnimationItem;
   private _prevState?: any;
   private _counter = 0;
 
@@ -211,7 +211,7 @@ export class LottiePlayer extends LitElement {
       }
 
       // Initialize lottie player and load animation
-      this._lottie = lottie.loadAnimation({
+      this._lottie = Lottie.loadAnimation({
         ...options,
         [srcAttrib]: srcParsed
       });
@@ -256,7 +256,7 @@ export class LottiePlayer extends LitElement {
             this.dispatchEvent(new CustomEvent(PlayerEvents.Loop));
 
             if (this.currentState === PlayerState.Playing) {
-              this._lottie.setDirection(this._lottie.playDirection * -1);
+              this._lottie.setDirection((this._lottie.playDirection * -1) as AnimationDirection);
               this._lottie.play();
             }
           }, this.intermission);
@@ -319,7 +319,7 @@ export class LottiePlayer extends LitElement {
   /**
    * Returns the lottie-web instance used in the component.
    */
-  public getLottie(): any {
+  public getLottie(): AnimationItem {
     return this._lottie;
   }
 
@@ -463,7 +463,7 @@ export class LottiePlayer extends LitElement {
       return;
     }
 
-    this._lottie.setDirection(value);
+    this._lottie.setDirection(value as AnimationDirection);
   }
 
   /**
@@ -497,7 +497,7 @@ export class LottiePlayer extends LitElement {
   /**
    * Resize animation.
    */
-  public resize() {
+  public resize(): void{
     if (!this._lottie) {
       return
     }
@@ -508,7 +508,7 @@ export class LottiePlayer extends LitElement {
   /**
    * Returns the styles for the component.
    */
-  static get styles() {
+  public static get styles(): CSSResult | CSSResultArray {
     return styles;
   }
 
@@ -551,18 +551,11 @@ export class LottiePlayer extends LitElement {
       this._io.disconnect();
       this._io = undefined;
     }
-
-    // Remove resize observer for detecting resize/reflow events affecting element.
-    if (this._ro) {
-      this._ro.disconnect();
-      this._ro = undefined;
-    }
-
     // Remove the attached Visibility API's change event listener.
     document.removeEventListener('visibilitychange', () => this._onVisibilityChange());
   }
 
-  protected renderControls() {
+  protected renderControls(): TemplateResult {
     const isPlaying = this.currentState === PlayerState.Playing;
     const isPaused = this.currentState === PlayerState.Paused;
     const isStopped = this.currentState === PlayerState.Stopped;
@@ -578,7 +571,7 @@ export class LottiePlayer extends LitElement {
         <button @click=${this.stop} class=${isStopped ? 'active' : ''}>
           <svg width="24" height="24"><path d="M6 6h12v12H6V6z" /></svg>
         </button>
-        <input class="seeker" type="range" min="0" step="1" max="100" .value=${this.seeker}
+        <input class="seeker" type="range" min="0" step="1" max="100" .value=${this.seeker? this.seeker.toString(): ''}
           @input=${this._handleSeekChange}
           @mousedown=${() => { this._prevState = this.currentState; this.freeze(); }}
           @mouseup=${() => { this._prevState === PlayerState.Playing && this.play(); }}
