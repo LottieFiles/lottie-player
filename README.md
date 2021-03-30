@@ -200,10 +200,51 @@ You would then be able to use the player as follows inside any component
 
 This is because the player script needs to be rendered on the browser/client side and we must configure nuxtjs to load the script on the client side only.
 
+### NextJS
+
+The process to import in NextJS is similar to NuxtJS in the sense that on SSR mode, the library must be declared as a client side module. To do this, import the library within a react useEffect hook.
+
+```javascript
+import React, { useRef } from "react";
+
+export default function Home() {
+  const ref = useRef(null);
+  React.useEffect(() => {
+    import("@lottiefiles/lottie-player");
+  });
+  return (
+    <div className={styles.container}>
+      <main className={styles.main}>
+        <lottie-player
+          id="firstLottie"
+          ref={ref}
+          autoplay
+          controls
+          loop
+          mode="normal"
+          src="https://assets4.lottiefiles.com/packages/lf20_gb5bmwlm.json"
+          style={{ width: "300px", height: "300px" }}
+        ></lottie-player>
+      </main>
+    </div>
+  );
+}
+```
+
+Do add a declaration file named declaration.d.ts to the root of the project as well
+
+```javascript
+declare namespace JSX {
+  interface IntrinsicElements {
+    "lottie-player": any;
+  }
+}
+```
+
 ## Properties
 
 | Property              | Attribute             | Description                         | Type                                 | Default           |
-| --------------------- | --------------------- | ----------------------------------- | ------------------------------------ | ----------------- |
+| --------------------- | --------------------- | ----------------------------------- | ------------------------------------ | ----------------- | ------- |
 | `autoplay`            | `autoplay`            | Autoplay animation on load.         | `boolean`                            | `false`           |
 | `background`          | `background`          | Background color.                   | `string`                             | `undefined`       |
 | `controls`            | `controls`            | Show controls.                      | `boolean`                            | `false`           |
@@ -213,7 +254,7 @@ This is because the player script needs to be rendered on the browser/client sid
 | `loop`                | `loop`                | Whether to loop animation.          | `boolean`                            | `false`           |
 | `mode`                | `mode`                | Play mode.                          | `PlayMode.Bounce \| PlayMode.Normal` | `PlayMode.Normal` |
 | `preserveAspectRatio` | `preserveAspectRatio` | Valid preserve aspect ratio value.  | `string`                             | `'xMidYMid meet'` |
-| `renderer`            | `renderer`            | Renderer to use.                    | `"svg" | "canvas"`                   | `'svg'`           |
+| `renderer`            | `renderer`            | Renderer to use.                    | `"svg"                               | "canvas"`         | `'svg'` |
 | `speed`               | `speed`               | Animation speed.                    | `number`                             | `1`               |
 | `src` _(required)_    | `src`                 | Bodymovin JSON data or URL to JSON. | `string`                             | `undefined`       |
 
