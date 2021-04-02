@@ -1,6 +1,6 @@
 {
   "name": "@lottiefiles/lottie-player",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Lottie animation and Telegram Sticker player web components.",
   "main": "dist/lottie-player.js",
   "module": "dist/lottie-player.esm.js",
@@ -22,13 +22,11 @@
   "dependencies": {
     "@types/pako": "^1.0.1",
     "lit-element": "^2.3.1",
-    "lottie-web": "^5.6.6",
+    "lottie-web": "^5.7.7",
     "pako": "^1.0.11",
     "resize-observer-polyfill": "^1.5.1"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.12.4",
-    "typescript": "^3.4.5",
     "@babel/core": "^7.11.0",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/plugin-proposal-decorators": "^7.10.5",
@@ -37,13 +35,15 @@
     "@rollup/plugin-babel": "^5.1.0",
     "@rollup/plugin-commonjs": "^14.0.0",
     "@rollup/plugin-node-resolve": "^8.4.0",
+    "parcel-bundler": "^1.12.4",
     "rollup": "^2.23.0",
     "rollup-plugin-copy": "^3.3.0",
     "rollup-plugin-filesize": "^9.0.2",
     "rollup-plugin-serve": "^1.0.3",
     "rollup-plugin-terser": "^6.1.0",
     "rollup-plugin-typescript2": "^0.27.1",
-    "rollup-plugin-visualizer": "^4.0.4"
+    "rollup-plugin-visualizer": "^4.0.4",
+    "typescript": "^3.4.5"
   },
   "files": [
     "dist/"
