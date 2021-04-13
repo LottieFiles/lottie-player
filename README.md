@@ -244,7 +244,7 @@ declare namespace JSX {
 ## Properties
 
 | Property              | Attribute             | Description                         | Type                                 | Default           |
-| --------------------- | --------------------- | ----------------------------------- | ------------------------------------ | ----------------- | ------- |
+| --------------------- | --------------------- | ----------------------------------- | ------------------------------------ | ----------------- |
 | `autoplay`            | `autoplay`            | Autoplay animation on load.         | `boolean`                            | `false`           |
 | `background`          | `background`          | Background color.                   | `string`                             | `undefined`       |
 | `controls`            | `controls`            | Show controls.                      | `boolean`                            | `false`           |
@@ -254,7 +254,7 @@ declare namespace JSX {
 | `loop`                | `loop`                | Whether to loop animation.          | `boolean`                            | `false`           |
 | `mode`                | `mode`                | Play mode.                          | `PlayMode.Bounce \| PlayMode.Normal` | `PlayMode.Normal` |
 | `preserveAspectRatio` | `preserveAspectRatio` | Valid preserve aspect ratio value.  | `string`                             | `'xMidYMid meet'` |
-| `renderer`            | `renderer`            | Renderer to use.                    | `"svg"                               | "canvas"`         | `'svg'` |
+| `renderer`            | `renderer`            | Renderer to use.                    | `"svg"                               | "canvas"`         |
 | `speed`               | `speed`               | Animation speed.                    | `number`                             | `1`               |
 | `src` _(required)_    | `src`                 | Bodymovin JSON data or URL to JSON. | `string`                             | `undefined`       |
 
