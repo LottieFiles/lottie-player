@@ -1,43 +1,51 @@
-import { customElement, LitElement, html, property, query, TemplateResult } from 'lit-element';
-import * as lottie from 'lottie-web/build/player/lottie';
+import {
+  customElement,
+  LitElement,
+  html,
+  property,
+  query,
+  TemplateResult,
+} from "lit-element";
+import * as lottie from "lottie-web/build/player/lottie";
+import ResizeObserver from "resize-observer-polyfill";
 
-import styles from './lottie-player.styles';
+import styles from "./lottie-player.styles";
 
 // Define valid player states
 export enum PlayerState {
-  Loading = 'loading',
-  Playing = 'playing',
-  Paused = 'paused',
-  Stopped = 'stopped',
-  Frozen = 'frozen',
-  Error = 'error'
-};
+  Loading = "loading",
+  Playing = "playing",
+  Paused = "paused",
+  Stopped = "stopped",
+  Frozen = "frozen",
+  Error = "error",
+}
 
 // Define play modes
 export enum PlayMode {
-  Normal = 'normal',
-  Bounce = 'bounce'
-};
+  Normal = "normal",
+  Bounce = "bounce",
+}
 
 // Define player events
 export enum PlayerEvents {
-  Load = 'load',
-  Error = 'error',
-  Ready = 'ready',
-  Play = 'play',
-  Pause = 'pause',
-  Stop = 'stop',
-  Freeze = 'freeze',
-  Loop = 'loop',
-  Complete = 'complete',
-  Frame = 'frame'
-};
+  Load = "load",
+  Error = "error",
+  Ready = "ready",
+  Play = "play",
+  Pause = "pause",
+  Stop = "stop",
+  Freeze = "freeze",
+  Loop = "loop",
+  Complete = "complete",
+  Frame = "frame",
+}
 
 /**
  * Parse a resource into a JSON object or a URL string
  */
 export function parseSrc(src: string | object): string | object {
-  if (typeof src === 'object') {
+  if (typeof src === "object") {
     return src;
   }
 
@@ -58,12 +66,12 @@ export function parseSrc(src: string | object): string | object {
  * @class LottiePlayer
  * @extends {LitElement}
  */
-@customElement('lottie-player')
+@customElement("lottie-player")
 export class LottiePlayer extends LitElement {
   /**
    * Animation container.
    */
-  @query('.animation')
+  @query(".animation")
   protected container!: HTMLElement;
 
   /**
@@ -82,7 +90,7 @@ export class LottiePlayer extends LitElement {
    * Background color.
    */
   @property({ type: String, reflect: true })
-  public background?: string = 'transparent';
+  public background?: string = "transparent";
 
   /**
    * Show controls.
@@ -118,13 +126,13 @@ export class LottiePlayer extends LitElement {
    * Aspect ratio to pass to lottie-web.
    */
   @property({ type: String })
-  public preserveAspectRatio: string = 'xMidYMid meet';
+  public preserveAspectRatio: string = "xMidYMid meet";
 
   /**
    * Renderer to use.
    */
   @property({ type: String })
-  public renderer: 'svg' = 'svg';
+  public renderer: "svg" = "svg";
 
   /**
    * Animation speed.
@@ -151,6 +159,7 @@ export class LottiePlayer extends LitElement {
   public intermission: number = 1;
 
   private _io: IntersectionObserver | undefined = undefined;
+  // private _ro: ResizeObserver | undefined = undefined;
   private _lottie?: any;
   private _prevState?: any;
   private _counter = 0;
@@ -174,7 +183,7 @@ export class LottiePlayer extends LitElement {
       return;
     }
 
-    const frame: number = ((e.target.value / 100) * this._lottie.totalFrames);
+    const frame: number = (e.target.value / 100) * this._lottie.totalFrames;
 
     this.seek(frame);
   }
@@ -203,7 +212,8 @@ export class LottiePlayer extends LitElement {
     // Load the resource information
     try {
       const srcParsed = parseSrc(src);
-      const srcAttrib = typeof srcParsed === 'string' ? 'path' : 'animationData';
+      const srcAttrib =
+        typeof srcParsed === "string" ? "path" : "animationData";
 
       // Clear previous animation, if any
       if (this._lottie) {
@@ -213,7 +223,7 @@ export class LottiePlayer extends LitElement {
       // Initialize lottie player and load animation
       this._lottie = lottie.loadAnimation({
         ...options,
-        [srcAttrib]: srcParsed
+        [srcAttrib]: srcParsed,
       });
     } catch (err) {
       this.currentState = PlayerState.Error;
@@ -224,19 +234,22 @@ export class LottiePlayer extends LitElement {
 
     if (this._lottie) {
       // Calculate and save the current progress of the animation
-      this._lottie.addEventListener('enterFrame', () => {
-        this.seeker = (this._lottie.currentFrame / this._lottie.totalFrames) * 100;
+      this._lottie.addEventListener("enterFrame", () => {
+        this.seeker =
+          (this._lottie.currentFrame / this._lottie.totalFrames) * 100;
 
-        this.dispatchEvent(new CustomEvent(PlayerEvents.Frame, {
-          detail: {
-            frame: this._lottie.currentFrame,
-            seeker: this.seeker
-          }
-        }));
+        this.dispatchEvent(
+          new CustomEvent(PlayerEvents.Frame, {
+            detail: {
+              frame: this._lottie.currentFrame,
+              seeker: this.seeker,
+            },
+          })
+        );
       });
 
       // Handle animation play complete
-      this._lottie.addEventListener('complete', () => {
+      this._lottie.addEventListener("complete", () => {
         if (this.currentState !== PlayerState.Playing) {
           this.dispatchEvent(new CustomEvent(PlayerEvents.Complete));
           return;
@@ -277,29 +290,29 @@ export class LottiePlayer extends LitElement {
       });
 
       // Handle lottie-web ready event
-      this._lottie.addEventListener('DOMLoaded', () => {
+      this._lottie.addEventListener("DOMLoaded", () => {
         this.dispatchEvent(new CustomEvent(PlayerEvents.Ready));
       });
 
       // Handle animation data load complete
-      this._lottie.addEventListener('data_ready', () => {
+      this._lottie.addEventListener("data_ready", () => {
         this.dispatchEvent(new CustomEvent(PlayerEvents.Load));
       });
 
       // Set error state when animation load fail event triggers
-      this._lottie.addEventListener('data_failed', () => {
+      this._lottie.addEventListener("data_failed", () => {
         this.currentState = PlayerState.Error;
 
         this.dispatchEvent(new CustomEvent(PlayerEvents.Error));
       });
 
       // Set handlers to auto play animation on hover if enabled
-      this.container.addEventListener('mouseenter', () => {
+      this.container.addEventListener("mouseenter", () => {
         if (this.hover && this.currentState !== PlayerState.Playing) {
           this.play();
         }
       });
-      this.container.addEventListener('mouseleave', () => {
+      this.container.addEventListener("mouseleave", () => {
         if (this.hover && this.currentState === PlayerState.Playing) {
           this.stop();
         }
@@ -328,7 +341,7 @@ export class LottiePlayer extends LitElement {
    */
   public play() {
     if (!this._lottie) {
-      return
+      return;
     }
 
     this._lottie.play();
@@ -342,7 +355,7 @@ export class LottiePlayer extends LitElement {
    */
   public pause(): void {
     if (!this._lottie) {
-      return
+      return;
     }
 
     this._lottie.pause();
@@ -356,7 +369,7 @@ export class LottiePlayer extends LitElement {
    */
   public stop(): void {
     if (!this._lottie) {
-      return
+      return;
     }
 
     this._counter = 0;
@@ -381,9 +394,10 @@ export class LottiePlayer extends LitElement {
     }
 
     // Calculate and set the frame number
-    const frame = matches[2] === '%'
-      ? this._lottie.totalFrames * Number(matches[1]) / 100
-      : Number(matches[1]);
+    const frame =
+      matches[2] === "%"
+        ? (this._lottie.totalFrames * Number(matches[1])) / 100
+        : Number(matches[1]);
 
     // Set seeker to new frame number
     this.seeker = frame;
@@ -406,14 +420,15 @@ export class LottiePlayer extends LitElement {
     if (!this.shadowRoot) return;
 
     // Get SVG element and serialize markup
-    const svgElement = this.shadowRoot.querySelector('.animation svg') as Node;
-    const data = (new XMLSerializer()).serializeToString(svgElement);
+    const svgElement = this.shadowRoot.querySelector(".animation svg") as Node;
+    const data = new XMLSerializer().serializeToString(svgElement);
 
     // Trigger file download
     if (download) {
-      const element = document.createElement('a');
-      element.href = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(data);
-      element.download = 'download_' + this.seeker + '.svg';
+      const element = document.createElement("a");
+      element.href =
+        "data:image/svg+xml;charset=utf-8," + encodeURIComponent(data);
+      element.download = "download_" + this.seeker + ".svg";
       document.body.appendChild(element);
 
       element.click();
@@ -431,7 +446,7 @@ export class LottiePlayer extends LitElement {
    */
   private freeze(): void {
     if (!this._lottie) {
-      return
+      return;
     }
 
     this._lottie.pause();
@@ -499,7 +514,7 @@ export class LottiePlayer extends LitElement {
    */
   public resize() {
     if (!this._lottie) {
-      return
+      return;
     }
 
     this._lottie.resize();
@@ -517,23 +532,27 @@ export class LottiePlayer extends LitElement {
    */
   protected firstUpdated(): void {
     // Add intersection observer for detecting component being out-of-view.
-    if ('IntersectionObserver' in window) {
-      this._io = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
-        if (entries[0].isIntersecting) {
-          if (this.currentState === PlayerState.Frozen) {
-            this.play();
+    if ("IntersectionObserver" in window) {
+      this._io = new IntersectionObserver(
+        (entries: IntersectionObserverEntry[]) => {
+          if (entries[0].isIntersecting) {
+            if (this.currentState === PlayerState.Frozen) {
+              this.play();
+            }
+          } else if (this.currentState === PlayerState.Playing) {
+            this.freeze();
           }
-        } else if (this.currentState === PlayerState.Playing) {
-          this.freeze();
         }
-      });
+      );
 
       this._io.observe(this.container);
     }
 
     // Add listener for Visibility API's change event.
-    if (typeof document.hidden !== 'undefined') {
-      document.addEventListener('visibilitychange', () => this._onVisibilityChange());
+    if (typeof document.hidden !== "undefined") {
+      document.addEventListener("visibilitychange", () =>
+        this._onVisibilityChange()
+      );
     }
 
     // Setup lottie player
@@ -553,13 +572,15 @@ export class LottiePlayer extends LitElement {
     }
 
     // Remove resize observer for detecting resize/reflow events affecting element.
-    if (this._ro) {
-      this._ro.disconnect();
-      this._ro = undefined;
-    }
+    // if (this._ro) {
+    //   this._ro.disconnect();
+    //   this._ro = undefined;
+    // }
 
     // Remove the attached Visibility API's change event listener.
-    document.removeEventListener('visibilitychange', () => this._onVisibilityChange());
+    document.removeEventListener("visibilitychange", () =>
+      this._onVisibilityChange()
+    );
   }
 
   protected renderControls() {
@@ -569,23 +590,53 @@ export class LottiePlayer extends LitElement {
 
     return html`
       <div class="toolbar">
-        <button @click=${this.togglePlay} class=${isPlaying || isPaused ? 'active' : ''}>
+        <button
+          @click=${this.togglePlay}
+          class=${isPlaying || isPaused ? "active" : ""}
+          style="align-items:center;"
+        >
           ${isPlaying
-        ? html`<svg width="24" height="24"><path d="M14.016 5.016H18v13.969h-3.984V5.016zM6 18.984V5.015h3.984v13.969H6z"/></svg>`
-        : html`<svg width="24" height="24"><path d="M8.016 5.016L18.985 12 8.016 18.984V5.015z"/></svg>`
-      }
+            ? html`<svg width="24" height="24">
+                <path
+                  d="M14.016 5.016H18v13.969h-3.984V5.016zM6 18.984V5.015h3.984v13.969H6z"
+                />
+              </svg>`
+            : html`<svg width="24" height="24">
+                <path d="M8.016 5.016L18.985 12 8.016 18.984V5.015z" />
+              </svg>`}
         </button>
-        <button @click=${this.stop} class=${isStopped ? 'active' : ''}>
+        <button
+          @click=${this.stop}
+          class=${isStopped ? "active" : ""}
+          style="align-items:center;"
+        >
           <svg width="24" height="24"><path d="M6 6h12v12H6V6z" /></svg>
         </button>
-        <input class="seeker" type="range" min="0" step="1" max="100" .value=${this.seeker}
+        <input
+          class="seeker"
+          type="range"
+          min="0"
+          step="1"
+          max="100"
+          .value=${this.seeker}
           @input=${this._handleSeekChange}
-          @mousedown=${() => { this._prevState = this.currentState; this.freeze(); }}
-          @mouseup=${() => { this._prevState === PlayerState.Playing && this.play(); }}
+          @mousedown=${() => {
+            this._prevState = this.currentState;
+            this.freeze();
+          }}
+          @mouseup=${() => {
+            this._prevState === PlayerState.Playing && this.play();
+          }}
         />
-        <button @click=${this.toggleLooping} class=${this.loop ? 'active' : ''}>
+        <button
+          @click=${this.toggleLooping}
+          class=${this.loop ? "active" : ""}
+          style="align-items:center;"
+        >
           <svg width="24" height="24">
-            <path d="M17.016 17.016v-4.031h1.969v6h-12v3l-3.984-3.984 3.984-3.984v3h10.031zM6.984 6.984v4.031H5.015v-6h12v-3l3.984 3.984-3.984 3.984v-3H6.984z"/>
+            <path
+              d="M17.016 17.016v-4.031h1.969v6h-12v3l-3.984-3.984 3.984-3.984v3h10.031zM6.984 6.984v4.031H5.015v-6h12v-3l3.984 3.984-3.984 3.984v-3H6.984z"
+            />
           </svg>
         </button>
       </div>
@@ -593,14 +644,15 @@ export class LottiePlayer extends LitElement {
   }
 
   render(): TemplateResult | void {
-    const className = this.controls ? 'main controls' : 'main';
+    const className = this.controls ? "main controls" : "main";
 
-    return html`
-      <div class=${className}>
-        <div class="animation" style=${'background:' + this.background }>
-          ${this.currentState === PlayerState.Error ? html`<div class="error">⚠️</div>` : undefined}
-        </div>
-        ${this.controls ? this.renderControls() : undefined}
-      </div>`
+    return html` <div class=${className}>
+      <div class="animation" style=${"background:" + this.background}>
+        ${this.currentState === PlayerState.Error
+          ? html`<div class="error">⚠️</div>`
+          : undefined}
+      </div>
+      ${this.controls ? this.renderControls() : undefined}
+    </div>`;
   }
 }

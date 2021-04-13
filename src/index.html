@@ -7,69 +7,32 @@
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
     <title>lottie-player web component</title>
-    <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.4.3/webcomponents-loader.js"></script>
   </head>
 
   <body>
-    <h3>Fixed width</h3>
-    <div style="border:1px #000 solid; width: 300px;">
-      <lottie-player
-        renderer="svg"
-        intermission="1000"
-        autoplay
-        controls
-        loop
-        src="/data.json"
-        speed="1"
-        mode="normal"
-      >
-      </lottie-player>
-    </div>
+    <lottie-player
+      intermission="1000"
+      autoplay
+      controls
+      loop
+      style="width: 320px"
+      src="https://assets7.lottiefiles.com/packages/lf20_jeb8lh2h.json"
+      speed="1"
+      mode="normal"
+    >
+    </lottie-player>
+    <tgs-player
+      autoplay
+      controls
+      loop
+      style="width: 320px"
+      src="./sticker.tgs"
+      speed="1"
+      mode="normal"
+    >
+    </tgs-player>
 
-    <h3>Fixed height</h3>
-    <div style="border:1px #000 solid; height: 300px;">
-      <lottie-player
-        renderer="svg"
-        intermission="1000"
-        autoplay
-        controls
-        loop
-        src="/data.json"
-        speed="1"
-        mode="normal"
-      >
-      </lottie-player>
-    </div>
-
-    <h3>Fixed width - no controls</h3>
-    <div style="border:1px #000 solid; width: 300px;">
-      <lottie-player
-        renderer="svg"
-        intermission="1000"
-        autoplay
-        loop
-        src="/data.json"
-        speed="1"
-        mode="normal"
-      >
-      </lottie-player>
-    </div>
-
-    <h3>Fixed height - no controls</h3>
-    <div style="border:1px #000 solid; height: 300px;">
-      <lottie-player
-        renderer="canvas"
-        intermission="1000"
-        autoplay
-        loop
-        src="/data.json"
-        speed="1"
-        mode="normal"
-        preserveAspectRatio="xMidYMid meet"
-      >
-      </lottie-player>
-    </div>
-
-    <script src="../src/lottie-player.ts"></script>
+    <script src="./lottie-player.js"></script>
+    <script src="./tgs-player.js"></script>
   </body>
 </html>

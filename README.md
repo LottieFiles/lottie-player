@@ -106,6 +106,141 @@ Add the element `tgs-player` and set the `src` property to a URL pointing to a v
 </tgs-player>
 ```
 
+### ReactJS & VueJS
+
+Import the player either as
+
+```js
+import * as LottiePlayer from "@lottiefiles/lottie-player";
+```
+
+or
+
+```js
+require("@lottiefiles/lottie-player");
+```
+
+Use as follows
+
+```html
+<lottie-player
+  autoplay
+  controls
+  loop
+  mode="normal"
+  src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json"
+  style="width: 320px"
+></lottie-player>
+```
+
+### Typescript ReactJS
+
+Import the player either as
+
+```js
+import * as LottiePlayer from "@lottiefiles/lottie-player";
+```
+
+or
+
+```js
+require("@lottiefiles/lottie-player");
+```
+
+Use as follows
+
+```html
+<lottie-player
+  autoplay
+  controls
+  loop
+  mode="normal"
+  src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json"
+  style="width: 320px"
+></lottie-player>
+```
+
+For typescript projects an added step is required. The component must be declared as a JSX intrinsic element. Create a file 'declarations.d.ts' in the root of your project and add the code below to the file.
+
+```js
+declare namespace JSX {
+  interface IntrinsicElements {
+    "lottie-player": any;
+  }
+}
+```
+
+### NuxtJS
+
+The process for NuxtJS is slightly different. Create a lottie-player.js file in project root inside a folder named 'plugins'. Add the code below to the file
+
+```js
+import * as LottiePlayer from "@lottiefiles/lottie-player";
+```
+
+Open nuxt.config.js file and adjust the plugins array as shown below
+
+```js
+plugins: [{ src: "~/plugins/lottie-player.js", mode: "client" }],
+```
+
+You would then be able to use the player as follows inside any component
+
+```html
+<lottie-player
+  autoplay
+  controls
+  loop
+  style="width:400px"
+  src="https://assets3.lottiefiles.com/packages/lf20_RItkEz.json"
+  speed="1"
+  debug
+></lottie-player>
+```
+
+This is because the player script needs to be rendered on the browser/client side and we must configure nuxtjs to load the script on the client side only.
+
+### NextJS
+
+The process to import in NextJS is similar to NuxtJS in the sense that on SSR mode, the library must be declared as a client side module. To do this, import the library within a react useEffect hook.
+
+```javascript
+import React, { useRef } from "react";
+
+export default function Home() {
+  const ref = useRef(null);
+  React.useEffect(() => {
+    import("@lottiefiles/lottie-player");
+  });
+  return (
+    <div className={styles.container}>
+      <main className={styles.main}>
+        <lottie-player
+          id="firstLottie"
+          ref={ref}
+          autoplay
+          controls
+          loop
+          mode="normal"
+          src="https://assets4.lottiefiles.com/packages/lf20_gb5bmwlm.json"
+          style={{ width: "300px", height: "300px" }}
+        ></lottie-player>
+      </main>
+    </div>
+  );
+}
+```
+
+Do add a declaration file named declaration.d.ts to the root of the project as well
+
+```javascript
+declare namespace JSX {
+  interface IntrinsicElements {
+    "lottie-player": any;
+  }
+}
+```
+
 ## Properties
 
 | Property              | Attribute             | Description                         | Type                                 | Default           |
@@ -119,7 +254,7 @@ Add the element `tgs-player` and set the `src` property to a URL pointing to a v
 | `loop`                | `loop`                | Whether to loop animation.          | `boolean`                            | `false`           |
 | `mode`                | `mode`                | Play mode.                          | `PlayMode.Bounce \| PlayMode.Normal` | `PlayMode.Normal` |
 | `preserveAspectRatio` | `preserveAspectRatio` | Valid preserve aspect ratio value.  | `string`                             | `'xMidYMid meet'` |
-| `renderer`            | `renderer`            | Renderer to use.                    | `"svg" | "canvas"`                   | `'svg'`           |
+| `renderer`            | `renderer`            | Renderer to use.                    | `"svg"                               | "canvas"`         |
 | `speed`               | `speed`               | Animation speed.                    | `number`                             | `1`               |
 | `src` _(required)_    | `src`                 | Bodymovin JSON data or URL to JSON. | `string`                             | `undefined`       |
 
