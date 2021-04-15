@@ -1,0 +1,22 @@
+{
+  "name": "functional-tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd app & http-server",
+    "test-folio": "folio --config=config.ts",
+    "test": "concurrently \"npm run start\" \"npm run test-folio\" ",
+    "posttest": "pkill -f http-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@lottiefiles/lottie-player": "file:../.."
+  },
+  "devDependencies": {
+    "@playwright/test": "^0.1101.0",
+    "http-server": "^0.12.3",
+    "concurrently": "^6.0.2"
+  }
+}
