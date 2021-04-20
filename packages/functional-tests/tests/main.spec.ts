@@ -13,15 +13,15 @@ test.describe("Player", ()=>{
   });
 
   test("controls are present", async ({ page }) => {
-    const selector = "div .controls";
+    const selector = ".controls";
     const element = await page.$$(selector);
-    expect(element).toBeDefined();
+    expect(element.length).toBeGreaterThan(0);
   });
 
   test("seeker is present", async ({ page }) => {
-    const selector = "input .seeker";
+    const selector = ".seeker";
     const element = await page.$$(selector);
-    expect(element).toBeDefined();
+    expect(element.length).toBeGreaterThan(0);
   });
 
   test("screenshot matches", async ({ page }) => {
