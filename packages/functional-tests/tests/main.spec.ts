@@ -36,10 +36,8 @@ test.describe("Player", ()=>{
     const element = await page.$$(selector);
     await element[0].click();
 
-    //Check the event fired and the attribute was added
-    const player = await page.$("lottie-player");
-    const attribute = await player.getAttribute('playing');
-    expect(attribute).toEqual('true');
+    var isPaused = await page.evaluate('document.querySelector("lottie-player").getLottie().isPaused');
+    expect(isPaused).toEqual(false);
   });
 
   test("first button (Pause) event listener fired", async ({ page }) => {
@@ -49,10 +47,8 @@ test.describe("Player", ()=>{
     await element[0].click();
     await element[0].click();
 
-    //Check the event fired and the attribute was added
-    const player = await page.$("lottie-player");
-    const attribute = await player.getAttribute('paused');
-    expect(attribute).toEqual('true');
+    var isPaused = await page.evaluate('document.querySelector("lottie-player").getLottie().isPaused');
+    expect(isPaused).toEqual(true);
   });
 
   test("second button (Stop) event listener fired", async ({ page }) => {
@@ -62,10 +58,8 @@ test.describe("Player", ()=>{
     await element[0].click();
     await element[1].click();
 
-    //Check the event fired and the attribute was added
-    const player = await page.$("lottie-player");
-    const attribute = await player.getAttribute('stopped');
-    expect(attribute).toEqual('true');
+    var isPaused = await page.evaluate('document.querySelector("lottie-player").getLottie().isPaused');
+    expect(isPaused).toEqual(true);
   });
 
   test("screenshot matches", async ({ page }) => {
