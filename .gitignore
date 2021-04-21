@@ -9,3 +9,5 @@ node_modules
 
 
 dist/
+
+packages/functional-tests/app/lottie-player.js
