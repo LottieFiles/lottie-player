@@ -8,3 +8,20 @@
     <lottie-player src="test.json"  background="white"  speed="1"  style="width: 400px; height: 400px;"  loop controls></lottie-player>
   </body>
 </html>
+
+<script>
+  const player = document.querySelector("lottie-player");
+
+  player.addEventListener('play', () => {
+    player.setAttribute('playing', true);
+  });
+
+  player.addEventListener('pause', () => {
+    player.setAttribute('paused', true);
+  });
+
+  player.addEventListener('stop', () => {
+    player.setAttribute('stopped', true);
+  });
+
+</script>

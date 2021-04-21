@@ -24,6 +24,50 @@ test.describe("Player", ()=>{
     expect(element.length).toBeGreaterThan(0);
   });
 
+  test("all 3 buttons are present", async ({ page }) => {
+    const selector = ".toolbar button";
+    const element = await page.$$(selector);
+    expect(element.length).toEqual(3);
+  });
+
+  test("first button (Play) event listener fired", async ({ page }) => {
+    //Click the play button
+    const selector = ".toolbar button";
+    const element = await page.$$(selector);
+    await element[0].click();
+
+    //Check the event fired and the attribute was added
+    const player = await page.$("lottie-player");
+    const attribute = await player.getAttribute('playing');
+    expect(attribute).toEqual('true');
+  });
+
+  test("first button (Pause) event listener fired", async ({ page }) => {
+    //Click the play, then pause button
+    const selector = ".toolbar button";
+    const element = await page.$$(selector);
+    await element[0].click();
+    await element[0].click();
+
+    //Check the event fired and the attribute was added
+    const player = await page.$("lottie-player");
+    const attribute = await player.getAttribute('paused');
+    expect(attribute).toEqual('true');
+  });
+
+  test("second button (Stop) event listener fired", async ({ page }) => {
+    //Click the play button, then the stop button
+    const selector = ".toolbar button";
+    const element = await page.$$(selector);
+    await element[0].click();
+    await element[1].click();
+
+    //Check the event fired and the attribute was added
+    const player = await page.$("lottie-player");
+    const attribute = await player.getAttribute('stopped');
+    expect(attribute).toEqual('true');
+  });
+
   test("screenshot matches", async ({ page }) => {
     // wait for the page to load (could use some other signal?)
     await page.waitForTimeout(1000);
@@ -32,4 +76,3 @@ test.describe("Player", ()=>{
     expect(screenshot).toMatchSnapshot(`player-test.png`, { threshold: 0.2 });
   });
 });
-
