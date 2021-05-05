@@ -258,6 +258,8 @@ declare namespace JSX {
 | `speed`               | `speed`               | Animation speed.                    | `number`                             | `1`               |
 | `src` _(required)_    | `src`                 | Bodymovin JSON data or URL to JSON. | `string`                             | `undefined`       |
 
+* Direction value options are 1 and -1*
+
 ## Methods
 
 ### `getLottie() => Promise<any>`
