@@ -158,6 +158,12 @@ export class LottiePlayer extends LitElement {
   @property()
   public intermission: number = 1;
 
+  /**
+   * Animation speed.
+   */
+  @property({ type: String })
+  public description = "Lottie animation";
+
   private _io: IntersectionObserver | undefined = undefined;
   // private _ro: ResizeObserver | undefined = undefined;
   private _lottie?: any;
@@ -589,11 +595,19 @@ export class LottiePlayer extends LitElement {
     const isStopped = this.currentState === PlayerState.Stopped;
 
     return html`
-      <div class="toolbar">
+      <div
+        id="lottie-controls"
+        aria-label="lottie-animation-controls"
+        class="toolbar"
+      >
         <button
+          id="lottie-play-button"
           @click=${this.togglePlay}
           class=${isPlaying || isPaused ? "active" : ""}
           style="align-items:center;"
+          role="button"
+          tabindex="0"
+          aria-label="play-pause"
         >
           ${isPlaying
             ? html`<svg width="24" height="24">
@@ -606,13 +620,18 @@ export class LottiePlayer extends LitElement {
               </svg>`}
         </button>
         <button
+          id="lottie-stop-button"
           @click=${this.stop}
           class=${isStopped ? "active" : ""}
           style="align-items:center;"
+          role="button"
+          tabindex="1"
+          aria-label="stop"
         >
           <svg width="24" height="24"><path d="M6 6h12v12H6V6z" /></svg>
         </button>
         <input
+          id="lottie-seeker-input"
           class="seeker"
           type="range"
           min="0"
@@ -627,11 +646,21 @@ export class LottiePlayer extends LitElement {
           @mouseup=${() => {
             this._prevState === PlayerState.Playing && this.play();
           }}
+          aria-valuemin="1"
+          aria-valuemax="100"
+          role="slider"
+          aria-valuenow=${this.seeker}
+          tabindex="2"
+          aria-label="lottie-seek-input"
         />
         <button
+          id="lottie-loop-toggle"
           @click=${this.toggleLooping}
           class=${this.loop ? "active" : ""}
           style="align-items:center;"
+          role="button"
+          tabindex="3"
+          aria-label="loop-toggle"
         >
           <svg width="24" height="24">
             <path
@@ -646,8 +675,16 @@ export class LottiePlayer extends LitElement {
   render(): TemplateResult | void {
     const className = this.controls ? "main controls" : "main";
 
-    return html` <div class=${className}>
-      <div class="animation" style=${"background:" + this.background}>
+    return html` <div
+      id="animation-container"
+      class=${className}
+      aria-label=${this.description}
+    >
+      <div
+        id="animation"
+        class="animation"
+        style=${"background:" + this.background}
+      >
         ${this.currentState === PlayerState.Error
           ? html`<div class="error">⚠️</div>`
           : undefined}
