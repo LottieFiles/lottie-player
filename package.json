@@ -17,7 +17,10 @@
     "build-tgs": "rollup -c rollup-tgs.config.js",
     "watch-lottie": "npm run cleanup && rollup -c --watch",
     "watch-tgs": "npm run cleanup && rollup -c rollup-tgs.config.js --watch",
-    "cleanup": "shx rm -rf dist && shx mkdir dist"
+    "cleanup": "shx rm -rf dist && shx mkdir dist",
+    "release": "semantic-release",
+    "lint": "eslint . --ext .ts,.tsx,.js",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js --fix"
   },
   "dependencies": {
     "@types/pako": "^1.0.1",
@@ -33,11 +36,26 @@
     "@babel/plugin-proposal-decorators": "^7.10.5",
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-typescript": "^7.10.4",
+    "@commitlint/cli": "^12.1.1",
+    "@commitlint/config-conventional": "^12.1.1",
+    "@lottiefiles/eslint-plugin": "^2.0.0",
     "@rollup/plugin-babel": "^5.1.0",
     "@rollup/plugin-commonjs": "^14.0.0",
     "@rollup/plugin-node-resolve": "^8.4.0",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/commit-analyzer": "^8.0.1",
+    "@semantic-release/git": "^9.0.0",
+    "@semantic-release/github": "^7.2.1",
+    "@semantic-release/npm": "^7.1.1",
+    "@semantic-release/release-notes-generator": "^9.0.2",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.27.0",
+    "eslint-plugin-only-warn": "^1.0.2",
+    "husky": ">=4",
     "lerna": "^4.0.0",
+    "lint-staged": "^10.1.7",
     "parcel-bundler": "^1.12.4",
+    "prettier": "^2.3.0",
     "rollup": "^2.23.0",
     "rollup-plugin-copy": "^3.3.0",
     "rollup-plugin-filesize": "^9.0.2",
@@ -45,6 +63,7 @@
     "rollup-plugin-terser": "^6.1.0",
     "rollup-plugin-typescript2": "^0.27.1",
     "rollup-plugin-visualizer": "^4.0.4",
+    "semantic-release": "^17.4.2",
     "typescript": "^3.4.5"
   },
   "files": [
@@ -66,5 +85,19 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{css,scss,md}": [
+      "prettier --write"
+    ],
+    "src/**/*.{js,jsx,ts,tsx,json}": [
+      "eslint . --ext .ts,.tsx,.js --fix"
+    ]
   }
 }
