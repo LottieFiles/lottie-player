@@ -566,6 +566,7 @@ export class LottiePlayer extends LitElement {
     if (this.src) {
       this.load(this.src);
     }
+    this.dispatchEvent(new CustomEvent(PlayerEvents.Rendered));
   }
 
   /**
@@ -692,8 +693,5 @@ export class LottiePlayer extends LitElement {
       </div>
       ${this.controls ? this.renderControls() : undefined}
     </div>`;
-  }
-  firstUpdated() {
-    this.dispatchEvent(new CustomEvent(PlayerEvents.Rendered));
   }
 }
