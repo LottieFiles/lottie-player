@@ -7,7 +7,7 @@ import {
   TemplateResult,
 } from "lit-element";
 import * as lottie from "lottie-web/build/player/lottie";
-import ResizeObserver from "resize-observer-polyfill";
+// import ResizeObserver from "resize-observer-polyfill";
 
 import styles from "./lottie-player.styles";
 
@@ -39,6 +39,7 @@ export enum PlayerEvents {
   Loop = "loop",
   Complete = "complete",
   Frame = "frame",
+  Rendered = "rendered",
 }
 
 /**
@@ -691,5 +692,8 @@ export class LottiePlayer extends LitElement {
       </div>
       ${this.controls ? this.renderControls() : undefined}
     </div>`;
+  }
+  firstUpdated() {
+    this.dispatchEvent(new CustomEvent(PlayerEvents.Rendered));
   }
 }
