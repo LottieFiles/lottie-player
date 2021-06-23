@@ -98,7 +98,7 @@ player.load(
 ```
 
 
-For dynamically inserted elements into the DOM from Javascript, you will need the latest version of lottie-player and have to hook onto the "rendered" event before trying to load animations.
+For dynamically inserted elements into the DOM from Javascript, you will need the latest version of lottie-player and have to listen for "rendered" event before trying to load animations.
 
 ```html
   <div id="test"></div>
