@@ -97,6 +97,26 @@ player.load(
 );
 ```
 
+
+For dynamically inserted elements into the DOM from Javascript, you will need the latest version of lottie-player and have to hook onto the "rendered" event before trying to load animations.
+
+```html
+  <div id="test"></div>
+```
+
+
+```js
+ $('#test').html('<lottie-player autoplay controls loop mode="normal" style="width: 320px"></lottie-player>');
+
+  const player = document.querySelector("lottie-player");
+  
+  player.addEventListener("rendered", (e) => {
+  player.load("https://assets2.lottiefiles.com/packages/lf20_jjui4rud.json");
+
+  })
+```
+
+
 ### TGS-Player
 
 Add the element `tgs-player` and set the `src` property to a URL pointing to a valid TGS JSON.
@@ -159,6 +179,7 @@ Use as follows
   style="width: 320px"
 ></lottie-player>
 ```
+
 
 For typescript projects an added step is required. The component must be declared as a JSX intrinsic element. Create a file 'declarations.d.ts' in the root of your project and add the code below to the file.
 
