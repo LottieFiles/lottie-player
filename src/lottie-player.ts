@@ -1,3 +1,4 @@
+// eslint-disable-next-line header/header
 import {
   customElement,
   LitElement,
@@ -60,6 +61,37 @@ export function parseSrc(src: string | object): string | object {
   }
 }
 
+function isLottie(json: Record<string, any>): boolean {
+  const mandatory = ["v", "ip", "op", "layers", "fr", "w", "h"];
+
+  return mandatory.every((field) =>
+    Object.prototype.hasOwnProperty.call(json, field)
+  );
+}
+
+async function fromURL(url: string): Promise<Record<string, any>> {
+  if (typeof url !== "string") {
+    throw new Error(`The url value must be a string`);
+  }
+
+  let json;
+
+  try {
+    // Try construct an absolute URL from the src URL
+    const srcUrl: URL = new URL(url);
+
+    // Fetch the JSON file from the URL
+    const result = await fetch(srcUrl.toString());
+
+    json = await result.json();
+  } catch (err) {
+    throw new Error(
+      `An error occurred while trying to load the Lottie file from URL`
+    );
+  }
+
+  return json;
+}
 /**
  * LottiePlayer web component class
  *
@@ -198,7 +230,7 @@ export class LottiePlayer extends LitElement {
   /**
    * Configure and initialize lottie-web player instance.
    */
-  public load(src: string | object): void {
+  public async load(src: string | object) {
     if (!this.shadowRoot) {
       return;
     }
@@ -218,9 +250,22 @@ export class LottiePlayer extends LitElement {
 
     // Load the resource information
     try {
-      const srcParsed = parseSrc(src);
-      const srcAttrib =
-        typeof srcParsed === "string" ? "path" : "animationData";
+      let srcParsed = parseSrc(src);
+      let jsonData = {};
+
+      let srcAttrib = typeof srcParsed === "string" ? "path" : "animationData";
+
+      // Fetch resource if src is a remote URL
+      if (srcAttrib === "path") {
+        jsonData = await fromURL(srcParsed as string);
+        srcAttrib = "animationData";
+      } else {
+        jsonData = srcParsed;
+      }
+      if (!isLottie(jsonData)) {
+        this.currentState = PlayerState.Error;
+        this.dispatchEvent(new CustomEvent(PlayerEvents.Error));
+      }
 
       // Clear previous animation, if any
       if (this._lottie) {
@@ -230,11 +275,10 @@ export class LottiePlayer extends LitElement {
       // Initialize lottie player and load animation
       this._lottie = lottie.loadAnimation({
         ...options,
-        [srcAttrib]: srcParsed,
+        [srcAttrib]: jsonData,
       });
     } catch (err) {
       this.currentState = PlayerState.Error;
-
       this.dispatchEvent(new CustomEvent(PlayerEvents.Error));
       return;
     }
