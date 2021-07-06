@@ -255,6 +255,17 @@ export class LottiePlayer extends LitElement {
 
       let srcAttrib = typeof srcParsed === "string" ? "path" : "animationData";
 
+      // Clear previous animation, if any
+      if (this._lottie) {
+        this._lottie.destroy();
+      }
+
+      // Initialize lottie player and load animation
+      this._lottie = lottie.loadAnimation({
+        ...options,
+        [srcAttrib]: srcParsed,
+      });
+
       // Fetch resource if src is a remote URL
       if (srcAttrib === "path") {
         jsonData = await fromURL(srcParsed as string);
@@ -266,17 +277,6 @@ export class LottiePlayer extends LitElement {
         this.currentState = PlayerState.Error;
         this.dispatchEvent(new CustomEvent(PlayerEvents.Error));
       }
-
-      // Clear previous animation, if any
-      if (this._lottie) {
-        this._lottie.destroy();
-      }
-
-      // Initialize lottie player and load animation
-      this._lottie = lottie.loadAnimation({
-        ...options,
-        [srcAttrib]: jsonData,
-      });
     } catch (err) {
       this.currentState = PlayerState.Error;
       this.dispatchEvent(new CustomEvent(PlayerEvents.Error));
