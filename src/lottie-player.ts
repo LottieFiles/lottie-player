@@ -438,8 +438,8 @@ export class LottiePlayer extends LitElement {
       return;
     }
 
-    // Extract frame number from either number or percentage value
-    const matches = value.toString().match(/^([0-9]+)(%?)$/);
+    // Extract frame number from either decimal or percentage value
+    const matches = value.toString().match(/^([0-9]+\.?[0-9]+)(%?)$/);
     if (!matches) {
       return;
     }
@@ -681,7 +681,7 @@ export class LottiePlayer extends LitElement {
           class="seeker"
           type="range"
           min="0"
-          step="1"
+          step="any"
           max="100"
           .value=${this.seeker}
           @input=${this._handleSeekChange}
