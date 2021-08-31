@@ -191,8 +191,6 @@ export class LottiePlayer extends LitElement {
   @property()
   public intermission: number = 1;
 
-  @property()
-  public progressiveLoad: false;
   /**
    * Animation speed.
    */
@@ -250,7 +248,6 @@ export class LottiePlayer extends LitElement {
         clearCanvas: false,
         progressiveLoad: true,
         hideOnTransparent: true,
-        progressiveLoad: this.progressiveLoad,
       },
     };
 
