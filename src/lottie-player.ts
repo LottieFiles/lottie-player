@@ -14,33 +14,33 @@ import styles from "./lottie-player.styles";
 
 // Define valid player states
 export enum PlayerState {
-  Loading = "loading",
-  Playing = "playing",
-  Paused = "paused",
-  Stopped = "stopped",
-  Frozen = "frozen",
   Error = "error",
+  Frozen = "frozen",
+  Loading = "loading",
+  Paused = "paused",
+  Playing = "playing",
+  Stopped = "stopped",
 }
 
 // Define play modes
 export enum PlayMode {
-  Normal = "normal",
   Bounce = "bounce",
+  Normal = "normal",
 }
 
 // Define player events
 export enum PlayerEvents {
-  Load = "load",
-  Error = "error",
-  Ready = "ready",
-  Play = "play",
-  Pause = "pause",
-  Stop = "stop",
-  Freeze = "freeze",
-  Loop = "loop",
   Complete = "complete",
+  Error = "error",
   Frame = "frame",
+  Freeze = "freeze",
+  Load = "load",
+  Loop = "loop",
+  Pause = "pause",
+  Play = "play",
+  Ready = "ready",
   Rendered = "rendered",
+  Stop = "stop",
 }
 
 /**
@@ -191,6 +191,8 @@ export class LottiePlayer extends LitElement {
   @property()
   public intermission: number = 1;
 
+  @property()
+  public progressiveLoad: false;
   /**
    * Animation speed.
    */
@@ -198,9 +200,12 @@ export class LottiePlayer extends LitElement {
   public description = "Lottie animation";
 
   private _io: IntersectionObserver | undefined = undefined;
+
   // private _ro: ResizeObserver | undefined = undefined;
   private _lottie?: any;
+
   private _prevState?: any;
+
   private _counter = 0;
 
   /**
@@ -245,12 +250,13 @@ export class LottiePlayer extends LitElement {
         clearCanvas: false,
         progressiveLoad: true,
         hideOnTransparent: true,
+        progressiveLoad: this.progressiveLoad,
       },
     };
 
     // Load the resource information
     try {
-      let srcParsed = parseSrc(src);
+      const srcParsed = parseSrc(src);
       let jsonData = {};
 
       let srcAttrib = typeof srcParsed === "string" ? "path" : "animationData";
@@ -259,13 +265,6 @@ export class LottiePlayer extends LitElement {
       if (this._lottie) {
         this._lottie.destroy();
       }
-
-      // Initialize lottie player and load animation
-      this._lottie = lottie.loadAnimation({
-        ...options,
-        [srcAttrib]: srcParsed,
-      });
-
       // Fetch resource if src is a remote URL
       if (srcAttrib === "path") {
         jsonData = await fromURL(srcParsed as string);
@@ -273,6 +272,12 @@ export class LottiePlayer extends LitElement {
       } else {
         jsonData = srcParsed;
       }
+      // Initialize lottie player and load animation
+      this._lottie = lottie.loadAnimation({
+        ...options,
+        animationData: jsonData,
+      });
+
       if (!isLottie(jsonData)) {
         this.currentState = PlayerState.Error;
         this.dispatchEvent(new CustomEvent(PlayerEvents.Error));
@@ -280,6 +285,7 @@ export class LottiePlayer extends LitElement {
     } catch (err) {
       this.currentState = PlayerState.Error;
       this.dispatchEvent(new CustomEvent(PlayerEvents.Error));
+
       return;
     }
 
@@ -303,11 +309,13 @@ export class LottiePlayer extends LitElement {
       this._lottie.addEventListener("complete", () => {
         if (this.currentState !== PlayerState.Playing) {
           this.dispatchEvent(new CustomEvent(PlayerEvents.Complete));
+
           return;
         }
 
         if (!this.loop || (this.count && this._counter >= this.count)) {
           this.dispatchEvent(new CustomEvent(PlayerEvents.Complete));
+
           return;
         }
 
@@ -439,7 +447,8 @@ export class LottiePlayer extends LitElement {
     }
 
     // Extract frame number from either number or percentage value
-    const matches = value.toString().match(/^([0-9]+)(%?)$/);
+    const matches = /^(\d+)(%?)$/.exec(value.toString());
+
     if (!matches) {
       return;
     }
@@ -477,9 +486,11 @@ export class LottiePlayer extends LitElement {
     // Trigger file download
     if (download) {
       const element = document.createElement("a");
-      element.href =
-        "data:image/svg+xml;charset=utf-8," + encodeURIComponent(data);
-      element.download = "download_" + this.seeker + ".svg";
+
+      element.href = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
+        data
+      )}`;
+      element.download = `download_${this.seeker}.svg`;
       document.body.appendChild(element);
 
       element.click();
@@ -729,7 +740,7 @@ export class LottiePlayer extends LitElement {
       <div
         id="animation"
         class="animation"
-        style=${"background:" + this.background}
+        style=${`background:${this.background}`}
       >
         ${this.currentState === PlayerState.Error
           ? html`<div class="error">⚠️</div>`
