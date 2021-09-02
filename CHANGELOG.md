@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html), enforced with [semantic-release](https://github.com/semantic-release/semantic-release).
 
 
+## [1.1.3](https://github.com/LottieFiles/lottie-player/compare/v1.1.2...v1.1.3) (2021-09-02)
+
+
+### Bug Fixes
+
+* **asset path bug fix:** asset path  bug fix ([27d24e7](https://github.com/LottieFiles/lottie-player/commit/27d24e731b7203f849171657eae190bf55d59be8))
+
 ## [1.1.2](https://github.com/LottieFiles/lottie-player/compare/v1.1.1...v1.1.2) (2021-09-01)
 
 
