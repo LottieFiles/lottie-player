@@ -255,28 +255,27 @@ export class LottiePlayer extends LitElement {
     try {
       const srcParsed = parseSrc(src);
       let jsonData = {};
-      let assetsPath = "/images/";
       let srcAttrib = typeof srcParsed === "string" ? "path" : "animationData";
 
       // Clear previous animation, if any
       if (this._lottie) {
         this._lottie.destroy();
       }
+
+      // Initialize lottie player and load animation
+      this._lottie = lottie.loadAnimation({
+        ...options,
+
+        [srcAttrib]: srcParsed,
+      });
+
       // Fetch resource if src is a remote URL
       if (srcAttrib === "path") {
         jsonData = await fromURL(srcParsed as string);
-        const url = srcParsed.toString();
-        assetsPath = url.substring(0, url.lastIndexOf("/")) + assetsPath;
         srcAttrib = "animationData";
       } else {
         jsonData = srcParsed;
       }
-      // Initialize lottie player and load animation
-      this._lottie = lottie.loadAnimation({
-        ...options,
-        assetsPath: assetsPath,
-        animationData: jsonData,
-      });
 
       if (!isLottie(jsonData)) {
         this.currentState = PlayerState.Error;
