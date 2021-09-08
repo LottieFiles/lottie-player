@@ -254,7 +254,7 @@ declare namespace JSX {
 | `loop`                | `loop`                | Whether to loop animation.          | `boolean`                            | `false`           |
 | `mode`                | `mode`                | Play mode.                          | `PlayMode.Bounce \| PlayMode.Normal` | `PlayMode.Normal` |
 | `preserveAspectRatio` | `preserveAspectRatio` | Valid preserve aspect ratio value.  | `string`                             | `'xMidYMid meet'` |
-| `renderer`            | `renderer`            | Renderer to use.                    | `"svg"                               | "canvas"`         |
+| `renderer`            | `renderer`            | Renderer to use.                    | `"svg" \| "canvas"`                  | `"svg"` |
 | `speed`               | `speed`               | Animation speed.                    | `number`                             | `1`               |
 | `src` _(required)_    | `src`                 | Bodymovin JSON data or URL to JSON. | `string`                             | `undefined`       |
 
