@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html), enforced with [semantic-release](https://github.com/semantic-release/semantic-release).
 
 
+# [1.2.0](https://github.com/LottieFiles/lottie-player/compare/v1.1.4...v1.2.0) (2021-09-21)
+
+
+### Features
+
+* **events and cleanup:** added event listeners before json error check and added a destroy method for cleanup ([646d63b](https://github.com/LottieFiles/lottie-player/commit/646d63b14e89a2c0079ddc9224fc8d8e97d84806))
+
 ## [1.1.4](https://github.com/LottieFiles/lottie-player/compare/v1.1.3...v1.1.4) (2021-09-02)
 
 
