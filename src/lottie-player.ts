@@ -14,6 +14,7 @@ import styles from "./lottie-player.styles";
 
 // Define valid player states
 export enum PlayerState {
+  Destroyed = "destroyed",
   Error = "error",
   Frozen = "frozen",
   Loading = "loading",
@@ -31,6 +32,7 @@ export enum PlayMode {
 // Define player events
 export enum PlayerEvents {
   Complete = "complete",
+  Destroyed = "destroyed",
   Error = "error",
   Frame = "frame",
   Freeze = "freeze",
@@ -230,6 +232,103 @@ export class LottiePlayer extends LitElement {
     this.seek(frame);
   }
 
+  private _attachEventListeners(): void {
+    this._lottie.addEventListener("enterFrame", () => {
+      this.seeker =
+        (this._lottie.currentFrame / this._lottie.totalFrames) * 100;
+
+      this.dispatchEvent(
+        new CustomEvent(PlayerEvents.Frame, {
+          detail: {
+            frame: this._lottie.currentFrame,
+            seeker: this.seeker,
+          },
+        })
+      );
+    });
+
+    // Handle animation play complete
+    this._lottie.addEventListener("complete", () => {
+      if (this.currentState !== PlayerState.Playing) {
+        this.dispatchEvent(new CustomEvent(PlayerEvents.Complete));
+
+        return;
+      }
+
+      if (!this.loop || (this.count && this._counter >= this.count)) {
+        this.dispatchEvent(new CustomEvent(PlayerEvents.Complete));
+
+        return;
+      }
+
+      if (this.mode === PlayMode.Bounce) {
+        if (this.count) {
+          this._counter += 0.5;
+        }
+
+        setTimeout(() => {
+          this.dispatchEvent(new CustomEvent(PlayerEvents.Loop));
+
+          if (this.currentState === PlayerState.Playing) {
+            this._lottie.setDirection(this._lottie.playDirection * -1);
+            this._lottie.play();
+          }
+        }, this.intermission);
+      } else {
+        if (this.count) {
+          this._counter += 1;
+        }
+
+        window.setTimeout(() => {
+          this.dispatchEvent(new CustomEvent(PlayerEvents.Loop));
+
+          if (this.currentState === PlayerState.Playing) {
+            this._lottie.stop();
+            this._lottie.play();
+          }
+        }, this.intermission);
+      }
+    });
+
+    // Handle lottie-web ready event
+    this._lottie.addEventListener("DOMLoaded", () => {
+      // Set initial playback speed and direction
+      this.setSpeed(this.speed);
+      this.setDirection(this.direction);
+
+      // Start playing if autoplay is enabled
+      if (this.autoplay) {
+        this.play();
+      }
+
+      this.dispatchEvent(new CustomEvent(PlayerEvents.Ready));
+    });
+
+    // Handle animation data load complete
+    this._lottie.addEventListener("data_ready", () => {
+      this.dispatchEvent(new CustomEvent(PlayerEvents.Load));
+    });
+
+    // Set error state when animation load fail event triggers
+    this._lottie.addEventListener("data_failed", () => {
+      this.currentState = PlayerState.Error;
+
+      this.dispatchEvent(new CustomEvent(PlayerEvents.Error));
+    });
+
+    // Set handlers to auto play animation on hover if enabled
+    this.container.addEventListener("mouseenter", () => {
+      if (this.hover && this.currentState !== PlayerState.Playing) {
+        this.play();
+      }
+    });
+    this.container.addEventListener("mouseleave", () => {
+      if (this.hover && this.currentState === PlayerState.Playing) {
+        this.stop();
+      }
+    });
+  }
+
   /**
    * Configure and initialize lottie-web player instance.
    */
@@ -269,6 +368,9 @@ export class LottiePlayer extends LitElement {
         [srcAttrib]: srcParsed,
       });
 
+      // Attach the event listeners before we check the requested json file for errors
+      this._attachEventListeners();
+
       // Fetch resource if src is a remote URL
       if (srcAttrib === "path") {
         jsonData = await fromURL(srcParsed as string);
@@ -286,104 +388,6 @@ export class LottiePlayer extends LitElement {
       this.dispatchEvent(new CustomEvent(PlayerEvents.Error));
 
       return;
-    }
-
-    if (this._lottie) {
-      // Calculate and save the current progress of the animation
-      this._lottie.addEventListener("enterFrame", () => {
-        this.seeker =
-          (this._lottie.currentFrame / this._lottie.totalFrames) * 100;
-
-        this.dispatchEvent(
-          new CustomEvent(PlayerEvents.Frame, {
-            detail: {
-              frame: this._lottie.currentFrame,
-              seeker: this.seeker,
-            },
-          })
-        );
-      });
-
-      // Handle animation play complete
-      this._lottie.addEventListener("complete", () => {
-        if (this.currentState !== PlayerState.Playing) {
-          this.dispatchEvent(new CustomEvent(PlayerEvents.Complete));
-
-          return;
-        }
-
-        if (!this.loop || (this.count && this._counter >= this.count)) {
-          this.dispatchEvent(new CustomEvent(PlayerEvents.Complete));
-
-          return;
-        }
-
-        if (this.mode === PlayMode.Bounce) {
-          if (this.count) {
-            this._counter += 0.5;
-          }
-
-          setTimeout(() => {
-            this.dispatchEvent(new CustomEvent(PlayerEvents.Loop));
-
-            if (this.currentState === PlayerState.Playing) {
-              this._lottie.setDirection(this._lottie.playDirection * -1);
-              this._lottie.play();
-            }
-          }, this.intermission);
-        } else {
-          if (this.count) {
-            this._counter += 1;
-          }
-
-          window.setTimeout(() => {
-            this.dispatchEvent(new CustomEvent(PlayerEvents.Loop));
-
-            if (this.currentState === PlayerState.Playing) {
-              this._lottie.stop();
-              this._lottie.play();
-            }
-          }, this.intermission);
-        }
-      });
-
-      // Handle lottie-web ready event
-      this._lottie.addEventListener("DOMLoaded", () => {
-        this.dispatchEvent(new CustomEvent(PlayerEvents.Ready));
-      });
-
-      // Handle animation data load complete
-      this._lottie.addEventListener("data_ready", () => {
-        this.dispatchEvent(new CustomEvent(PlayerEvents.Load));
-      });
-
-      // Set error state when animation load fail event triggers
-      this._lottie.addEventListener("data_failed", () => {
-        this.currentState = PlayerState.Error;
-
-        this.dispatchEvent(new CustomEvent(PlayerEvents.Error));
-      });
-
-      // Set handlers to auto play animation on hover if enabled
-      this.container.addEventListener("mouseenter", () => {
-        if (this.hover && this.currentState !== PlayerState.Playing) {
-          this.play();
-        }
-      });
-      this.container.addEventListener("mouseleave", () => {
-        if (this.hover && this.currentState === PlayerState.Playing) {
-          this.stop();
-        }
-      });
-
-      // Set initial playback speed and direction
-      this.setSpeed(this.speed);
-      this.setDirection(this.direction);
-
-      // Start playing if autoplay is enabled
-      if (this.autoplay) {
-        this.play();
-      }
     }
   }
 
@@ -435,6 +439,20 @@ export class LottiePlayer extends LitElement {
     this.currentState = PlayerState.Stopped;
 
     this.dispatchEvent(new CustomEvent(PlayerEvents.Stop));
+  }
+
+  /**
+   * Destroy animation and lottie-player element.
+   */
+  public destroy(): void {
+    if (!this._lottie) {
+      return;
+    }
+
+    this._lottie.destroy();
+    this.currentState = PlayerState.Destroyed;
+    this.dispatchEvent(new CustomEvent(PlayerEvents.Destroyed));
+    this.remove();
   }
 
   /**
@@ -643,6 +661,9 @@ export class LottiePlayer extends LitElement {
     document.removeEventListener("visibilitychange", () =>
       this._onVisibilityChange()
     );
+
+    // Destroy the animation instance and element
+    this.destroy();
   }
 
   protected renderControls() {
