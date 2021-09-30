@@ -1,0 +1,27 @@
+<html>
+  <head> </head>
+  <body>
+    <div id="test"></div>
+
+    <script src="..//dist/lottie-player.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
+      integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script type="text/javascript">
+      $("#test").html(
+        '<lottie-player autoplay controls loop mode="normal" style="width: 320px"></lottie-player>'
+      );
+
+      const player = document.querySelector("lottie-player");
+
+      player.addEventListener("rendered", (e) => {
+        player.load(
+          "https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json"
+        );
+      });
+    </script>
+  </body>
+</html>
