@@ -128,6 +128,18 @@ export class LottiePlayer extends LitElement {
   public count?: number;
 
   /**
+   * Player state.
+   */
+  @property({ type: String })
+  public currentState: PlayerState = PlayerState.Loading;
+
+  /**
+   * Animation speed.
+   */
+  @property({ type: String })
+  public description: string = "Lottie animation";
+
+  /**
    * Direction of animation.
    */
   @property({ type: Number })
@@ -138,6 +150,12 @@ export class LottiePlayer extends LitElement {
    */
   @property({ type: Boolean })
   public hover: boolean = false;
+
+  /**
+   * Intermission
+   */
+  @property()
+  public intermission: number = 1;
 
   /**
    * Whether to loop animation.
@@ -164,6 +182,13 @@ export class LottiePlayer extends LitElement {
   public renderer: "svg" = "svg";
 
   /**
+   * seeker
+   */
+
+  @property()
+  public seeker: any;
+
+  /**
    * Animation speed.
    */
   @property({ type: Number })
@@ -174,24 +199,6 @@ export class LottiePlayer extends LitElement {
    */
   @property({ type: String })
   public src?: string;
-
-  /**
-   * Player state.
-   */
-  @property({ type: String })
-  public currentState: PlayerState = PlayerState.Loading;
-
-  @property()
-  public seeker: any;
-
-  @property()
-  public intermission: number = 1;
-
-  /**
-   * Animation speed.
-   */
-  @property({ type: String })
-  public description: string = "Lottie animation";
 
   /**
    * Animation container.
@@ -505,7 +512,7 @@ export class LottiePlayer extends LitElement {
       <div
         id="animation"
         class="animation"
-        style=${`background:${this.background}; width:${this.style.width}; height:${this.style.height}`}
+        style="background:${this.background};"
       >
         ${this.currentState === PlayerState.Error
           ? html`<div class="error">⚠️</div>`

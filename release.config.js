@@ -2,9 +2,9 @@
  * Copyright 2020 Design Barn Inc.
  */
 
-'use strict';
+"use strict";
 
-const pkg = require('./package.json');
+const pkg = require("./package.json");
 
 const CHANGELOG_HEADER = `# Changelog
 All notable changes to this project will be documented in this file.
@@ -24,39 +24,40 @@ const SUCCESS_COMMENT = `:tada: This \${issue.pull_request ? 'pull request is in
  * https://github.com/semantic-release/changelog
  */
 module.exports = {
-  branches: ['master', { name: 'beta', prerelease: true }],
-  tagFormat: 'v${version}',
+  branches: ["master", { name: "beta", prerelease: true }],
+  tagFormat: "v${version}",
   ci: true,
   plugins: [
     [
-      '@semantic-release/commit-analyzer',
+      "@semantic-release/commit-analyzer",
       {
-        preset: 'conventionalcommits',
+        preset: "conventionalcommits",
       },
     ],
-    '@semantic-release/release-notes-generator',
+    "@semantic-release/release-notes-generator",
     [
-      '@semantic-release/changelog',
+      "@semantic-release/changelog",
       {
-        changelogFile: 'CHANGELOG.md',
+        changelogFile: "CHANGELOG.md",
         changelogTitle: CHANGELOG_HEADER,
       },
     ],
-    '@semantic-release/git',
+    "@semantic-release/git",
     [
-      '@semantic-release/github',
+      "@semantic-release/github",
       {
-        message: 'chore(release): v${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
-        assets: 'dist/*.tgz',
+        message:
+          "chore(release): v${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
+        assets: "dist/*.tgz",
         successComment: SUCCESS_COMMENT,
-        addReleases: 'bottom',
+        addReleases: "bottom",
       },
     ],
     [
-      '@semantic-release/npm',
+      "@semantic-release/npm",
       {
         npmPublish: true,
-        tarballDir: 'dist',
+        tarballDir: "dist",
       },
     ],
   ],
