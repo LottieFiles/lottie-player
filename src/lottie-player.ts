@@ -503,6 +503,9 @@ export class LottiePlayer extends LitElement {
 
   public render(): TemplateResult | void {
     const className: string = this.controls ? "main controls" : "main";
+    const animationClass: string = this.controls
+      ? "animation controls"
+      : "animation";
 
     return html` <div
       id="animation-container"
@@ -511,7 +514,7 @@ export class LottiePlayer extends LitElement {
     >
       <div
         id="animation"
-        class="animation"
+        class=${animationClass}
         style="background:${this.background};"
       >
         ${this.currentState === PlayerState.Error

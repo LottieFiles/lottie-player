@@ -32,8 +32,11 @@ export default css`
 
   .animation {
     width: 100%;
-    height: calc(100% - 35px);
+    height: 100%;
     display: flex;
+  }
+  .animation.controls {
+    height: calc(100% - 35px);
   }
 
   .toolbar {
