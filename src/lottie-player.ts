@@ -213,7 +213,7 @@ export class LottiePlayer extends LitElement {
 
   private _prevState?: any;
 
-  private _counter: number = 0;
+  private _counter: number = 1;
 
   /**
    * Configure and initialize lottie-web player instance.
@@ -320,7 +320,7 @@ export class LottiePlayer extends LitElement {
       return;
     }
 
-    this._counter = 0;
+    this._counter = 1;
     this._lottie.stop();
     this.currentState = PlayerState.Stopped;
 
