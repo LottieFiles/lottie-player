@@ -4,10 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cd app && shx cp ../node_modules/@lottiefiles/lottie-player/dist/lottie-player.js ./lottie-player.js && http-server",
-    "test-folio": "folio --config=config.ts",
-    "test": "concurrently \"yarn run start\" \"yarn run test-folio\" ",
-    "posttest": "pkill -f http-server"
+    "start": "cd app && shx cp ../node_modules/@lottiefiles/lottie-player/dist/lottie-player.js ./lottie-player.js && cd .. && node ./server.js",
+    "test": "playwright test"
   },
   "author": "",
   "license": "ISC",
@@ -15,9 +13,11 @@
     "@lottiefiles/lottie-player": "file:../.."
   },
   "devDependencies": {
+    "@playwright/test": "^1.16.3",
     "concurrently": "^6.0.2",
+    "fastify": "^3.23.1",
+    "fastify-static": "^4.5.0",
     "http-server": "^0.12.3",
-    "@playwright/test": "^0.1101.0",
     "shx": "^0.3.3"
   }
 }
