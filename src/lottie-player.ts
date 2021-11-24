@@ -201,6 +201,12 @@ export class LottiePlayer extends LitElement {
   public src?: string;
 
   /**
+   * Enable web workers
+   */
+  @property({type: Boolean})
+  public webworkers?: boolean;
+
+  /**
    * Animation container.
    */
   @query(".animation")
@@ -247,6 +253,10 @@ export class LottiePlayer extends LitElement {
         this._lottie.destroy();
       }
 
+      if(this.webworkers){
+        lottie.useWebWorker();
+      }
+  
       // Initialize lottie player and load animation
       this._lottie = lottie.loadAnimation({
         ...options,
@@ -779,4 +789,5 @@ export class LottiePlayer extends LitElement {
 
     this.dispatchEvent(new CustomEvent(PlayerEvents.Freeze));
   }
+
 }
