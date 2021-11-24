@@ -254,7 +254,7 @@ export class LottiePlayer extends LitElement {
       }
 
       if(this.webworkers){
-        lottie.useWebWorker();
+        lottie.useWebWorker(true);
       }
   
       // Initialize lottie player and load animation
