@@ -1,3 +1,7 @@
+/**
+ * Copyright 2021 Design Barn Inc.
+ */
+
 import babel from "@rollup/plugin-babel";
 import commonjs from "@rollup/plugin-commonjs";
 import copy from "rollup-plugin-copy";
@@ -34,22 +38,23 @@ export default {
     typescript2({
       check: false,
     }),
+
     babel({
-      extensions: extensions,
+      extensions,
       exclude: ["./node_modules/@babel/**/*", "./node_modules/core-js/**/*"],
     }),
     !production &&
       copy({
         targets: [
           { src: "./src/index.html", dest: outputDir },
+          { src: "./src/worker.js", dest: outputDir },
           { src: "./src/sticker.tgs", dest: outputDir },
           {
             src: "./node_modules/@webcomponents/webcomponentsjs/bundles/",
             dest: outputDir,
           },
           {
-            src:
-              "./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js",
+            src: "./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js",
             dest: outputDir,
           },
         ],
@@ -60,9 +65,16 @@ export default {
         contentBase: [outputDir],
         open: true,
         host: "localhost",
-        port: 10000,
+        port: 10001,
       }),
 
-    production && terser(),
+    production &&
+      //  uglify({ mangle: false }),
+      terser({
+        compress: {},
+        mangle: {
+          reserved: ["_workerSelf"],
+        },
+      }),
   ],
 };

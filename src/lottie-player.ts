@@ -8,8 +8,8 @@ import {
   TemplateResult,
 } from "lit-element";
 import * as lottie from "lottie-web/build/player/lottie";
-// import ResizeObserver from "resize-observer-polyfill";
 
+// import ResizeObserver from "resize-observer-polyfill";
 import styles from "./lottie-player.styles";
 
 // Define valid player states
@@ -203,7 +203,7 @@ export class LottiePlayer extends LitElement {
   /**
    * Enable web workers
    */
-  @property({type: Boolean})
+  @property({ type: Boolean })
   public webworkers?: boolean;
 
   /**
@@ -220,6 +220,9 @@ export class LottiePlayer extends LitElement {
   private _prevState?: any;
 
   private _counter: number = 1;
+
+  private readonly workerString: string =
+    'var _workerSelf=self;self.onmessage=function(e){if(_workerSelf.dataManager||(_workerSelf.dataManager=function(){function e(r,n){var o,l,f,c,i,k,p,d=r.length;for(l=0;l<d;l+=1)if("ks"in(o=r[l])&&!o.completed){if(o.completed=!0,o.tt&&(r[l-1].td=o.tt),o.hasMask){var u=o.masksProperties;for(c=u.length,f=0;f<c;f+=1)if(u[f].pt.k.i)a(u[f].pt.k);else for(k=u[f].pt.k.length,i=0;i<k;i+=1)u[f].pt.k[i].s&&a(u[f].pt.k[i].s[0]),u[f].pt.k[i].e&&a(u[f].pt.k[i].e[0])}0===o.ty?(o.layers=s(o.refId,n),e(o.layers,n)):4===o.ty?t(o.shapes):5===o.ty&&(0!==(p=o).t.a.length||"m"in p.t.p||(p.singleShape=!0))}}function s(e,s){for(var t=0,a=s.length;t<a;){if(s[t].id===e)return s[t].layers.__used?JSON.parse(JSON.stringify(s[t].layers)):(s[t].layers.__used=!0,s[t].layers);t+=1}return null}function t(e){var s,r,n;for(s=e.length-1;s>=0;s-=1)if("sh"===e[s].ty)if(e[s].ks.k.i)a(e[s].ks.k);else for(n=e[s].ks.k.length,r=0;r<n;r+=1)e[s].ks.k[r].s&&a(e[s].ks.k[r].s[0]),e[s].ks.k[r].e&&a(e[s].ks.k[r].e[0]);else"gr"===e[s].ty&&t(e[s].it)}function a(e){var s,t=e.i.length;for(s=0;s<t;s+=1)e.i[s][0]+=e.v[s][0],e.i[s][1]+=e.v[s][1],e.o[s][0]+=e.v[s][0],e.o[s][1]+=e.v[s][1]}function r(e,s){var t=s?s.split("."):[100,100,100];return e[0]>t[0]||!(t[0]>e[0])&&(e[1]>t[1]||!(t[1]>e[1])&&(e[2]>t[2]||!(t[2]>e[2])&&null))}var n,o=function(){var e=[4,4,14];function s(e){var s,t,a,r=e.length;for(s=0;s<r;s+=1)5===e[s].ty&&(t=e[s],a=void 0,a=t.t.d,t.t.d={k:[{s:a,t:0}]})}return function(t){if(r(e,t.v)&&(s(t.layers),t.assets)){var a,n=t.assets.length;for(a=0;a<n;a+=1)t.assets[a].layers&&s(t.assets[a].layers)}}}(),l=(n=[4,7,99],function(e){if(e.chars&&!r(n,e.v)){var s,t,o,l,f,c=e.chars.length;for(s=0;s<c;s+=1)if(e.chars[s].data&&e.chars[s].data.shapes)for(o=(f=e.chars[s].data.shapes[0].it).length,t=0;t<o;t+=1)(l=f[t].ks.k).__converted||(a(f[t].ks.k),l.__converted=!0)}}),f=function(){var e=[5,7,15];function s(e){var s,t,a,r=e.length;for(s=0;s<r;s+=1)5===e[s].ty&&(t=e[s],a=void 0,"number"==typeof(a=t.t.p).a&&(a.a={a:0,k:a.a}),"number"==typeof a.p&&(a.p={a:0,k:a.p}),"number"==typeof a.r&&(a.r={a:0,k:a.r}))}return function(t){if(r(e,t.v)&&(s(t.layers),t.assets)){var a,n=t.assets.length;for(a=0;a<n;a+=1)t.assets[a].layers&&s(t.assets[a].layers)}}}(),c=function(){var e=[4,1,9];function s(e){var t,a,r,n=e.length;for(t=0;t<n;t+=1)if("gr"===e[t].ty)s(e[t].it);else if("fl"===e[t].ty||"st"===e[t].ty)if(e[t].c.k&&e[t].c.k[0].i)for(r=e[t].c.k.length,a=0;a<r;a+=1)e[t].c.k[a].s&&(e[t].c.k[a].s[0]/=255,e[t].c.k[a].s[1]/=255,e[t].c.k[a].s[2]/=255,e[t].c.k[a].s[3]/=255),e[t].c.k[a].e&&(e[t].c.k[a].e[0]/=255,e[t].c.k[a].e[1]/=255,e[t].c.k[a].e[2]/=255,e[t].c.k[a].e[3]/=255);else e[t].c.k[0]/=255,e[t].c.k[1]/=255,e[t].c.k[2]/=255,e[t].c.k[3]/=255}function t(e){var t,a=e.length;for(t=0;t<a;t+=1)4===e[t].ty&&s(e[t].shapes)}return function(s){if(r(e,s.v)&&(t(s.layers),s.assets)){var a,n=s.assets.length;for(a=0;a<n;a+=1)s.assets[a].layers&&t(s.assets[a].layers)}}}(),i=function(){var e=[4,4,18];function s(e){var t,a,r;for(t=e.length-1;t>=0;t-=1)if("sh"===e[t].ty)if(e[t].ks.k.i)e[t].ks.k.c=e[t].closed;else for(r=e[t].ks.k.length,a=0;a<r;a+=1)e[t].ks.k[a].s&&(e[t].ks.k[a].s[0].c=e[t].closed),e[t].ks.k[a].e&&(e[t].ks.k[a].e[0].c=e[t].closed);else"gr"===e[t].ty&&s(e[t].it)}function t(e){var t,a,r,n,o,l,f=e.length;for(a=0;a<f;a+=1){if((t=e[a]).hasMask){var c=t.masksProperties;for(n=c.length,r=0;r<n;r+=1)if(c[r].pt.k.i)c[r].pt.k.c=c[r].cl;else for(l=c[r].pt.k.length,o=0;o<l;o+=1)c[r].pt.k[o].s&&(c[r].pt.k[o].s[0].c=c[r].cl),c[r].pt.k[o].e&&(c[r].pt.k[o].e[0].c=c[r].cl)}4===t.ty&&s(t.shapes)}}return function(s){if(r(e,s.v)&&(t(s.layers),s.assets)){var a,n=s.assets.length;for(a=0;a<n;a+=1)s.assets[a].layers&&t(s.assets[a].layers)}}}();var k={completeData:function(s){s.__complete||(c(s),o(s),l(s),f(s),i(s),e(s.layers,s.assets),s.__complete=!0)}};return k.checkColors=c,k.checkChars=l,k.checkPathProperties=f,k.checkShapes=i,k.completeLayers=e,k}()),_workerSelf.assetLoader||(_workerSelf.assetLoader=function(){function e(e){var s=e.getResponseHeader("content-type");return s&&"json"===e.responseType&&-1!==s.indexOf("json")?e.response:e.response&&"object"==typeof e.response?e.response:e.response&&"string"==typeof e.response?JSON.parse(e.response):e.responseText?JSON.parse(e.responseText):null}return{load:function(s,t,a,r){var n,o=new XMLHttpRequest;try{o.responseType="json"}catch(e){}o.onreadystatechange=function(){if(4===o.readyState)if(200===o.status)n=e(o),a(n);else try{n=e(o),a(n)}catch(e){r&&r(e)}};try{o.open("GET",s,!0)}catch(e){o.open("GET",t+"/"+s,!0)}o.send()}}}()),"loadAnimation"===e.data.type)_workerSelf.assetLoader.load(e.data.path,e.data.fullPath,function(s){_workerSelf.dataManager.completeData(s),_workerSelf.postMessage({id:e.data.id,payload:s,status:"success"})},function(){_workerSelf.postMessage({id:e.data.id,status:"error"})});else if("complete"===e.data.type){var s=e.data.animation;_workerSelf.dataManager.completeData(s),_workerSelf.postMessage({id:e.data.id,payload:s,status:"success"})}else"loadData"===e.data.type&&_workerSelf.assetLoader.load(e.data.path,e.data.fullPath,function(s){_workerSelf.postMessage({id:e.data.id,payload:s,status:"success"})},function(){_workerSelf.postMessage({id:e.data.id,status:"error"})})};';
 
   /**
    * Configure and initialize lottie-web player instance.
@@ -253,10 +256,10 @@ export class LottiePlayer extends LitElement {
         this._lottie.destroy();
       }
 
-      if(this.webworkers){
+      if (this.webworkers) {
         lottie.useWebWorker(true);
       }
-  
+
       // Initialize lottie player and load animation
       this._lottie = lottie.loadAnimation({
         ...options,
@@ -282,8 +285,6 @@ export class LottiePlayer extends LitElement {
     } catch (err) {
       this.currentState = PlayerState.Error;
       this.dispatchEvent(new CustomEvent(PlayerEvents.Error));
-
-      return;
     }
   }
 
@@ -789,5 +790,4 @@ export class LottiePlayer extends LitElement {
 
     this.dispatchEvent(new CustomEvent(PlayerEvents.Freeze));
   }
-
 }
