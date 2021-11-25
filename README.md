@@ -10,7 +10,6 @@ This is a Web Component for easily embedding and playing Lottie animations and t
 ![screencast](https://i.imgur.com/miLzIkJ.gif)
 
 - [Basic usage examples](https://codesandbox.io/s/y2nxyvomyj)
-- [Scrolling effects demo](https://ypxk7zvpq1.codesandbox.io/)
 
 ## Documentation
 
