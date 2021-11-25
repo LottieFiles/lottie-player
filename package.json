@@ -63,6 +63,7 @@
     "rollup-plugin-serve": "^1.0.3",
     "rollup-plugin-terser": "^6.1.0",
     "rollup-plugin-typescript2": "^0.27.1",
+    "rollup-plugin-uglify": "^6.0.4",
     "rollup-plugin-visualizer": "^4.0.4",
     "semantic-release": "^17.4.2",
     "typescript": "^3.4.5"

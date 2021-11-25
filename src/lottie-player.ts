@@ -257,12 +257,7 @@ export class LottiePlayer extends LitElement {
       }
 
       if (this.webworkers) {
-        // lottie.useWebWorker(true);
-        const blob = new Blob([this.workerString], {
-          type: "text/javascript",
-        });
-        const url = URL.createObjectURL(blob);
-        new Worker(url);
+        lottie.useWebWorker(true);
       }
 
       // Initialize lottie player and load animation

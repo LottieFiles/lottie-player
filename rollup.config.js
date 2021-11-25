@@ -68,6 +68,13 @@ export default {
         port: 10001,
       }),
 
-    production && terser(),
+    production &&
+      //  uglify({ mangle: false }),
+      terser({
+        compress: {},
+        mangle: {
+          reserved: ["_workerSelf"],
+        },
+      }),
   ],
 };
