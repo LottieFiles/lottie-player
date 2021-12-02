@@ -3,6 +3,88 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html), enforced with [semantic-release](https://github.com/semantic-release/semantic-release).
 
 
+## 1.5.1
+
+
+### Bug Fixes
+
+* **web-worker:** fixed web worker prop to work correctly with proper bundling adjustments.
+
+
+## 1.5.0
+
+
+### Bug Fixes
+
+* **web-worker:** added web worker prop.
+
+
+## 1.4.5
+
+
+### Bug Fixes
+
+* **loop:** loop counter started at zero. changed to 1 instead.
+
+
+## 1.4.4
+
+
+### Bug Fixes
+
+* **resize:** fixed width and height responsiveness issues
+
+
+## 1.4.3
+
+
+### Bug Fixes
+
+* **safari:** fixed safari glitching animation issue (used flex for controls placement instead of grid system)
+
+
+## 1.4.2
+
+
+### Bug Fixes
+
+* **code:** fixed typescript errors with type assertions and restructuring of code
+
+
+## 1.4.1
+
+
+### Bug Fixes
+
+* **code:** fixed typescript errors with type assertions and restructuring of code
+* **container:** added width and height inheritence to animation container
+
+
+## 1.4.0
+
+
+### Features
+
+* **event listeners:** added event listeners before json error check
+* **cleanup:** added a destroy method for cleanup of dom
+
+
+## 1.3.1
+
+
+### Chore
+
+* **rollback:** rollback previous changes
+
+
+## 1.3.0
+
+
+### Bug Fixes
+
+* **network call fix:** attempt to fix dual network call
+
+
 ## [1.2.1](https://github.com/LottieFiles/lottie-player/compare/v1.2.0...v1.2.1) (2021-09-30)
 
 
