@@ -518,6 +518,7 @@ export class LottiePlayer extends LitElement {
     return html` <div
       id="animation-container"
       class=${className}
+      lang="en"
       aria-label=${this.description}
     >
       <div
@@ -576,6 +577,7 @@ export class LottiePlayer extends LitElement {
     return html`
       <div
         id="lottie-controls"
+        lang="en"
         aria-label="lottie-animation-controls"
         class="toolbar"
       >
@@ -586,6 +588,7 @@ export class LottiePlayer extends LitElement {
           style="align-items:center;"
           role="button"
           tabindex="0"
+          lang="en"
           aria-label="play-pause"
         >
           ${isPlaying
@@ -605,6 +608,7 @@ export class LottiePlayer extends LitElement {
           style="align-items:center;"
           role="button"
           tabindex="1"
+          lang="en"
           aria-label="stop"
         >
           <svg width="24" height="24"><path d="M6 6h12v12H6V6z" /></svg>
@@ -630,6 +634,7 @@ export class LottiePlayer extends LitElement {
           role="slider"
           aria-valuenow=${this.seeker}
           tabindex="2"
+          lang="en"
           aria-label="lottie-seek-input"
         />
         <button
@@ -639,6 +644,7 @@ export class LottiePlayer extends LitElement {
           style="align-items:center;"
           role="button"
           tabindex="3"
+          lang="en"
           aria-label="loop-toggle"
         >
           <svg width="24" height="24">
