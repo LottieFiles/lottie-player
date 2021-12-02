@@ -1,9 +1,11 @@
 import { test, expect } from "@playwright/test";
 
+const port = 8000;
+
 test.describe("Player", ()=>{
   test.beforeEach(async ({ page }) => {
     // Go to the starting url before each test
-    await page.goto("http://localhost:8080", { waitUntil: "domcontentloaded" });
+    await page.goto("http://localhost:" + port, { waitUntil: "domcontentloaded" });
   });
 
   test("is present", async ({ page }) => {
