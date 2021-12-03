@@ -207,10 +207,18 @@ export class LottiePlayer extends LitElement {
   public webworkers?: boolean;
 
   /**
+   * language
+   */
+  @property({ type: String })
+  public lang: string = "en";
+
+  /**
    * Animation container.
    */
   @query(".animation")
   protected container!: HTMLElement;
+  
+  
 
   private _io: IntersectionObserver | undefined = undefined;
 
@@ -518,7 +526,7 @@ export class LottiePlayer extends LitElement {
     return html` <div
       id="animation-container"
       class=${className}
-      lang="en"
+			   
       aria-label=${this.description}
     >
       <div
@@ -574,11 +582,35 @@ export class LottiePlayer extends LitElement {
     const isPaused: boolean = this.currentState === PlayerState.Paused;
     const isStopped: boolean = this.currentState === PlayerState.Stopped;
 
+	let currentLang = "en";
+	let ariaLabelControls = "lottie animation controls";
+	let ariaLabelPlayButton = "play-pause";
+	let ariaLabelStopButton = "stop";
+	let ariaLabelSeeker = "lottie-seek-input";
+	let ariaLabelLoopButton = "loop-toggle";
+
+	if(this.lang == "fr"){
+		currentLang = "fr";
+		ariaLabelControls = "interface de contrôle de l'animation lottie";
+		ariaLabelPlayButton = "lecture-pause";
+		ariaLabelStopButton = "stop";
+		ariaLabelSeeker = "barre de lecture animation lottie";
+		ariaLabelLoopButton = "lecture en boucle";
+	}
+	else if(this.lang == "de"){
+		currentLang = "de";
+		ariaLabelControls = "lottie Animationssteuerung";
+		ariaLabelPlayButton = "spielen-pausieren";
+		ariaLabelStopButton = "halt";
+		ariaLabelSeeker = "lottie Animationswiedergabeleiste";
+		ariaLabelLoopButton = "Loop-Wiedergabe";
+	}
+
     return html`
       <div
         id="lottie-controls"
-        lang="en"
-        aria-label="lottie-animation-controls"
+        lang=${currentLang} 
+        aria-label=${ariaLabelControls} 
         class="toolbar"
       >
         <button
@@ -588,8 +620,8 @@ export class LottiePlayer extends LitElement {
           style="align-items:center;"
           role="button"
           tabindex="0"
-          lang="en"
-          aria-label="play-pause"
+          aria-label=${ariaLabelPlayButton} 
+								 
         >
           ${isPlaying
             ? html`<svg width="24" height="24">
@@ -608,8 +640,8 @@ export class LottiePlayer extends LitElement {
           style="align-items:center;"
           role="button"
           tabindex="1"
-          lang="en"
-          aria-label="stop"
+          aria-label=${ariaLabelStopButton} 
+						   
         >
           <svg width="24" height="24"><path d="M6 6h12v12H6V6z" /></svg>
         </button>
@@ -634,8 +666,8 @@ export class LottiePlayer extends LitElement {
           role="slider"
           aria-valuenow=${this.seeker}
           tabindex="2"
-          lang="en"
-          aria-label="lottie-seek-input"
+				   
+          aria-label=${ariaLabelSeeker} 
         />
         <button
           id="lottie-loop-toggle"
@@ -644,8 +676,8 @@ export class LottiePlayer extends LitElement {
           style="align-items:center;"
           role="button"
           tabindex="3"
-          lang="en"
-          aria-label="loop-toggle"
+          aria-label=${ariaLabelLoopButton} 
+								  
         >
           <svg width="24" height="24">
             <path
