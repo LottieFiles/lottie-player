@@ -585,7 +585,7 @@ export class LottiePlayer extends LitElement {
           @click=${this.togglePlay}
           class=${isPlaying || isPaused ? "active" : ""}
           style="align-items:center;"
-		  tabindex="0" 
+          tabindex="0"
           aria-label="play-pause"
         >
           ${isPlaying
@@ -603,7 +603,7 @@ export class LottiePlayer extends LitElement {
           @click=${this.stop}
           class=${isStopped ? "active" : ""}
           style="align-items:center;"
-		  tabindex="0" 
+          tabindex="0"
           aria-label="stop"
         >
           <svg width="24" height="24" aria-hidden="true" focusable="false"><path d="M6 6h12v12H6V6z" /></svg>
@@ -628,15 +628,15 @@ export class LottiePlayer extends LitElement {
           aria-valuemax="100"
           role="slider"
           aria-valuenow=${this.seeker}
-		  tabindex="0" 
+          tabindex="0"
           aria-label="lottie-seek-input"
         />
         <button
           id="lottie-loop-toggle"
           @click=${this.toggleLooping}
           class=${this.loop ? "active" : ""}
-          style="align-items:center;" 
-		  tabindex="0" 
+          style="align-items:center;"
+          tabindex="0"
           aria-label="loop-toggle"
         >
           <svg width="24" height="24" aria-hidden="true" focusable="false">

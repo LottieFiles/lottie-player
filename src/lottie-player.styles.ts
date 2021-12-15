@@ -17,7 +17,7 @@ export default css`
     --lottie-player-toolbar-icon-active-color: #555;
     --lottie-player-seeker-track-color: #ccc;
     --lottie-player-seeker-thumb-color: rgba(0, 107, 120, 0.8);
-	--lottie-player-seeker-display: block;
+    --lottie-player-seeker-display: block;
 
     display: block;
     width: 100%;
@@ -67,7 +67,7 @@ export default css`
   .toolbar button.active {
     fill: var(--lottie-player-toolbar-icon-active-color);
   }
-  
+
   .toolbar button.active:hover {
 	fill: var(--lottie-player-toolbar-icon-hover-color);
   }
@@ -89,7 +89,7 @@ export default css`
     width: 95%;
     outline: none;
     background-color: var(--lottie-player-toolbar-background-color);
-	display: var(--lottie-player-seeker-display);
+    display: var(--lottie-player-seeker-display);
   }
 
   .seeker::-webkit-slider-runnable-track {
