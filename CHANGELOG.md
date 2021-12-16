@@ -1,4 +1,35 @@
 # Changelog
+All notable changes to this project will be documented in this file.
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html), enforced with [semantic-release](https://github.com/semantic-release/semantic-release).
+
+
+# [1.3.0](https://github.com/LottieFiles/lottie-player/compare/v1.2.1...v1.3.0) (2021-12-16)
+
+
+### Bug Fixes
+
+* **add web worker:** add web worker ([a7f9491](https://github.com/LottieFiles/lottie-player/commit/a7f9491a151478aafd9b165a2a323ed1c8e84950))
+* **count off by 1:** count adds an extra 1 as it starts from 0 ([f4efda4](https://github.com/LottieFiles/lottie-player/commit/f4efda485f3e0c5050aa9766dcb757fa328fd5c7))
+* **css changes:** positioning issues fixed where lottie was overflowing out of container ([965823c](https://github.com/LottieFiles/lottie-player/commit/965823c29b4434d1edfdaf0fc4e413ed63e6a3d3))
+* **css fix:** safari glitch error fix ([39dad7b](https://github.com/LottieFiles/lottie-player/commit/39dad7bfb0369e6cca54eb029a08c77b90cd57bd))
+* **height calculation fic:** height calculation should happen only if controls are keyed in. bugfix ([7ac35d2](https://github.com/LottieFiles/lottie-player/commit/7ac35d2b062e464419d9f06eed4ac7f8cc1f5978))
+* **missing build file:** missing build file. tgs player.js ([be764ec](https://github.com/LottieFiles/lottie-player/commit/be764ec04a0848bbf080782e61c4ffc0a3c15908))
+* **small updates:** changelog, tests for interactivity lib breakage, lang added to aria labels ([f1c0543](https://github.com/LottieFiles/lottie-player/commit/f1c0543136fe59e043aa45b2d30e085c0c2124c1))
+* **version bump:** version bump ([4edc7c4](https://github.com/LottieFiles/lottie-player/commit/4edc7c4065880358a3cf2a5592cea1e889052178))
+* **version bump:** version bump ([49dbde2](https://github.com/LottieFiles/lottie-player/commit/49dbde2717395c548d918e0d5d3f3aec6f9e4179))
+* **web worker mangling issue:** web worker mangling issue ([1c2632c](https://github.com/LottieFiles/lottie-player/commit/1c2632ce8972437463c3285fd3ea96a7d05f60ad))
+
+
+### Features
+
+* **a11y:** fix focus and tabindex ([0dfecbc](https://github.com/LottieFiles/lottie-player/commit/0dfecbc7a2154feb1c19f5d6f99a842bc00a00ae))
+* **accessibility:** added lang attribute to control buttons ([388c826](https://github.com/LottieFiles/lottie-player/commit/388c826704096d570f1b8c359f241375ffe13e15))
+* **add web worker prop:** added webworker prop ([8a19443](https://github.com/LottieFiles/lottie-player/commit/8a19443c16adc7430ec59bb26824da116fd5609f))
+* **bump lottie web:** bump lottie web version to latest ([f1f3422](https://github.com/LottieFiles/lottie-player/commit/f1f34225b53247762918d73e34ff27c5d98925df))
+* **player container:** added role on div container ([5dd8868](https://github.com/LottieFiles/lottie-player/commit/5dd88688df6df496c3bd2370d47c57da07976b54))
+* **web worker:** web worker bundling ([c1c09da](https://github.com/LottieFiles/lottie-player/commit/c1c09daa68f3212b544ee211d5202e106daab46d))
+
+# Changelog
 
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html), enforced with [semantic-release](https://github.com/semantic-release/semantic-release).
