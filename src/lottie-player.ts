@@ -520,6 +520,7 @@ export class LottiePlayer extends LitElement {
       class=${className}
       lang="en"
       aria-label=${this.description}
+      role="img"
     >
       <div
         id="animation"
