@@ -258,6 +258,7 @@ declare namespace JSX {
 | `src` _(required)_    | `src`                 | Bodymovin JSON data or URL to JSON. | `string`                             | `undefined`       |
 | `intermission`        | `intermission`        | Delay playback of looped animations | `number`                             | `1`               |
 *Direction value options are 1 and -1*
+*Intermission values are defined in milliseconds*
 
 ## Methods
 
