@@ -1,3 +1,7 @@
+/**
+ * Copyright 2022 Design Barn Inc.
+ */
+
 import babel from "@rollup/plugin-babel";
 import commonjs from "@rollup/plugin-commonjs";
 import copy from "rollup-plugin-copy";
@@ -35,7 +39,7 @@ export default {
       check: false,
     }),
     babel({
-      extensions: extensions,
+      extensions,
       exclude: ["./node_modules/@babel/**/*", "./node_modules/core-js/**/*"],
     }),
     !production &&
@@ -48,8 +52,7 @@ export default {
             dest: outputDir,
           },
           {
-            src:
-              "./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js",
+            src: "./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js",
             dest: outputDir,
           },
         ],

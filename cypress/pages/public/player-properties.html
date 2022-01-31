@@ -1,0 +1,113 @@
+<html>
+  <head> </head>
+  <body>
+      <div style="display: block">
+            <!-- Check background color -->
+            <div class="player-container" style="width: 500px; height: 500px; margin: auto; justify-content: center;">
+                <lottie-player id="player-one" background="#00ff6b" autoplay loop src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json">
+                </lottie-player>
+            </div>
+
+            <!-- Check count plays animation X amount of times-->
+            <div class="player-container" style="width: 500px; height: 500px; margin: auto; justify-content: center;">
+                <lottie-player id="player-two" loop count="2" autoplay src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json">
+                </lottie-player>
+            </div>            
+
+            <!-- Check description is applied -->
+            <div class="player-container" style="width: 500px; height: 500px; margin: auto; justify-content: center;">
+                <lottie-player id="player-three" loop description="I am a description!" autoplay src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json">
+                </lottie-player>
+            </div>
+
+            <!-- Check direction -->
+            <div class="player-container" style="width: 500px; height: 500px; margin: auto; justify-content: center;">
+                <lottie-player id="player-four" direction='-1' controls loop autoplay src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json">
+                </lottie-player>
+            </div>
+
+            <!-- Check intermission -->
+            <div class="player-container" style="width: 500px; height: 500px; margin: auto; justify-content: center;">
+                <lottie-player id="player-five" intermission="5000" loop autoplay src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json">
+                </lottie-player>
+            </div>
+
+            <!-- Check animation plays on hover -->
+            <div class="player-container" style="width: 500px; height: 500px; margin: auto; justify-content: center;">
+                <lottie-player id="player-six" hover src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json">
+                </lottie-player>
+            </div>
+
+            <!-- Check animation loops -->
+            <div class="player-container" style="width: 500px; height: 500px; margin: auto; justify-content: center;">
+                <lottie-player id="player-seven" loop autoplay src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json">
+                </lottie-player>
+            </div>
+
+            <!-- Check bounce mode -->
+            <div class="player-container" style="width: 500px; height: 500px; margin: auto; justify-content: center;">
+                <lottie-player id="player-eight" controls autoplay loop mode="bounce" src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json">
+                </lottie-player>
+            </div>
+
+            <!-- Check preserverAspectRatio -->
+            <div class="player-container" style="width: 500px; height: 500px; margin: auto; justify-content: center;">
+                <lottie-player id="player-nine" preserveAspectRatio="xMaxYMid meet" controls autoplay loop renderer="svg" src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json">
+                </lottie-player>
+            </div>
+
+
+            <!-- Check svg renderer -->
+            <div class="player-container" style="width: 500px; height: 500px; margin: auto; justify-content: center;">
+                <lottie-player id="player-ten" controls autoplay loop renderer="svg" src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json">
+                </lottie-player>
+            </div>
+
+            <!-- Check canvas renderer -->
+            <div class="player-container" style="width: 500px; height: 500px; margin: auto; justify-content: center;">
+                <lottie-player id="player-eleven" controls autoplay loop renderer="canvas" src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json">
+                </lottie-player>
+            </div>
+
+            <!-- Check seeker -->
+            <div class="player-container" style="width: 500px; height: 500px; margin: auto; justify-content: center;">
+                <lottie-player id="player-twelve" seeker='50' controls autoplay loop src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json">
+                </lottie-player>
+            </div>
+
+            <!-- Check speed -->
+            <div class="player-container" style="width: 500px; height: 500px; margin: auto; justify-content: center;">
+                <lottie-player id="player-thirteen" speed='5' controls autoplay loop src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json">
+                </lottie-player>
+            </div>
+
+            <!-- Check webworkers -->
+            <div class="player-container" style="width: 500px; height: 500px; margin: auto; justify-content: center;">
+                <lottie-player id="player-fourteen" webworkers="true" autoplay loop src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json">
+                </lottie-player>
+            </div>
+
+        
+        
+        
+        
+        </div>
+
+    <script>
+        const player = document.getElementById("player-four");
+
+        player.addEventListener("ready", () => {
+            player.seek("100%");
+            player.play();
+        });
+    </script>
+    <script src="./dist/lottie-player.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
+      integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+  </body>
+</html>

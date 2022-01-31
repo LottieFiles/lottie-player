@@ -1,5 +1,5 @@
-/*
- * Copyright 2020 Design Barn Inc.
+/**
+ * Copyright 2022 Design Barn Inc.
  */
 
 "use strict";

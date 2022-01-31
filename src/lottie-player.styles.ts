@@ -69,12 +69,11 @@ export default css`
   }
 
   .toolbar button.active:hover {
-	fill: var(--lottie-player-toolbar-icon-hover-color);
+    fill: var(--lottie-player-toolbar-icon-hover-color);
   }
 
-
-  .toolbar button:focus{
-	outline: 1px dotted var(--lottie-player-toolbar-icon-active-color);
+  .toolbar button:focus {
+    outline: 1px dotted var(--lottie-player-toolbar-icon-active-color);
   }
 
   .toolbar button svg {

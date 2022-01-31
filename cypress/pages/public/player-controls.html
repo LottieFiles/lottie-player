@@ -1,0 +1,40 @@
+<html>
+  <head> </head>
+  <body>
+      <div style="display: block">
+            <!-- Check animation plays on click of pause button -->
+            <div class="player-container" style="width: 500px; height: 500px; margin: auto; justify-content: center;">
+                <lottie-player id="player-one" controls src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json">
+                </lottie-player>
+            </div>
+
+            <!-- Check animation pauses on click of pause button -->
+            <div class="player-container" style="width: 500px; height: 500px; margin: auto; justify-content: center;">
+              <lottie-player id="player-two" controls autoplay src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json">
+              </lottie-player>
+            </div>
+
+            <!-- Check animation stops on click of stop button and sets frame to 0 -->
+            <div class="player-container" style="width: 500px; height: 500px; margin: auto; justify-content: center;">
+              <lottie-player id="player-three" controls autoplay src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json">
+              </lottie-player>
+            </div>
+
+            <!-- Check loop button sets loop state to true -->
+            <div class="player-container" style="width: 500px; height: 500px; margin: auto; justify-content: center;">
+              <lottie-player id="player-four" controls autoplay src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json">
+              </lottie-player>
+            </div>
+  
+        </div>
+
+    <script src="./dist/lottie-player.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
+      integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+  </body>
+</html>

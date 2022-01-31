@@ -1,19 +1,7 @@
 // eslint-disable-next-line header/header
-import {
-  customElement,
-  property,
-  query
-} from "lit/decorators.js";
-
-import {
-  TemplateResult
-} from 'lit/html.js';
-
-import {
-  LitElement,
-  html,
-} from "lit";
-
+import { LitElement, html } from "lit";
+import { customElement, property, query } from "lit/decorators.js";
+import { TemplateResult } from "lit/html.js";
 import * as lottie from "lottie-web/build/player/lottie";
 
 // import ResizeObserver from "resize-observer-polyfill";
@@ -141,7 +129,7 @@ export class LottiePlayer extends LitElement {
   public currentState: PlayerState = PlayerState.Loading;
 
   /**
-   * Animation speed.
+   * Animation description for screen readers.
    */
   @property({ type: String })
   public description: string = "Lottie animation";
@@ -351,6 +339,7 @@ export class LottiePlayer extends LitElement {
     }
 
     this._lottie.destroy();
+    this._lottie = null;
     this.currentState = PlayerState.Destroyed;
     this.dispatchEvent(new CustomEvent(PlayerEvents.Destroyed));
     this.remove();
@@ -597,12 +586,22 @@ export class LottiePlayer extends LitElement {
           aria-label="play-pause"
         >
           ${isPlaying
-            ? html`<svg width="24" height="24" aria-hidden="true" focusable="false">
+            ? html`<svg
+                width="24"
+                height="24"
+                aria-hidden="true"
+                focusable="false"
+              >
                 <path
                   d="M14.016 5.016H18v13.969h-3.984V5.016zM6 18.984V5.015h3.984v13.969H6z"
                 />
               </svg>`
-            : html`<svg width="24" height="24" aria-hidden="true" focusable="false">
+            : html`<svg
+                width="24"
+                height="24"
+                aria-hidden="true"
+                focusable="false"
+              >
                 <path d="M8.016 5.016L18.985 12 8.016 18.984V5.015z" />
               </svg>`}
         </button>
@@ -614,7 +613,9 @@ export class LottiePlayer extends LitElement {
           tabindex="0"
           aria-label="stop"
         >
-          <svg width="24" height="24" aria-hidden="true" focusable="false"><path d="M6 6h12v12H6V6z" /></svg>
+          <svg width="24" height="24" aria-hidden="true" focusable="false">
+            <path d="M6 6h12v12H6V6z" />
+          </svg>
         </button>
         <input
           id="lottie-seeker-input"
@@ -709,7 +710,7 @@ export class LottiePlayer extends LitElement {
 
         if (this.mode === PlayMode.Bounce) {
           if (this._lottie.currentFrame === 0) {
-            return ;
+            return;
           }
         } else {
           return;
@@ -740,11 +741,11 @@ export class LottiePlayer extends LitElement {
           if (this.currentState === PlayerState.Playing) {
             if (this.direction === -1) {
               // Prevents flickering
-              this.seek('99%');
+              this.seek("99%");
               this.play();
             } else {
               this._lottie.stop();
-              this._lottie.play();  
+              this._lottie.play();
             }
           }
         }, this.intermission);
@@ -759,8 +760,7 @@ export class LottiePlayer extends LitElement {
 
       // Start playing if autoplay is enabled
       if (this.autoplay) {
-        if (this.direction === -1)
-          this.seek('100%');
+        if (this.direction === -1) this.seek("100%");
         this.play();
       }
 
