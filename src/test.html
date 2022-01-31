@@ -3,7 +3,41 @@
   <body>
     <div id="test"></div>
 
-    <script src="..//dist/lottie-player.js"></script>
+
+    
+    <div style="height: 600px; background-color: beige">
+      <h3>Autoplay + loop + direction -1 + normal mode</h3>
+      <lottie-player id="player0" autoplay loop controls direction="-1" speed="5" mode="normal"
+        style="width: 100%" src="https://assets5.lottiefiles.com/packages/lf20_tl5nafup.json">
+      </lottie-player>
+
+      <h3>Autoplay + direction 1 + bounce mode</h3>
+      <lottie-player id="player1" autoplay controls direction="1" speed="5" mode="bounce"
+        style="width: 100%" src="https://assets5.lottiefiles.com/packages/lf20_tl5nafup.json">
+      </lottie-player>
+  
+      <h3>loop + autoplay + direction 1 + bounce mode</h3>
+      <lottie-player id="player3" loop autoplay controls direction="1" speed="5" mode="bounce"
+        style="width: 100%" src="https://assets5.lottiefiles.com/packages/lf20_tl5nafup.json">
+      </lottie-player>
+  
+      <h3>loop + autoplay + direction 1 + normal mode + count 2</h3>
+      <lottie-player id="player4" loop autoplay controls direction="1" speed="5" mode="normal" count="2"
+        style="width: 100%" src="https://assets5.lottiefiles.com/packages/lf20_tl5nafup.json">
+      </lottie-player>
+  
+      <h3>autoplay + direction 1 + bounce mode + count 2 (will only do once bounce because loop is not active)</h3>
+      <lottie-player id="player4" autoplay controls direction="1" speed="5" mode="bounce" count="2"
+        style="width: 100%" src="https://assets5.lottiefiles.com/packages/lf20_tl5nafup.json">
+      </lottie-player>
+
+      <h3>loop + autoplay + direction 1 + bounce mode + count 2</h3>
+      <lottie-player id="player5" autoplay controls direction="1" speed="5" mode="bounce" count="2" loop
+        style="width: 100%" src="https://assets5.lottiefiles.com/packages/lf20_tl5nafup.json">
+      </lottie-player>
+    </div>
+
+    <script src="../dist/lottie-player.js"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
       integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="

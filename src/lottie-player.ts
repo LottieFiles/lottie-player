@@ -700,7 +700,13 @@ export class LottiePlayer extends LitElement {
       if (!this.loop || (this.count && this._counter >= this.count)) {
         this.dispatchEvent(new CustomEvent(PlayerEvents.Complete));
 
-        return;
+        if (this.mode === PlayMode.Bounce) {
+          if (this._lottie.currentFrame === 0) {
+            return ;
+          }
+        } else {
+          return;
+        }
       }
 
       if (this.mode === PlayMode.Bounce) {
@@ -725,8 +731,14 @@ export class LottiePlayer extends LitElement {
           this.dispatchEvent(new CustomEvent(PlayerEvents.Loop));
 
           if (this.currentState === PlayerState.Playing) {
-            this._lottie.stop();
-            this._lottie.play();
+            if (this.direction === -1) {
+              // Prevents flickering
+              this.seek('99%');
+              this.play();
+            } else {
+              this._lottie.stop();
+              this._lottie.play();  
+            }
           }
         }, this.intermission);
       }
@@ -740,6 +752,8 @@ export class LottiePlayer extends LitElement {
 
       // Start playing if autoplay is enabled
       if (this.autoplay) {
+        if (this.direction === -1)
+          this.seek('100%');
         this.play();
       }
 
