@@ -2,7 +2,7 @@
  * Copyright 2021 Design Barn Inc.
  */
 
-import { css } from "lit-element";
+import { css } from "lit";
 
 export default css`
   * {

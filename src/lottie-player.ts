@@ -1,12 +1,19 @@
 // eslint-disable-next-line header/header
 import {
   customElement,
+  property,
+  query
+} from "lit/decorators.js";
+
+import {
+  TemplateResult
+} from 'lit/html.js';
+
+import {
   LitElement,
   html,
-  property,
-  query,
-  TemplateResult,
-} from "lit-element";
+} from "lit";
+
 import * as lottie from "lottie-web/build/player/lottie";
 
 // import ResizeObserver from "resize-observer-polyfill";

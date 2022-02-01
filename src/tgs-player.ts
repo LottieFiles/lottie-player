@@ -1,4 +1,4 @@
-import { customElement, property } from 'lit-element';
+import { customElement, property } from 'lit/decorators.js';
 import * as pako from 'pako';
 
 import { LottiePlayer, parseSrc, PlayerEvents } from './lottie-player';
