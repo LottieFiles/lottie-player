@@ -252,7 +252,7 @@ Full documentation on player properties, methods, events and styling for the Lot
 
 <table style="table-layout:fixed; white-space: nowrap;">
   <tr>
-    <th>Link</th>
+    <th>Project</th>
     <th>Description</th>
   </tr>
   <!-- TEMPLATE FOR NEW ROW -->
