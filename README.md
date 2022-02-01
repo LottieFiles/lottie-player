@@ -419,6 +419,81 @@ The following events are exposed and can be listened to via `addEventListener` c
 | --lottie-player-seeker-track-color        | Seeker track color        | #CCC                   |
 | --lottie-player-seeker-thumb-color        | Seeker thumb color        | rgba(0, 107, 120, 0.8) |
 
+## Our other Lottie related libraries
+
+<table style="table-layout:fixed; white-space: nowrap;">
+  <tr>
+    <th>Name</th>
+    <th>Link</th>
+    <th>Description</th>
+  </tr>
+  <!-- TEMPLATE FOR NEW ROW -->
+  <!-- START ROW
+  <tr>
+    <td>lang</td>
+    <td><a href="" target="_blank" rel="noopener noreferrer">supabase-lang</a></td>
+  </tr>
+  END ROW -->
+  <tr>
+    <td>React</td>
+    <td><a href="https://github.com/LottieFiles/lottie-react" target="_blank" rel="noopener noreferrer">lottie-react</a></td>
+    <td>
+    A React component for the Lottie Web player.
+    </td>
+  </tr>
+  <tr>
+    <td>Vue</td>
+    <td><a href="https://github.com/LottieFiles/lottie-vue" target="_blank" rel="noopener noreferrer">lottie-vue</a></td>
+    <td>
+    A Vue component for the Lottie player.
+    </td>
+  </tr>
+  <tr>
+    <td>Svelte</td>
+    <td><a href="https://github.com/LottieFiles/svelte-lottie-player" target="_blank" rel="noopener noreferrer">svelte-lottie-player</a></td>
+    <td>
+    Lottie player component for use with Svelte.
+    </td>
+  </tr>
+  <tr>
+    <td>jLottie</td>
+    <td><a href="https://github.com/LottieFiles/jlottie" target="_blank" rel="noopener noreferrer">jLottie</a></td>
+    <td>
+    jLottie is suitable as a general purpose lottie player, though implements a subset of the features in the core player - this approach leads to a tiny footprint and great performance.
+    </td>
+  </tr>
+  <tr>
+    <td>lottie-interactivity</td>
+    <td><a href="https://github.com/LottieFiles/lottie-interactivity" target="_blank" rel="noopener noreferrer">lottie-interactivity</a></td>
+    <td>
+    This is a small library to add scrolling, cursor interactivity and interaction chaining to your Lottie Animations.
+    </td>
+  </tr>
+  <tr>
+    <td>dotLottie</td>
+    <td><a href="https://github.com/orgs/dotlottie/repositories" target="_blank" rel="noopener noreferrer">dotLottie</a></td>
+    <td>
+    dotLottie is an open-source file format that aggregates one or more Lottie files and their associated resources into a single file. They are ZIP archives compressed with the Deflate compression method and carry the file extension of ".lottie".
+    </td>
+  </tr>
+  <tr>
+    <td>lottie-js</td>
+    <td><a href="https://github.com/LottieFiles/lottie-js" target="_blank" rel="noopener noreferrer">lottie-js</a></td>
+    <td>
+    The library consists of methods to map the Lottie JSON to the object model and interact with properties as well as manipulate them.
+    </td>
+  </tr>
+  <tr>
+    <td>lottie-theming</td>
+    <td><a href="https://github.com/LottieFiles/lottie-theming" target="_blank" rel="noopener noreferrer">lottie-theming</a></td>
+    <td>
+    A library to extract themable properties and apply different themes to a given Lottie
+    </td>
+  </tr>
+
+
+</table>
+
 ## License
 
 MIT License © LottieFiles.com
