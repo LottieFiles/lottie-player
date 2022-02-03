@@ -14,10 +14,10 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.16.3",
-    "concurrently": "^6.0.2",
+    "concurrently": "^7.0.0",
     "fastify": "^3.23.1",
     "fastify-static": "^4.5.0",
-    "http-server": "^0.12.3",
-    "shx": "^0.3.3"
+    "http-server": "^14.1.0",
+    "shx": "^0.3.4"
   }
 }

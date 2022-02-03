@@ -1,12 +1,19 @@
 // eslint-disable-next-line header/header
 import {
   customElement,
+  property,
+  query
+} from "lit/decorators.js";
+
+import {
+  TemplateResult
+} from 'lit/html.js';
+
+import {
   LitElement,
   html,
-  property,
-  query,
-  TemplateResult,
-} from "lit-element";
+} from "lit";
+
 import * as lottie from "lottie-web/build/player/lottie";
 
 // import ResizeObserver from "resize-observer-polyfill";
@@ -700,7 +707,13 @@ export class LottiePlayer extends LitElement {
       if (!this.loop || (this.count && this._counter >= this.count)) {
         this.dispatchEvent(new CustomEvent(PlayerEvents.Complete));
 
-        return;
+        if (this.mode === PlayMode.Bounce) {
+          if (this._lottie.currentFrame === 0) {
+            return ;
+          }
+        } else {
+          return;
+        }
       }
 
       if (this.mode === PlayMode.Bounce) {
@@ -725,8 +738,14 @@ export class LottiePlayer extends LitElement {
           this.dispatchEvent(new CustomEvent(PlayerEvents.Loop));
 
           if (this.currentState === PlayerState.Playing) {
-            this._lottie.stop();
-            this._lottie.play();
+            if (this.direction === -1) {
+              // Prevents flickering
+              this.seek('99%');
+              this.play();
+            } else {
+              this._lottie.stop();
+              this._lottie.play();  
+            }
           }
         }, this.intermission);
       }
@@ -740,6 +759,8 @@ export class LottiePlayer extends LitElement {
 
       // Start playing if autoplay is enabled
       if (this.autoplay) {
+        if (this.direction === -1)
+          this.seek('100%');
         this.play();
       }
 
