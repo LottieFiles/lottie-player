@@ -1,11 +1,16 @@
-import { css } from 'lit-element';
-import styles from './lottie-player.styles';
+/**
+ * Copyright 2022 Design Barn Inc.
+ */
+
+import { css } from "lit-element";
+
+import styles from "./lottie-player.styles";
 
 export default css`
-${styles}
+  ${styles}
 
-:host {
-  width: 512px;
-  height: 512px;
-}
+  :host {
+    width: 512px;
+    height: 512px;
+  }
 `;
