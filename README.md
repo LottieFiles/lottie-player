@@ -88,12 +88,14 @@ You may set and load animations programatically as well.
 
 ```js
 const player = document.querySelector("lottie-player");
-player.load("https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json");
-
-// or load via a Bodymovin JSON string/object
-player.load(
-  '{"v":"5.3.4","fr":30,"ip":0,"op":38,"w":315,"h":600,"nm":"new", ... }'
-);
+player.addEventListener("rendered", (e) => {
+  //Load via URL
+  player.load("https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json");
+  // or load via a Bodymovin JSON string/object
+  player.load(
+    '{"v":"5.3.4","fr":30,"ip":0,"op":38,"w":315,"h":600,"nm":"new", ... }'
+  );
+});
 ```
 
 ### TGS-Player
