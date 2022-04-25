@@ -24,7 +24,7 @@ For full documentation, visit [docs.lottiefiles.com/lottie-player](https://docs.
 - Import from CDN.
 
 ```html
-<script src="https://unpkg.com/@lottiefiles/lottie-player@0.4.0/dist/lottie-player.js"></script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@1.5.7/dist/lottie-player.js"></script>
 ```
 
 - Import from local node_modules directory.
@@ -244,7 +244,6 @@ declare namespace JSX {
 
 Full documentation on player properties, methods, events and styling for the Lottie-player are available [here](https://docs.lottiefiles.com/lottie-player).
 
-
 ## Community & Support
 
 - [Github issues.](https://github.com/LottieFiles/lottie-player/issues) For bugs and errors you encounter using this player.
@@ -312,7 +311,6 @@ Full documentation on player properties, methods, events and styling for the Lot
     A library to extract themable properties and apply different themes to a given Lottie
     </td>
   </tr>
-
 
 </table>
 
