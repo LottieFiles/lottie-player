@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html), enforced with [semantic-release](https://github.com/semantic-release/semantic-release).
 
 
+## [1.5.7](https://github.com/LottieFiles/lottie-player/compare/v1.5.6...v1.5.7) (2022-04-25)
+
+
+### Bug Fixes
+
+* **player:** add isConnected check to disconnectedCallback ([496dc8f](https://github.com/LottieFiles/lottie-player/commit/496dc8f554df392924c3aa668ac6119729afed61))
+
 ## [1.3.1](https://github.com/LottieFiles/lottie-player/compare/v1.3.0...v1.3.1) (2022-02-22)
 
 
