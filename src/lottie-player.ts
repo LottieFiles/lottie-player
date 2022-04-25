@@ -484,6 +484,9 @@ export class LottiePlayer extends LitElement {
    * Cleanup on component destroy.
    */
   public disconnectedCallback(): void {
+    // Don't clean up if node is still connected to the context (i.e. this is a move).
+    if (this.isConnected) return;
+
     // Remove intersection observer for detecting component being out-of-view.
     if (this._io) {
       this._io.disconnect();
