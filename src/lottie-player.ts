@@ -105,12 +105,6 @@ export class LottiePlayer extends LitElement {
   public autoplay: boolean = false;
 
   /**
-   * Background color.
-   */
-  @property({ type: String, reflect: true })
-  public background?: string = "transparent";
-
-  /**
    * Show controls.
    */
   @property({ type: Boolean })
@@ -509,7 +503,7 @@ export class LottiePlayer extends LitElement {
   }
 
   public render(): TemplateResult | void {
-    const className: string = this.controls ? "main controls" : "main";
+    const className: string = this.controls ? "animation-wrapper controls" : "animation-wrapper";
     const animationClass: string = this.controls
       ? "animation controls"
       : "animation";
@@ -524,7 +518,6 @@ export class LottiePlayer extends LitElement {
       <div
         id="animation"
         class=${animationClass}
-        style="background:${this.background};"
       >
         ${this.currentState === PlayerState.Error
           ? html`<div class="error">⚠️</div>`
@@ -577,15 +570,13 @@ export class LottiePlayer extends LitElement {
     return html`
       <div
         id="lottie-controls"
-        aria-label="lottie-animation-controls"
         class="toolbar"
       >
         <button
           id="lottie-play-button"
           @click=${this.togglePlay}
           class=${isPlaying || isPaused ? "active" : ""}
-          style="align-items:center;"
-          tabindex="0"
+		  aria-pressed=${isPlaying || isPaused ? "true" : "false"}
           aria-label="play-pause"
         >
           ${isPlaying
@@ -612,8 +603,6 @@ export class LottiePlayer extends LitElement {
           id="lottie-stop-button"
           @click=${this.stop}
           class=${isStopped ? "active" : ""}
-          style="align-items:center;"
-          tabindex="0"
           aria-label="stop"
         >
           <svg width="24" height="24" aria-hidden="true" focusable="false">
@@ -640,15 +629,13 @@ export class LottiePlayer extends LitElement {
           aria-valuemax="100"
           role="slider"
           aria-valuenow=${this.seeker}
-          tabindex="0"
-          aria-label="lottie-seek-input"
+          aria-label="playback-bar"
         />
         <button
           id="lottie-loop-toggle"
           @click=${this.toggleLooping}
           class=${this.loop ? "active" : ""}
-          style="align-items:center;"
-          tabindex="0"
+		  aria-pressed=${this.loop ? "true" : "false"}
           aria-label="loop-toggle"
         >
           <svg width="24" height="24" aria-hidden="true" focusable="false">
