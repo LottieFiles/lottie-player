@@ -10,6 +10,7 @@ export default css`
   }
 
   :host {
+	--lottie-player-background-color: transparent;
     --lottie-player-toolbar-height: 35px;
     --lottie-player-toolbar-background-color: transparent;
     --lottie-player-toolbar-icon-color: #999;
@@ -24,7 +25,7 @@ export default css`
     height: 100%;
   }
 
-  .main {
+  .animation-wrapper {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -34,8 +35,16 @@ export default css`
   .animation {
     width: 100%;
     height: 100%;
-    display: flex;
+    display: flex;	background-color:var(--lottie-player-background-color);																				
   }
+  
+  .animation svg{
+	width: 100%;
+    height: 100%;
+    transform: translate3d(0px, 0px, 0px);
+	content-visibility: visible;
+ }
+  
   .animation.controls {
     height: calc(100% - 35px);
   }
@@ -51,6 +60,7 @@ export default css`
 
   .toolbar button {
     cursor: pointer;
+	align-items: center; 						
     fill: var(--lottie-player-toolbar-icon-color);
     display: flex;
     background: none;
@@ -155,6 +165,10 @@ export default css`
     background: var(--lottie-player-seeker-track-color);
   }
 
+.seeker:focus{
+	outline: 1px dotted var(--lottie-player-toolbar-icon-hover-color);
+	outline-offset: 2px;
+ }			   
   .error {
     display: flex;
     justify-content: center;
