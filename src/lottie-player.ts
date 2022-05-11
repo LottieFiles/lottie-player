@@ -177,6 +177,12 @@ export class LottiePlayer extends LitElement {
   public renderer: "svg" = "svg";
 
   /**
+   * Player Accessibility Role
+   */
+  @property({ type: String })
+  public role: string = "img";
+
+  /**
    * seeker
    */
 
@@ -514,16 +520,13 @@ export class LottiePlayer extends LitElement {
       ? "animation controls"
       : "animation";
 
-    return html` <div
-      id="animation-container"
-      class=${className}
-    >
+    return html` <div id="animation-container" class=${className}>
       <div
         id="animation"
         class=${animationClass}
         style="background:${this.background};"
-		aria-label=${this.description}
-        role="img"
+        aria-label=${this.description}
+        role=${this.role}
       >
         ${this.currentState === PlayerState.Error
           ? html`<div class="error">⚠️</div>`
@@ -574,11 +577,7 @@ export class LottiePlayer extends LitElement {
     const isStopped: boolean = this.currentState === PlayerState.Stopped;
 
     return html`
-      <div
-        id="lottie-controls"
-        class="toolbar"
-		lang="en"
-      >
+      <div id="lottie-controls" class="toolbar" lang="en">
         <button
           id="lottie-play-button"
           @click=${this.togglePlay}
