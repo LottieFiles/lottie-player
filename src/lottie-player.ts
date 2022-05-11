@@ -517,14 +517,13 @@ export class LottiePlayer extends LitElement {
     return html` <div
       id="animation-container"
       class=${className}
-      lang="en"
-      aria-label=${this.description}
-      role="img"
     >
       <div
         id="animation"
         class=${animationClass}
         style="background:${this.background};"
+		aria-label=${this.description}
+        role="img"
       >
         ${this.currentState === PlayerState.Error
           ? html`<div class="error">⚠️</div>`
@@ -577,8 +576,8 @@ export class LottiePlayer extends LitElement {
     return html`
       <div
         id="lottie-controls"
-        aria-label="lottie-animation-controls"
         class="toolbar"
+		lang="en"
       >
         <button
           id="lottie-play-button"
@@ -641,7 +640,7 @@ export class LottiePlayer extends LitElement {
           role="slider"
           aria-valuenow=${this.seeker}
           tabindex="0"
-          aria-label="lottie-seek-input"
+          aria-label="playback bar"
         />
         <button
           id="lottie-loop-toggle"
