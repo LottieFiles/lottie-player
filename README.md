@@ -171,21 +171,25 @@ declare namespace JSX {
 }
 ```
 
-### NuxtJS
+### Nuxt 2
 
-The process for NuxtJS is slightly different. Create a lottie-player.js file in project root inside a folder named 'plugins'. Add the code below to the file
+Create a `lottie-player.js` file inside the `/plugins` folder and add the below code to the file:
 
 ```js
 import * as LottiePlayer from "@lottiefiles/lottie-player";
-```
-
-Open nuxt.config.js file and adjust the plugins array as shown below
+```  
+\
+Open `nuxt.config.js` file and add the following entry to register the newly created plugin:
 
 ```js
-plugins: [{ src: "~/plugins/lottie-player.js", mode: "client" }],
+export default {
+  plugins: [{ src: "~/plugins/lottie-player.js", mode: "client" }]
+}
 ```
 
-You would then be able to use the player as follows inside any component
+This is because the player script needs to be rendered on the browser/client side and we must configure Nuxt to load the script on the client side only.  
+\
+You would then be able to use the player as follows inside any component:
 
 ```html
 <lottie-player
@@ -196,14 +200,39 @@ You would then be able to use the player as follows inside any component
   src="https://assets3.lottiefiles.com/packages/lf20_RItkEz.json"
   speed="1"
   debug
-></lottie-player>
+/>
 ```
 
-This is because the player script needs to be rendered on the browser/client side and we must configure nuxtjs to load the script on the client side only.
+### Nuxt 3
+
+The process for Nuxt 3 is slightly different.  
+Create a `lottie-player.client.ts` file inside the `/plugins` folder and add the below code to the file:
+
+```js
+import * as LottiePlayer from "@lottiefiles/lottie-player";
+
+export default LottiePlayer;
+```
+\
+Your plugin will be automatically available throughout your Nuxt application thanks to the [plugin auto-registration](https://v3.nuxtjs.org/guide/directory-structure/plugins). Note the `client` suffix in the name of the plugin - this tells Nuxt to load it only on the client side, as the Lottie Player script can only be rendered in the browser.
+
+You would then be able to use the player as follows inside any component:
+
+```html
+<lottie-player
+  autoplay
+  controls
+  loop
+  style="width:400px"
+  src="https://assets3.lottiefiles.com/packages/lf20_RItkEz.json"
+  speed="1"
+  debug
+/>
+```
 
 ### NextJS
 
-The process to import in NextJS is similar to NuxtJS in the sense that on SSR mode, the library must be declared as a client side module. To do this, import the library within a react useEffect hook.
+The process to import in NextJS is similar to Nuxt in the sense that on SSR mode, the library must be declared as a client side module. To do this, import the library within a react useEffect hook.
 
 ```javascript
 import React, { useRef } from "react";
