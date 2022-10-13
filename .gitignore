@@ -6,7 +6,7 @@ node_modules
 .idea
 .vscode
 .history
-
+coverage/lcov-report/
 
 dist/
 
