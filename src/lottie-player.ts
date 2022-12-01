@@ -141,6 +141,12 @@ export class LottiePlayer extends LitElement {
   public direction: number = 1;
 
   /**
+   * Disable checking if the Lottie is valid before loading
+   */
+  @property({ type: Boolean })
+  public disableCheck?: boolean = false;
+
+  /**
    * Whether to play on mouse hover
    */
   @property({ type: Boolean })
@@ -262,17 +268,19 @@ export class LottiePlayer extends LitElement {
       // Attach the event listeners before we check the requested json file for errors
       this._attachEventListeners();
 
-      // Fetch resource if src is a remote URL
-      if (srcAttrib === "path") {
-        jsonData = await fromURL(srcParsed as string);
-        srcAttrib = "animationData";
-      } else {
-        jsonData = srcParsed;
-      }
+      if (!this.disableCheck) {
+        // Fetch resource if src is a remote URL
+        if (srcAttrib === "path") {
+          jsonData = await fromURL(srcParsed as string);
+          srcAttrib = "animationData";
+        } else {
+          jsonData = srcParsed;
+        }
 
-      if (!isLottie(jsonData)) {
-        this.currentState = PlayerState.Error;
-        this.dispatchEvent(new CustomEvent(PlayerEvents.Error));
+        if (!isLottie(jsonData)) {
+          this.currentState = PlayerState.Error;
+          this.dispatchEvent(new CustomEvent(PlayerEvents.Error));
+        }
       }
     } catch (err) {
       this.currentState = PlayerState.Error;
