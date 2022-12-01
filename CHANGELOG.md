@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html), enforced with [semantic-release](https://github.com/semantic-release/semantic-release).
 
 
+# [1.6.0](https://github.com/LottieFiles/lottie-player/compare/v1.5.8...v1.6.0) (2022-12-01)
+
+
+### Features
+
+* added disable check prop ([860771f](https://github.com/LottieFiles/lottie-player/commit/860771f3daa9a3654a37d311143ae9a0c7653a4f))
+
 ## [1.5.8](https://github.com/LottieFiles/lottie-player/compare/v1.5.7...v1.5.8) (2022-10-24)
 
 
