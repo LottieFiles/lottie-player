@@ -3,6 +3,7 @@ import { LitElement, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 import { TemplateResult } from "lit/html.js";
 import * as lottie from "lottie-web/build/player/lottie";
+import { LOTTIE_PLAYER_VERSION, LOTTIE_WEB_VERSION } from "./versions";
 
 // import ResizeObserver from "resize-observer-polyfill";
 import styles from "./lottie-player.styles";
@@ -39,6 +40,11 @@ export enum PlayerEvents {
   Rendered = "rendered",
   Stop = "stop",
 }
+
+export type Versions = {
+  lottieWebVersion: string;
+  lottiePlayerVersion: string;
+};
 
 /**
  * Parse a resource into a JSON object or a URL string
@@ -293,6 +299,16 @@ export class LottiePlayer extends LitElement {
    */
   public getLottie(): any {
     return this._lottie;
+  }
+
+  /**
+   * Returns the lottie-web version and this player's version
+   */
+  public getVersions(): Versions {
+    return {
+      lottieWebVersion: LOTTIE_WEB_VERSION,
+      lottiePlayerVersion: LOTTIE_PLAYER_VERSION,
+    };
   }
 
   /**

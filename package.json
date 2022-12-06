@@ -1,6 +1,6 @@
 {
   "name": "@lottiefiles/lottie-player",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "Lottie animation and Telegram Sticker player web components.",
   "main": "dist/lottie-player.js",
   "module": "dist/lottie-player.esm.js",
@@ -11,7 +11,9 @@
   "author": "Jawish Hameed <jawish@lottiefiles.com>",
   "license": "MIT",
   "scripts": {
+    "prestart": "node -p \"'export const LOTTIE_PLAYER_VERSION = ' + JSON.stringify(require('./package.json').version) + '; \\n' + 'export const LOTTIE_WEB_VERSION = ' + JSON.stringify(require('./package.json').dependencies['lottie-web']) + ';'\" > src/versions.ts",
     "start": "npm run cleanup && rollup -c --watch",
+    "prebuild": "node -p \"'export const LOTTIE_PLAYER_VERSION = ' + JSON.stringify(require('./package.json').version) + '; \\n' + 'export const LOTTIE_WEB_VERSION = ' + JSON.stringify(require('./package.json').dependencies['lottie-web']) + ';'\" > src/versions.ts",
     "build": "npm run cleanup && npm run build-lottie && npm run build-tgs",
     "build-with-coverage": "npm run cleanup && CODE_COVERAGE=true npm run build-lottie && CODE_COVERAGE=true npm run build-tgs",
     "build-lottie": "rollup -c ",
@@ -30,7 +32,7 @@
   "dependencies": {
     "@types/pako": "^1.0.1",
     "lit": "^2.1.2",
-    "lottie-web": "^5.9.6",
+    "lottie-web": "^5.10.0",
     "pako": "^2.0.4",
     "resize-observer-polyfill": "^1.5.1"
   },
