@@ -1,0 +1,29 @@
+<html>
+  <head> </head>
+  <body>
+    <div
+      class="player-container"
+      style="width: 500px; height: 500px; margin: auto; justify-content: center"
+    >
+      <lottie-player
+        src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json"
+        autoplay
+        controls
+        loop
+        disableCheck
+        mode="normal"
+        viewBoxSize="0 0 50 600"
+        style="width: 320px"
+        id="player-one"
+      ></lottie-player>
+    </div>
+
+    <script src="./lottie-player.js"></script>
+    <script>
+      let player = document.getElementById("player-one");
+      player.addEventListener("ready", () => {
+        console.log(player.getVersions());
+      });
+    </script>
+  </body>
+</html>

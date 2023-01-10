@@ -3,10 +3,11 @@ import { LitElement, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 import { TemplateResult } from "lit/html.js";
 import * as lottie from "lottie-web/build/player/lottie";
+
+import styles from "./lottie-player.styles";
 import { LOTTIE_PLAYER_VERSION, LOTTIE_WEB_VERSION } from "./versions";
 
 // import ResizeObserver from "resize-observer-polyfill";
-import styles from "./lottie-player.styles";
 
 // Define valid player states
 export enum PlayerState {
@@ -41,10 +42,10 @@ export enum PlayerEvents {
   Stop = "stop",
 }
 
-export type Versions = {
-  lottieWebVersion: string;
+export interface Versions {
   lottiePlayerVersion: string;
-};
+  lottieWebVersion: string;
+}
 
 /**
  * Parse a resource into a JSON object or a URL string
@@ -189,6 +190,12 @@ export class LottiePlayer extends LitElement {
   public renderer: "svg" = "svg";
 
   /**
+   * Viewbox size for renderer settings
+   */
+  @property({ type: String })
+  public viewBoxSize?: string;
+
+  /**
    * seeker
    */
 
@@ -246,6 +253,7 @@ export class LottiePlayer extends LitElement {
         clearCanvas: false,
         progressiveLoad: true,
         hideOnTransparent: true,
+        ...(this.viewBoxSize && { viewBoxSize: this.viewBoxSize }),
       },
     };
 

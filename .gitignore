@@ -11,3 +11,7 @@ coverage/lcov-report/
 dist/
 
 packages/functional-tests/app/lottie-player.js
+
+coverage/
+.nyc_output/
+packages/functional-tests/tests-results/
