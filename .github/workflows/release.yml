@@ -60,6 +60,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org/
       - run: yarn install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Build project
         continue-on-error: false
         run: yarn build
@@ -88,6 +90,8 @@ jobs:
           registry-url: https://npm.pkg.github.com/
           scope: "@lottiefiles"
       - run: yarn install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Build project
         continue-on-error: false
         run: yarn build
