@@ -68,7 +68,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run:
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >
+          echo "//registry.npmjs.org/:_authToken=${secrets.NPM_TOKEN}" >
           ~/.npmrc
       - run: npm publish --@lottiefiles:registry=https://registry.npmjs.org/ --access public --tag beta
         env:
@@ -100,9 +100,9 @@ jobs:
         run: yarn build
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      # - run:
-      #     echo "npm.pkg.github.com:_authToken=${{ secrets.GITHUB_TOKEN }}" >
-      #     ~/.npmrc
+      - run:
+          echo "npm.pkg.github.com:_authToken=${secrets.GITHUB_TOKEN}" >
+          ~/.npmrc
       - run: npm publish --@lottiefiles:registry=https://npm.pkg.github.com/ --tag beta
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
