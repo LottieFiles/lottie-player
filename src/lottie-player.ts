@@ -154,6 +154,12 @@ export class LottiePlayer extends LitElement {
   public disableCheck?: boolean = false;
 
   /**
+   * Disable using shadow dom as the root
+   */
+  @property({ type: Boolean })
+  public disableShadowDOM: boolean = false;
+
+  /**
    * Whether to play on mouse hover
    */
   @property({ type: Boolean })
@@ -239,10 +245,6 @@ export class LottiePlayer extends LitElement {
    * Configure and initialize lottie-web player instance.
    */
   public async load(src: string | object) {
-    if (!this.shadowRoot) {
-      return;
-    }
-
     const options: any = {
       container: this.container,
       loop: false,
@@ -562,8 +564,16 @@ export class LottiePlayer extends LitElement {
           ? html`<div class="error">⚠️</div>`
           : undefined}
       </div>
-      ${this.controls ? this.renderControls() : undefined}
+      ${this.controls && !this.disableShadowDOM
+        ? this.renderControls()
+        : undefined}
     </div>`;
+  }
+
+  protected createRenderRoot(): Element | ShadowRoot {
+    this.style.display = "block";
+
+    return this.disableShadowDOM ? this : super.createRenderRoot();
   }
 
   /**
