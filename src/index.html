@@ -1,20 +1,61 @@
 <html>
-  <head> </head>
+  <head>
+    <style type="text/css">
+      #animation-container {
+        background: red;
+      }
+      #player-one {
+        background: green;
+      }
+      .arm-l path {
+        fill: purple;
+      }
+
+      .body path {
+        fill: red;
+      }
+
+      .leg-l path {
+        fill: orange;
+      }
+
+      .leg-r path {
+        fill: orange;
+      }
+
+      .arm-r path {
+        fill: turquoise;
+        stroke-width: 8;
+        stroke: pink;
+        stroke-linecape: round;
+      }
+    </style>
+  </head>
   <body>
     <div
       class="player-container"
       style="width: 500px; height: 500px; margin: auto; justify-content: center"
     >
       <lottie-player
-        src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json"
+        src="https://lottie.host/4458c0b5-4d8d-43f3-8d42-0739a212a523/L4yrEGvBsO.json"
         autoplay
         controls
         loop
         disableCheck
         mode="normal"
-        viewBoxSize="0 0 50 600"
         style="width: 320px"
         id="player-one"
+        disableShadowDOM
+      ></lottie-player>
+
+      <lottie-player
+        src="https://lottie.host/4458c0b5-4d8d-43f3-8d42-0739a212a523/L4yrEGvBsO.json"
+        autoplay
+        controls
+        loop
+        disableCheck
+        mode="normal"
+        style="width: 320px"
       ></lottie-player>
     </div>
 
