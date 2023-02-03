@@ -571,7 +571,7 @@ export class LottiePlayer extends LitElement {
   }
 
   protected createRenderRoot(): Element | ShadowRoot {
-    this.style.display = "block";
+    if (this.disableShadowDOM) this.style.display = "block";
 
     return this.disableShadowDOM ? this : super.createRenderRoot();
   }
