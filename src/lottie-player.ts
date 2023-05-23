@@ -2,7 +2,7 @@
 import { LitElement, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 import { TemplateResult } from "lit/html.js";
-import * as lottie from "lottie-web/build/player/lottie";
+import * as lottie from "lottie-web/build/player/lottie_light";
 
 import styles from "./lottie-player.styles";
 import { LOTTIE_PLAYER_VERSION, LOTTIE_WEB_VERSION } from "./versions";
@@ -267,7 +267,7 @@ export class LottiePlayer extends LitElement {
 
       // Clear previous animation, if any
       if (this._lottie) {
-        this._lottie.destroy();
+        this._destroy();
       }
 
       if (this.webworkers) {
@@ -367,13 +367,43 @@ export class LottiePlayer extends LitElement {
   /**
    * Destroy animation and lottie-player element.
    */
-  public destroy(): void {
+  private _destroy(): void {
     if (!this._lottie) {
       return;
     }
 
-    this._lottie.destroy();
+    if (this._lottie.animationItem) {
+      this._lottie.animationItem.wrapper.innerHTML = "";
+    }
+
+    this._lottie.layerElement = null;
+
+    if (this._lottie.globalData) {
+      this._lottie.globalData.defs = null;
+    }
+
+    var i,
+      len = this._lottie.layers ? this._lottie.layers.length : 0;
+
+    if (this._lottie.elements) {
+      for (i = 0; i < len; i++) {
+        if (
+          this._lottie.elements[i] &&
+          typeof this._lottie.elements[i].destroy === "function"
+        ) {
+          this._lottie.elements[i].destroy();
+        }
+      }
+      this._lottie.elements.length = 0;
+    }
+
+    this._lottie.destroyed = true;
+    this._lottie.animationItem = null;
     this._lottie = null;
+  }
+
+  public destroy(): void {
+    this._destroy();
     this.currentState = PlayerState.Destroyed;
     this.dispatchEvent(new CustomEvent(PlayerEvents.Destroyed));
     this.remove();

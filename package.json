@@ -1,6 +1,6 @@
 {
   "name": "@lottiefiles/lottie-player",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "Lottie animation and Telegram Sticker player web components.",
   "main": "dist/lottie-player.js",
   "module": "dist/lottie-player.esm.js",
@@ -32,7 +32,7 @@
   "dependencies": {
     "@types/pako": "^1.0.1",
     "lit": "^2.1.2",
-    "lottie-web": "^5.10.0",
+    "lottie-web": "^5.11.0",
     "pako": "^2.0.4",
     "resize-observer-polyfill": "^1.5.1"
   },
@@ -46,7 +46,6 @@
     "@commitlint/config-conventional": "^16.0.0",
     "@cypress/code-coverage": "^3.9.12",
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
-    "@lottiefiles/eslint-plugin": "^2.2.0",
     "@rollup/plugin-babel": "^5.1.0",
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.1.3",
