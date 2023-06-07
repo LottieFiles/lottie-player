@@ -48,68 +48,68 @@ jobs:
 
       # - name: 🛡️ Test
       #   run: pnpm run-tests
-  # release:
-  #   needs: validate
-  #   runs-on: ubuntu-latest
-  #   if: ${{ github.repository == 'LottieFiles/lottie-player' && github.event_name == 'push' }}
-  #   steps:
-  #     - name: ⬇️ Checkout repo
-  #       uses: actions/checkout@v2
+  release:
+    needs: validate
+    runs-on: ubuntu-latest
+    if: ${{ github.repository == 'LottieFiles/lottie-player' && github.event_name == 'push' }}
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v2
 
-  #     - name: ⎔ Setup pnpm@7
-  #       uses: pnpm/action-setup@v2
-  #       with:
-  #         version: 7
+      - name: ⎔ Setup pnpm@7
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
 
-  #     - name: ⎔ Setup Node@18 for Github Packages
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         cache: 'pnpm'
-  #         node-version: 18
-  #         scope: '@lottiefiles'
-  #         registry-url: 'https://npm.pkg.github.com/'
+      - name: ⎔ Setup Node@18 for Github Packages
+        uses: actions/setup-node@v3
+        with:
+          cache: 'pnpm'
+          node-version: 18
+          scope: '@lottiefiles'
+          registry-url: 'https://npm.pkg.github.com/'
 
-  #     - name: 📥 Download deps
-  #       run: pnpm install
-  #       env:
-  #         NODE_AUTH_TOKEN: ${{ secrets.GPR_TOKEN }}
+      - name: 📥 Download deps
+        run: pnpm install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GPR_TOKEN }}
 
-  #     - name: 🏗 Build
-  #       run: pnpm build
+      - name: 🏗 Build
+        run: pnpm build
 
-  #     - name: 🚀 Release to Github Packages
-  #       uses: changesets/action@v1
-  #       with:
-  #         commit: 'chore: 🤖 update versions'
-  #         title: 'chore: 🤖 update versions'
-  #         publish: pnpm release:publish
-  #         version: pnpm release:version
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: 🚀 Release to Github Packages
+        uses: changesets/action@v1
+        with:
+          commit: 'chore: 🤖 update versions'
+          title: 'chore: 🤖 update versions'
+          publish: pnpm release:publish
+          version: pnpm release:version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-  #     - name: Delete npmrc
-  #       run: rm -rf ~/.npmrc
+      - name: Delete npmrc
+        run: rm -rf ~/.npmrc
 
-  #     - name: ⎔ Setup Node@18 for NPM
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         cache: 'pnpm'
-  #         node-version: 18
-  #         scope: '@lottiefiles'
-  #         registry-url: https://registry.npmjs.org/
+      - name: ⎔ Setup Node@18 for NPM
+        uses: actions/setup-node@v3
+        with:
+          cache: 'pnpm'
+          node-version: 18
+          scope: '@lottiefiles'
+          registry-url: https://registry.npmjs.org/
 
-  #     - name: Setup npmrc
-  #       run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPMJS_TOKEN }}" >> ~/.npmrc
+      - name: Setup npmrc
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPMJS_TOKEN }}" >> ~/.npmrc
 
-  #     - name: 🚀 Release to NPM
-  #       uses: changesets/action@v1
-  #       with:
-  #         # commit: 'chore: 🤖 update versions'
-  #         # title: 'chore: 🤖 update versions'
-  #         publish: pnpm release:publish
-  #         # version: pnpm release:version
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #         NPM_TOKEN: ${{ secrets.NPMJS_TOKEN }}
-  #         NODE_AUTH_TOKEN: ${{ secrets.NPMJS_TOKEN }}
+      - name: 🚀 Release to NPM
+        uses: changesets/action@v1
+        with:
+          # commit: 'chore: 🤖 update versions'
+          # title: 'chore: 🤖 update versions'
+          publish: pnpm release:publish
+          # version: pnpm release:version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPMJS_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPMJS_TOKEN }}
