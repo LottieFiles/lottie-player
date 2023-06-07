@@ -1,70 +1,68 @@
 <html>
-  <head>
-    <style type="text/css">
-      #animation-container {
-        background: red;
-      }
-      #player-one {
-        background: green;
-      }
-      .arm-l path {
-        fill: purple;
-      }
+    <head>
+        <style type="text/css">
+            #animation-container {
+                background: red;
+            }
+            #player-one {
+                background: green;
+            }
+            .arm-l path {
+                fill: purple;
+            }
 
-      .body path {
-        fill: red;
-      }
+            .body path {
+                fill: red;
+            }
 
-      .leg-l path {
-        fill: orange;
-      }
+            .leg-l path {
+                fill: orange;
+            }
 
-      .leg-r path {
-        fill: orange;
-      }
+            .leg-r path {
+                fill: orange;
+            }
 
-      .arm-r path {
-        fill: turquoise;
-        stroke-width: 8;
-        stroke: pink;
-        stroke-linecape: round;
-      }
-    </style>
-  </head>
-  <body>
-    <div
-      class="player-container"
-      style="width: 500px; height: 500px; margin: auto; justify-content: center"
-    >
-      <lottie-player
-        src="https://lottie.host/4458c0b5-4d8d-43f3-8d42-0739a212a523/L4yrEGvBsO.json"
-        autoplay
-        controls
-        loop
-        disableCheck
-        mode="normal"
-        style="width: 320px"
-        id="player-one"
-        disableShadowDOM
-      ></lottie-player>
+            .arm-r path {
+                fill: turquoise;
+                stroke-width: 8;
+                stroke: pink;
+                stroke-linecape: round;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="player-container" style="width: 500px; height: 500px; margin: auto; justify-content: center">
+            <lottie-player
+                src="https://lottie.host/4458c0b5-4d8d-43f3-8d42-0739a212a523/L4yrEGvBsO.json"
+                autoplay
+                controls
+                loop
+                disableCheck
+                mode="normal"
+                style="width: 320px"
+                id="player-one"
+                disableShadowDOM
+            ></lottie-player>
 
-      <lottie-player
-        src="https://lottie.host/4458c0b5-4d8d-43f3-8d42-0739a212a523/L4yrEGvBsO.json"
-        autoplay
-        controls
-        loop
-        disableCheck
-        mode="normal"
-        style="width: 320px"
-      ></lottie-player>
-    </div>
+            <lottie-player
+                src="https://lottie.host/4458c0b5-4d8d-43f3-8d42-0739a212a523/L4yrEGvBsO.json"
+                autoplay
+                controls
+                loop
+                disableCheck
+                mode="normal"
+                style="width: 320px"
+            ></lottie-player>
+        </div>
 
-    <script src="./lottie-player.js"></script>
-    <script>
-      let player = document.getElementById("player-one");
-      player.addEventListener("ready", () => {
-        console.log(player.getVersions());
-      });
-    </script>
-  </body>
+        <script src="../dist/lottie-player.js"></script>
+        <!-- <script type="module" src="../dist/lottie-player.mjs"></script> -->
+        <script>
+            let player = document.getElementById('player-one');
+            player.addEventListener('ready', () => {
+                console.log(player.getVersions());
+            });
+        </script>
+    </body>
 </html>

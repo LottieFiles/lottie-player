@@ -14,38 +14,33 @@ jobs:
         node-version: [14.x]
 
     steps:
-      - name: Checkout
+      - name: ⬇️ Checkout repo
         uses: actions/checkout@v2
+
+      - name: ⎔ Setup pnpm@7
+        uses: pnpm/action-setup@v2
         with:
-          fetch-depth: 0
-      - name: Cache NPM
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-npm
+          version: 7
+
+      - name: ⎔ Setup Node@18 for Github Packages
+        uses: actions/setup-node@v3
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-      - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-          registry-url: "https://npm.pkg.github.com"
-      - name: Install dependencies
-        run: yarn
+          cache: 'pnpm'
+          node-version: 18
+          scope: '@lottiefiles'
+          registry-url: 'https://npm.pkg.github.com/'
+
+      - name: 📥 Download deps
+        run: pnpm install
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Build project
-        run: yarn build
-      - name: Serve example app
-        continue-on-error: false
-        run: yarn run serve
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GPR_TOKEN }}
+
+      - name: 🏗 Build
+        run: pnpm build
+
       - name: Build project and run tests
         continue-on-error: false
-        run: yarn run run-tests
+        run: pnpm run run-tests
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
