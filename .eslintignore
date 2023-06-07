@@ -8,3 +8,6 @@ dist/
 # Testing
 coverage/
 examples/
+cypress/
+cypress.config.ts
+commitlint.config.js

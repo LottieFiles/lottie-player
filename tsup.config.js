@@ -4,25 +4,37 @@
 
 import { defineConfig } from 'tsup';
 
-export default defineConfig([
-  {
-    bundle: true,
-    clean: true,
-    dts: true,
-    module: 'ESNext',
-    format: ['esm', 'umd'],
-    // For umd build
-    globalName: 'LottiePlayer',
-    metafile: false,
-    minify: true,
-    sourcemap: true,
-    splitting: false,
-    tsconfig: 'tsconfig.json',
-    treeshake: true,
-    entry: ['./src/lottie-player.ts'],
-    outDir: './dist/',
-    noExternal: ['lit', 'lottie-web'],
-    platform: 'browser',
-    target: ['ESNext'],
-  },
-]);
+const commonOptions = {
+  bundle: true,
+  clean: true,
+  dts: true,
+  module: 'ESNext',
+  format: ['esm', 'umd'],
+  metafile: false,
+  minify: true,
+  sourcemap: true,
+  splitting: false,
+  tsconfig: 'tsconfig.json',
+  treeshake: true,
+  outDir: './dist/',
+  platform: 'browser',
+  target: ['ESNext'],
+};
+
+const lottiePlayerOptions = {
+  ...commonOptions,
+  // For umd build
+  globalName: 'LottiePlayer',
+  entry: ['./src/lottie-player.ts'],
+  noExternal: ['lit', 'lottie-web'],
+};
+
+const tgsPlayerOptions = {
+  ...commonOptions,
+  // For umd build
+  globalName: 'TgsPlayer',
+  entry: ['./src/tgs-player.ts'],
+  noExternal: ['lit', 'lottie-web', 'pako'],
+};
+
+export default defineConfig([lottiePlayerOptions, tgsPlayerOptions]);

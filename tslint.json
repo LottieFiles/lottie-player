@@ -2,10 +2,7 @@
   "rules": {
     "arrow-parens": true,
     "class-name": true,
-    "indent": [
-      true,
-      "spaces"
-    ],
+    "indent": [true, "spaces"],
     "prefer-const": true,
     "no-any": true,
     "no-duplicate-variable": true,
@@ -14,28 +11,11 @@
     "no-trailing-whitespace": true,
     "no-var-keyword": true,
     "no-unnecessary-type-assertion": false,
-    "one-line": [
-      true,
-      "check-open-brace",
-      "check-whitespace"
-    ],
-    "quotemark": [
-      true,
-      "single",
-      "avoid-escape"
-    ],
-    "semicolon": [
-      true,
-      "always"
-    ],
-    "trailing-comma": [
-      true,
-      "multiline"
-    ],
-    "triple-equals": [
-      true,
-      "allow-null-check"
-    ],
+    "one-line": [true, "check-open-brace", "check-whitespace"],
+    "quotemark": [true, "single", "avoid-escape"],
+    "semicolon": [true, "always"],
+    "trailing-comma": [true, "multiline"],
+    "triple-equals": [true, "allow-null-check"],
     "typedef-whitespace": [
       true,
       {
@@ -46,17 +26,7 @@
         "variable-declaration": "nospace"
       }
     ],
-    "variable-name": [
-      true,
-      "ban-keywords"
-    ],
-    "whitespace": [
-      true,
-      "check-branch",
-      "check-decl",
-      "check-operator",
-      "check-separator",
-      "check-type"
-    ]
+    "variable-name": [true, "ban-keywords"],
+    "whitespace": [true, "check-branch", "check-decl", "check-operator", "check-separator", "check-type"]
   }
 }

@@ -565,7 +565,9 @@ export class LottiePlayer extends LitElement {
    * Initialize everything on component first render.
    */
   protected override async firstUpdated(): Promise<void> {
-    this.container = this.shadowRoot?.querySelector('#animation') as HTMLElement;
+    this.container = this.disableShadowDOM
+      ? (this.querySelector('#animation') as HTMLElement)
+      : (this.shadowRoot?.querySelector('#animation') as HTMLElement);
 
     // Add intersection observer for detecting component being out-of-view.
     if ('IntersectionObserver' in window && this.container) {
