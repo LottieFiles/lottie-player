@@ -3,12 +3,7 @@
     "target": "es2017",
     "module": "es2015",
     "moduleResolution": "node",
-    "lib": [
-      "esnext.array",
-      "esnext",
-      "es2017",
-      "dom"
-    ],
+    "lib": ["esnext.array", "esnext", "es2017", "dom"],
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
@@ -20,14 +15,10 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true
   },
-  "include": [
-    "src/**/*.ts",
-    "types/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "include": ["src/**/*.ts", "types/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }

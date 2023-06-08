@@ -1,0 +1,11 @@
+coverage/
+cypress/
+dist/
+.changeset/
+.nyc_output
+CHANGELOG.md
+cypress.config.ts
+pnpm-lock.yaml
+README.md
+src/index.html
+src/tgs-player-demo.html

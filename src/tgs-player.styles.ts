@@ -2,9 +2,9 @@
  * Copyright 2022 Design Barn Inc.
  */
 
-import { css } from "lit-element";
+import { css } from 'lit';
 
-import styles from "./lottie-player.styles";
+import styles from './lottie-player.styles';
 
 export default css`
   ${styles}
