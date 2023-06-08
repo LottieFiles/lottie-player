@@ -25,9 +25,6 @@ jobs:
         with:
           cache: 'pnpm'
           node-version: 18
-          scope: '@lottiefiles'
-          registry-url: 'https://npm.pkg.github.com/'
-          always-auth: true
 
       - name: 📥 Download deps
         run: pnpm install
