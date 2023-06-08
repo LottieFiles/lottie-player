@@ -86,7 +86,7 @@ jobs:
           commit: "chore: 🤖 update versions"
           title: "chore: 🤖 update versions"
           publish: pnpm release:publish
-          # version: pnpm release:version
+          version: pnpm release:version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -111,7 +111,7 @@ jobs:
           commit: "chore: 🤖 update versions"
           title: "chore: 🤖 update versions"
           publish: pnpm release:publish
-          # version: pnpm release:version
+          version: pnpm release:version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPMJS_TOKEN }}
