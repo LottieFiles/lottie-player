@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.1
+
+### Patch Changes
+
+- 2a306c8: fixes tests
+
 ## 2.0.0
 
 ### Major Changes
