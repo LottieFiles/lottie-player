@@ -25,16 +25,12 @@ jobs:
         with:
           cache: "pnpm"
           node-version: 18
-          scope: "@lottiefiles"
-          registry-url: "https://npm.pkg.github.com/"
-          always-auth: true
+          # scope: "@lottiefiles"
+          # registry-url: "https://npm.pkg.github.com/"
+          # always-auth: true
 
       - name: 📥 Download deps
         run: pnpm install
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPMJS_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPMJS_TOKEN }}
 
       - name: 🏗 Build
         run: pnpm build
@@ -68,9 +64,9 @@ jobs:
         with:
           cache: "pnpm"
           node-version: 18
-          scope: "@lottiefiles"
-          registry-url: "https://npm.pkg.github.com/"
-          always-auth: true
+          # scope: "@lottiefiles"
+          # registry-url: "https://npm.pkg.github.com/"
+          # always-auth: true
 
       - name: 📥 Download deps
         run: pnpm install
@@ -80,6 +76,9 @@ jobs:
 
       - name: 🏗 Build
         run: pnpm build
+
+      - name: Setup npmrc
+        run: echo "//registry.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
 
       - name: 🚀 Release to Github Packages
         uses: changesets/action@v1
