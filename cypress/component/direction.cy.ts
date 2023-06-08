@@ -21,6 +21,7 @@ describe('Direction', () => {
       `,
     );
 
+    cy.wait(1000);
     cy.get('[name="direction"]').should('have.value', 1);
   });
 
@@ -40,6 +41,7 @@ describe('Direction', () => {
       `,
     );
 
+    cy.wait(1000);
     cy.get('[name="direction"]').should('have.value', 1);
   });
 
@@ -59,6 +61,7 @@ describe('Direction', () => {
       `,
     );
 
+    cy.wait(1000);
     cy.get('[name="direction"]').should('have.value', '-1');
   });
 });

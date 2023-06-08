@@ -22,6 +22,7 @@ describe('Player', () => {
       `,
     );
 
+    cy.wait(1000);
     cy.get('[data-testid="testPlayer"]').shadow().find('#animation').should('exist');
   });
 
@@ -40,7 +41,7 @@ describe('Player', () => {
       `,
     );
 
-    cy.wait(3000);
+    cy.wait(1000);
     cy.get('[name="currentState"]').should('have.value', PlayerState.Playing);
   });
 
@@ -53,7 +54,8 @@ describe('Player', () => {
         `,
       );
 
-      cy.get('[name="currentState"]').should('have.value', PlayerState.Error);
+    cy.wait(1000);
+    cy.get('[name="currentState"]').should('have.value', PlayerState.Error);
       cy.get('[data-testid="testPlayer"]').shadow().find('.error').should('exist');
     } catch (error) {
 

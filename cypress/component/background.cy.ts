@@ -22,6 +22,7 @@ describe('Background', () => {
       `,
     );
 
+    cy.wait(1000);
     cy.get('[data-testid="testPlayer"]')
       .shadow()
       .find('.animation')

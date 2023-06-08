@@ -21,6 +21,7 @@ describe('Controls', () => {
       `,
     );
 
+    cy.wait(1000);
     cy.get('[data-testid="testPlayer"]').shadow().find('[aria-label="lottie-animation-controls"]').should('not.exist');
   });
 
@@ -39,6 +40,7 @@ describe('Controls', () => {
       `,
     );
 
+    cy.wait(1000);
     cy.get('[data-testid="testPlayer"]').shadow().find('[aria-label="lottie-animation-controls"]').should('exist');
   });
 
@@ -56,7 +58,7 @@ describe('Controls', () => {
       `,
     );
 
-    cy.wait(3000);
+    cy.wait(1000);
     // Not playing initially
     cy.get('[name="currentState"]').should('have.value', PlayerState.Ready);
 
@@ -79,6 +81,7 @@ describe('Controls', () => {
       `,
     );
 
+    cy.wait(1000);
     // Playing initially
     cy.get('[name="currentState"]').should('have.value', PlayerState.Playing);
 
@@ -101,6 +104,7 @@ describe('Controls', () => {
       `,
     );
 
+    cy.wait(1000);
     // Playing initially
     cy.get('[name="currentState"]').should('have.value', PlayerState.Playing);
 
@@ -123,6 +127,7 @@ describe('Controls', () => {
       `,
     );
 
+    cy.wait(1000);
     cy.get('[name="currentState"]').should('have.value', PlayerState.Playing);
 
     // Loop is true initially
