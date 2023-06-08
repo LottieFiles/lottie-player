@@ -25,10 +25,14 @@ jobs:
         with:
           cache: 'pnpm'
           node-version: 18
+          scope: '@lottiefiles'
+          registry-url: 'https://npm.pkg.github.com/'
+          always-auth: true
 
       - name: 📥 Download deps
         run: pnpm install
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GPR_TOKEN }}
 
       - name: 🏗 Build
