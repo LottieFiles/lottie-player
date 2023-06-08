@@ -30,7 +30,7 @@ jobs:
           # always-auth: true
 
       - name: 📥 Download deps
-        run: pnpm install \ cypress install
+        run: pnpm install
 
       - name: 🏗 Build
         run: pnpm build
