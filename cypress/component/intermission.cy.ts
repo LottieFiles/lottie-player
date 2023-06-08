@@ -21,6 +21,7 @@ describe('Intermission', () => {
       `,
     );
 
+    cy.wait(1000);
     cy.get('[name="intermission"]').should('have.value', 0);
   });
 
@@ -40,6 +41,7 @@ describe('Intermission', () => {
       `,
     );
 
+    cy.wait(1000);
     cy.get('[name="intermission"]').should('have.value', 1000);
   });
 });

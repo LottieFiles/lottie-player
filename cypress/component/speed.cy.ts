@@ -21,6 +21,7 @@ describe('Speed', () => {
       `,
     );
 
+    cy.wait(1000);
     cy.get('[name="speed"]').should('have.value', 1);
   });
 
@@ -40,6 +41,7 @@ describe('Speed', () => {
       `,
     );
 
+    cy.wait(1000);
     cy.get('[name="speed"]').should('have.value', 2);
   });
 });

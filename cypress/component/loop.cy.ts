@@ -20,6 +20,7 @@ describe('Loop', () => {
       `,
     );
 
+    cy.wait(1000);
     cy.get('[name="loop"]').should('have.value', 'false');
   });
 
@@ -38,6 +39,7 @@ describe('Loop', () => {
       `,
     );
 
+    cy.wait(1000);
     cy.get('[name="loop"]').should('have.value', 'true');
   });
 
@@ -57,6 +59,7 @@ describe('Loop', () => {
       `,
     );
 
+    cy.wait(1000);
     cy.get('[name="count"]').should('have.value', 3);
   });
 });

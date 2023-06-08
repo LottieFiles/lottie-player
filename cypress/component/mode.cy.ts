@@ -21,6 +21,7 @@ describe('Mode', () => {
       `,
     );
 
+    cy.wait(1000);
     cy.get('[name="playMode"]').should('have.value', PlayMode.Normal);
   });
 
@@ -39,6 +40,7 @@ describe('Mode', () => {
       `,
     );
 
+    cy.wait(1000);
     cy.get('[name="playMode"]').should('have.value', PlayMode.Bounce);
   });
 
@@ -57,6 +59,7 @@ describe('Mode', () => {
       `,
     );
 
+    cy.wait(1000);
     cy.get('[name="playMode"]').should('have.value', PlayMode.Normal);
   });
 });

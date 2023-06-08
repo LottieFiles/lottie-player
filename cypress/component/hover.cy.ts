@@ -22,6 +22,7 @@ describe('Hover', () => {
       `,
     );
 
+    cy.wait(1000);
     cy.get('[name="hover"]').should('have.value', 'false');
   });
 
@@ -41,7 +42,7 @@ describe('Hover', () => {
       `,
     );
 
-    cy.wait(3000);
+    cy.wait(1000);
     cy.get('[name="hover"]').should('have.value', 'true');
     cy.get('[name="currentState"]').should('have.value', PlayerState.Ready);
     cy.get('[name="currentState"]').should('not.have.value', PlayerState.Playing);
@@ -63,7 +64,7 @@ describe('Hover', () => {
       `,
     );
 
-    cy.wait(1);
+    cy.wait(1000);
     cy.get('[name="currentState"]').should('not.have.value', PlayerState.Playing);
 
     cy.get('[data-testid="testPlayer"]').shadow().find('#animation > *').trigger('mouseenter');
