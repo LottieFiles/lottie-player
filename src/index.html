@@ -47,6 +47,7 @@
                 autoplay
                 controls
                 loop
+                renderer="svg"
                 mode="normal"
                 id="player-two"
             ></lottie-player>
@@ -66,6 +67,11 @@
             });
             playerTwo.addEventListener('play', () => {
                 console.log('play');
+                console.log(playerTwo.getLottie().currentFrame);
+            });
+
+            playerTwo.addEventListener('pause', () => {
+                console.log('paused');
                 console.log(playerTwo.getLottie().currentFrame);
             });
         </script>

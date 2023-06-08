@@ -40,6 +40,7 @@
     "preinstall": "npx only-allow pnpm",
     "release": "pnpm release:version && pnpm release:publish",
     "release:publish": "pnpm clean && pnpm build && changeset publish",
+    "release:tag": "changeset tag",
     "release:version": "changeset version",
     "run-tests": "pnpm run build-with-coverage && pnpm run serve && pnpm run start-cypress",
     "serve": "node ./cypress/pages/server.js -p 8000 &",

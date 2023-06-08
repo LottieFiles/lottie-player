@@ -565,6 +565,11 @@ export class LottiePlayer extends LitElement {
    * Initialize everything on component first render.
    */
   protected override async firstUpdated(): Promise<void> {
+    if (this.renderer !== 'svg' && this.renderer !== 'canvas') {
+      console.error(
+        '[lottie-player] Renderer is invalid: must be either "svg" or "canvas", "html" has been deprecated since v2.0.0.',
+      );
+    }
     this.container = this.disableShadowDOM
       ? (this.querySelector('#animation') as HTMLElement)
       : (this.shadowRoot?.querySelector('#animation') as HTMLElement);
