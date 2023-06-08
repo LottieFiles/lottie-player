@@ -37,7 +37,7 @@
     "open": "cypress open",
     "preinstall": "npx only-allow pnpm",
     "release": "pnpm release:version && pnpm release:publish",
-    "release:publish": "pnpm clean && pnpm build && changeset publish",
+    "release:publish": "pnpm build && changeset publish",
     "release:tag": "changeset tag",
     "release:version": "changeset version",
     "test": "cypress run --component",

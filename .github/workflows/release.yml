@@ -23,7 +23,6 @@ jobs:
       - name: ⎔ Setup Node@18
         uses: actions/setup-node@v3
         with:
-          cache: 'pnpm'
           node-version: 18
           # scope: "@lottiefiles"
           # registry-url: "https://npm.pkg.github.com/"
@@ -35,17 +34,18 @@ jobs:
       - name: 🏗 Build
         run: pnpm build
 
-      # - name: 🔍 Verify types
-      #   run: pnpm type-check
-
       - name: 💅 Verify format (`pnpm format` committed?)
         run: pnpm format --check --no-write
+
+      - name: 🛡️ Test
+        run: pnpm test
+
+      # - name: 🔍 Verify types
+      #   run: pnpm type-check
 
       # - name: 🕵️ Lint
       #   run: pnpm lint
 
-      - name: 🛡️ Test
-        run: pnpm test
   release:
     needs: validate
     runs-on: ubuntu-latest
@@ -62,7 +62,6 @@ jobs:
       - name: ⎔ Setup Node@18 for Github Packages
         uses: actions/setup-node@v3
         with:
-          cache: 'pnpm'
           node-version: 18
           # scope: "@lottiefiles"
           # registry-url: "https://npm.pkg.github.com/"
@@ -97,7 +96,6 @@ jobs:
       - name: ⎔ Setup Node@18 for NPM
         uses: actions/setup-node@v3
         with:
-          cache: 'pnpm'
           node-version: 18
           scope: '@lottiefiles'
           registry-url: https://registry.npmjs.org/
