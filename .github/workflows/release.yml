@@ -23,7 +23,7 @@ jobs:
       - name: ⎔ Setup Node@18
         uses: actions/setup-node@v3
         with:
-          cache: "pnpm"
+          cache: 'pnpm'
           node-version: 18
           # scope: "@lottiefiles"
           # registry-url: "https://npm.pkg.github.com/"
@@ -62,7 +62,7 @@ jobs:
       - name: ⎔ Setup Node@18 for Github Packages
         uses: actions/setup-node@v3
         with:
-          cache: "pnpm"
+          cache: 'pnpm'
           node-version: 18
           # scope: "@lottiefiles"
           # registry-url: "https://npm.pkg.github.com/"
@@ -83,8 +83,8 @@ jobs:
       - name: 🚀 Release to Github Packages
         uses: changesets/action@v1
         with:
-          commit: "chore: 🤖 update versions"
-          title: "chore: 🤖 update versions"
+          commit: 'chore: 🤖 update versions'
+          title: 'chore: 🤖 update versions'
           publish: pnpm release:publish
           version: pnpm release:version
         env:
@@ -97,9 +97,9 @@ jobs:
       - name: ⎔ Setup Node@18 for NPM
         uses: actions/setup-node@v3
         with:
-          cache: "pnpm"
+          cache: 'pnpm'
           node-version: 18
-          scope: "@lottiefiles"
+          scope: '@lottiefiles'
           registry-url: https://registry.npmjs.org/
 
       - name: Setup npmrc
@@ -108,8 +108,8 @@ jobs:
       - name: 🚀 Release to NPM
         uses: changesets/action@v1
         with:
-          commit: "chore: 🤖 update versions"
-          title: "chore: 🤖 update versions"
+          commit: 'chore: 🤖 update versions'
+          title: 'chore: 🤖 update versions'
           publish: pnpm release:publish
           version: pnpm release:version
         env:
