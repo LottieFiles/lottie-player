@@ -18,6 +18,7 @@ export enum PlayerState {
   Error = 'error',
   Frozen = 'frozen',
   Loading = 'loading',
+  Ready = 'ready',
   Paused = 'paused',
   Playing = 'playing',
   Stopped = 'stopped',
@@ -48,6 +49,21 @@ export enum PlayerEvents {
 export interface Versions {
   lottiePlayerVersion: string;
   lottieWebVersion: string;
+}
+
+export interface InternalPlayerState {
+  background: string;
+  currentState: PlayerState;
+  frame: number;
+  seeker: number;
+  autoplay: boolean;
+  direction: number;
+  hover: boolean;
+  intermission: number;
+  loop: boolean;
+  count?: number;
+  playMode: PlayMode;
+  speed: number;
 }
 
 /**
@@ -165,7 +181,7 @@ export class LottiePlayer extends LitElement {
    * Intermission
    */
   @property()
-  public intermission: number = 1;
+  public intermission: number = 0;
 
   /**
    * Whether to loop animation.
@@ -232,7 +248,7 @@ export class LottiePlayer extends LitElement {
   private _io: IntersectionObserver | null = null;
 
   // private _ro: ResizeObserver | undefined = undefined;
-  private _lottie?: any;
+  private _lottie?: AnimationItem;
 
   /**
    * Destroy animation and lottie-player element.
@@ -243,7 +259,6 @@ export class LottiePlayer extends LitElement {
     }
 
     this._lottie.destroy();
-    this._lottie = null;
     this.currentState = PlayerState.Destroyed;
     this.dispatchEvent(new CustomEvent(PlayerEvents.Destroyed));
     this.remove();
@@ -389,6 +404,23 @@ export class LottiePlayer extends LitElement {
     this.dispatchEvent(new CustomEvent(PlayerEvents.Play));
   }
 
+  public getState(): InternalPlayerState {
+    return {
+      autoplay: this._lottie?.autoplay ?? false,
+      currentState: this.currentState,
+      frame: this._lottie?.currentFrame ?? 0,
+      seeker: this.seeker,
+      direction: this.direction,
+      hover: this.hover,
+      loop: this.loop || false,
+      count: this.count,
+      playMode: this.mode,
+      speed: this.speed ?? 1,
+      background: this.background ?? 'transparent',
+      intermission: this.intermission,
+    };
+  }
+
   public override render(): TemplateResult | void {
     const className: string = this.controls ? 'main controls' : 'main';
     const animationClass: string = this.controls ? 'animation controls' : 'animation';
@@ -453,11 +485,12 @@ export class LottiePlayer extends LitElement {
    *
    * @param value - Direction values.
    */
-  public setDirection(value: number): void {
+  public setDirection(value: 1 | -1): void {
     if (!this._lottie) {
       return;
     }
 
+    this.direction = value;
     this._lottie.setDirection(value);
   }
 
@@ -483,6 +516,7 @@ export class LottiePlayer extends LitElement {
       return;
     }
 
+    this.speed = value;
     this._lottie.setSpeed(value);
   }
 
@@ -677,14 +711,18 @@ export class LottiePlayer extends LitElement {
   }
 
   private _attachEventListeners(): void {
-    this._lottie.addEventListener('enterFrame', () => {
-      this.seeker = (this._lottie.currentFrame / this._lottie.totalFrames) * 100;
+    const lottie = this._lottie;
+
+    if (!lottie) return;
+
+    lottie.addEventListener('enterFrame', () => {
+      this.seeker = (lottie.currentFrame / lottie.totalFrames) * 100;
 
       this.requestUpdate();
       this.dispatchEvent(
         new CustomEvent(PlayerEvents.Frame, {
           detail: {
-            frame: this._lottie.currentFrame,
+            frame: lottie.currentFrame,
             seeker: this.seeker,
           },
         }),
@@ -692,7 +730,7 @@ export class LottiePlayer extends LitElement {
     });
 
     // Handle animation play complete
-    this._lottie.addEventListener('complete', () => {
+    lottie.addEventListener('complete', () => {
       if (this.currentState !== PlayerState.Playing) {
         this.dispatchEvent(new CustomEvent(PlayerEvents.Complete));
 
@@ -703,7 +741,7 @@ export class LottiePlayer extends LitElement {
         this.dispatchEvent(new CustomEvent(PlayerEvents.Complete));
 
         if (this.mode === PlayMode.Bounce) {
-          if (this._lottie.currentFrame === 0) {
+          if (this._lottie?.currentFrame === 0) {
             return;
           }
         } else {
@@ -720,8 +758,8 @@ export class LottiePlayer extends LitElement {
           this.dispatchEvent(new CustomEvent(PlayerEvents.Loop));
 
           if (this.currentState === PlayerState.Playing) {
-            this._lottie.setDirection(this._lottie.playDirection * -1);
-            this._lottie.play();
+            this.setDirection((this.direction * -1) as 1 | -1);
+            this._lottie?.play();
           }
         }, this.intermission);
       } else {
@@ -738,8 +776,8 @@ export class LottiePlayer extends LitElement {
               this.seek('99%');
               this.play();
             } else {
-              this._lottie.stop();
-              this._lottie.play();
+              lottie.stop();
+              lottie.play();
             }
           }
         }, this.intermission);
@@ -747,13 +785,14 @@ export class LottiePlayer extends LitElement {
     });
 
     // Handle lottie-web ready event
-    this._lottie.addEventListener('DOMLoaded', () => {
+    lottie.addEventListener('DOMLoaded', () => {
       // Set initial playback speed and direction
       this.setSpeed(this.speed);
-      this.setDirection(this.direction);
+      this.setDirection(this.direction as 1 | -1);
+      this.currentState = PlayerState.Ready;
 
       // Start playing if autoplay is enabled
-      if (this.autoplay) {
+      if (this.autoplay && !this.hover) {
         if (this.direction === -1) this.seek('100%');
         this.play();
       }
@@ -762,12 +801,12 @@ export class LottiePlayer extends LitElement {
     });
 
     // Handle animation data load complete
-    this._lottie.addEventListener('data_ready', () => {
+    lottie.addEventListener('data_ready', () => {
       this.dispatchEvent(new CustomEvent(PlayerEvents.Load));
     });
 
     // Set error state when animation load fail event triggers
-    this._lottie.addEventListener('data_failed', () => {
+    lottie.addEventListener('data_failed', () => {
       this.currentState = PlayerState.Error;
 
       this.dispatchEvent(new CustomEvent(PlayerEvents.Error));
@@ -806,6 +845,8 @@ export class LottiePlayer extends LitElement {
    * Handles click and drag actions on the progress track.
    */
   private _handleSeekChange(event: Event): void {
+    if (!this._lottie) return;
+
     const target = event.currentTarget as HTMLInputElement;
 
     try {

@@ -47,8 +47,8 @@ jobs:
       # - name: 🕵️ Lint
       #   run: pnpm lint
 
-      # - name: 🛡️ Test
-      #   run: pnpm run-tests
+      - name: 🛡️ Test
+        run: pnpm test
   release:
     needs: validate
     runs-on: ubuntu-latest

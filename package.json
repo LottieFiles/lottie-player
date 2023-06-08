@@ -26,7 +26,6 @@
   ],
   "scripts": {
     "build": "tsup",
-    "build-with-coverage": "CODE_COVERAGE=true pnpm run build",
     "changelog": "changeset add",
     "changelog:check": "changeset status --since=main",
     "dev": "tsup --watch",
@@ -36,15 +35,12 @@
     "lint": "eslint . --ext .ts,.tsx,.js",
     "lint:fix": "eslint . --ext .ts,.tsx,.js --fix",
     "open": "cypress open",
-    "postrun-tests": "kill $(lsof -t -i:8000)",
     "preinstall": "npx only-allow pnpm",
     "release": "pnpm release:version && pnpm release:publish",
     "release:publish": "pnpm clean && pnpm build && changeset publish",
     "release:tag": "changeset tag",
     "release:version": "changeset version",
-    "run-tests": "pnpm run build-with-coverage && pnpm run serve && pnpm run start-cypress",
-    "serve": "node ./cypress/pages/server.js -p 8000 &",
-    "start-cypress": "cypress run && npx nyc report --reporter=text-summary",
+    "test": "cypress run --component",
     "type-check": "turbo run type-check"
   },
   "dependencies": {
@@ -58,17 +54,13 @@
   "devDependencies": {
     "@commitlint/cli": "^16.3.0",
     "@commitlint/config-conventional": "^16.2.4",
-    "@cypress/code-coverage": "^3.10.0",
-    "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@lottiefiles/eslint-plugin": "^3.0.0",
     "@lottiefiles/prettier-config": "^3.0.0",
-    "babel-plugin-istanbul": "^6.1.1",
     "cypress": "^12.13.0",
+    "cypress-ct-lit": "^0.3.2",
     "cypress-real-events": "^1.7.4",
     "eslint": "^7.32.0",
     "eslint-plugin-only-warn": "^1.0.3",
-    "fastify": "^3.29.4",
-    "fastify-static": "^4.7.0",
     "husky": "^8.0.2",
     "lint-staged": "^12.5.0",
     "prettier": "^2.8.0",
@@ -76,7 +68,8 @@
     "tsup": "^6.7.0",
     "turbo": "^1.10.2",
     "typescript": "^4.9.3",
-    "unicode-canonical-property-names-ecmascript": "^2.0.0"
+    "unicode-canonical-property-names-ecmascript": "^2.0.0",
+    "vite": "^4.3.9"
   },
   "publishConfig": {
     "access": "public"

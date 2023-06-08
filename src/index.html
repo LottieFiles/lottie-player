@@ -33,7 +33,7 @@
     </head>
     <body>
         <div class="player-container" style="width: 500px; height: 500px; margin: auto; justify-content: center">
-            <lottie-player
+            <!-- <lottie-player
                 src="https://lottie.host/4458c0b5-4d8d-43f3-8d42-0739a212a523/L4yrEGvBsO.json"
                 autoplay
                 controls
@@ -41,16 +41,19 @@
                 mode="normal"
                 id="player-one"
                 disableShadowDOM
-            ></lottie-player>
+            ></lottie-player> -->
+
             <lottie-player
                 src="https://lottie.host/4458c0b5-4d8d-43f3-8d42-0739a212a523/L4yrEGvBsO.json"
-                autoplay
                 controls
                 loop
-                renderer="svg"
+                autoplay
+                hover
+                direction="-1"
                 mode="normal"
                 id="player-two"
             ></lottie-player>
+            <button onclick="toggleDirection()">Toggle Direction</button>
         </div>
 
         <script src="../dist/lottie-player.js"></script>
@@ -58,12 +61,20 @@
             let player = document.getElementById('player-one');
             let playerTwo = document.getElementById('player-two');
 
-            player.addEventListener('ready', () => {
-                console.log(player.getVersions());
-            });
+            // player.addEventListener('ready', () => {
+            //     console.log('ready');
+            //     console.log(player.getVersions());
+            // });
+
+            // console.log(playerTwo)
+
             playerTwo.addEventListener('stop', () => {
                 console.log('stopped');
                 console.log(playerTwo.getLottie().currentFrame);
+            });
+            playerTwo.addEventListener('ready', () => {
+                console.log('ready');
+                console.log(playerTwo.getState());
             });
             playerTwo.addEventListener('play', () => {
                 console.log('play');
@@ -74,6 +85,11 @@
                 console.log('paused');
                 console.log(playerTwo.getLottie().currentFrame);
             });
+
+            function toggleDirection() {
+              playerTwo.setDirection(playerTwo.direction * -1);
+              console.log(playerTwo.getState());
+            }
         </script>
     </body>
 </html>
