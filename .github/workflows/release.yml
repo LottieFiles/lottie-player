@@ -62,10 +62,10 @@ jobs:
       - name: ⎔ Setup Node@18 for Github Packages
         uses: actions/setup-node@v3
         with:
+          cache: 'pnpm'
           node-version: 18
-          # scope: "@lottiefiles"
-          # registry-url: "https://npm.pkg.github.com/"
-          # always-auth: true
+          scope: '@lottiefiles'
+          registry-url: 'https://npm.pkg.github.com/'
 
       - name: 📥 Download deps
         run: pnpm install
