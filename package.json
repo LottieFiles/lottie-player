@@ -1,6 +1,6 @@
 {
   "name": "@lottiefiles/lottie-player",
-  "version": "2.0.1",
+  "version": "2.0.2-next.0",
   "description": "Lottie animation and Telegram Sticker player web components.",
   "repository": "https://github.com/LottieFiles/lottie-player.git",
   "homepage": "https://lottiefiles.com/web-player",
@@ -40,7 +40,7 @@
     "release:publish": "pnpm build && changeset publish",
     "release:tag": "changeset tag",
     "release:version": "changeset version",
-    "test": "cypress run --component",
+    "test": "pnpm run build && cypress run --component",
     "type-check": "turbo run type-check"
   },
   "dependencies": {

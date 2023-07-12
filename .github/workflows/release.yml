@@ -2,7 +2,7 @@ name: main
 
 on:
   push:
-    branches: [master]
+    branches: ['master', 'fix/worker-build']
   pull_request:
 
 jobs:

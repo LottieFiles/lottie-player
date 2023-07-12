@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.2-next.0
+
+### Patch Changes
+
+- bumping to beta
+
 ## 2.0.1
 
 ### Patch Changes
