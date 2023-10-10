@@ -24,7 +24,7 @@ For full documentation, visit [docs.lottiefiles.com/lottie-player](https://docs.
 - Import from CDN.
 
 ```html
-<script src="https://unpkg.com/@lottiefiles/lottie-player@1.5.7/dist/lottie-player.js"></script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 ```
 
 - Import from local node_modules directory.
@@ -38,7 +38,7 @@ For full documentation, visit [docs.lottiefiles.com/lottie-player](https://docs.
 - Import from CDN.
 
 ```html
-<script src="https://unpkg.com/@lottiefiles/lottie-player@0.4.0/dist/tgs-player.js"></script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/tgs-player.js"></script>
 ```
 
 - Import from local node_modules directory.
