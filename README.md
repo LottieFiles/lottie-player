@@ -211,7 +211,7 @@ Create a `lottie-player.client.ts` file inside the `/plugins` folder and add the
 ```js
 import * as LottiePlayer from "@lottiefiles/lottie-player";
 
-export default LottiePlayer;
+export default defineNuxtPlugin(() => LottiePlayer);
 ```
 \
 Your plugin will be automatically available throughout your Nuxt application thanks to the [plugin auto-registration](https://v3.nuxtjs.org/guide/directory-structure/plugins). Note the `client` suffix in the name of the plugin - this tells Nuxt to load it only on the client side, as the Lottie Player script can only be rendered in the browser.
