@@ -35,7 +35,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-          registry-url: "https://npm.pkg.github.com"
+          registry-url: https://registry.npmjs.org/
       - name: Install dependencies
         run: yarn
         env:
@@ -101,8 +101,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-          registry-url: https://npm.pkg.github.com/
-          scope: "@lottiefiles"
+          registry-url: https://registry.npmjs.org/
       - run: yarn install
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPMJS_TOKEN }}
