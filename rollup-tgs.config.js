@@ -10,6 +10,7 @@ import resolve from "@rollup/plugin-node-resolve";
 import serve from "rollup-plugin-serve";
 import { terser } from "rollup-plugin-terser";
 import typescript2 from "rollup-plugin-typescript2";
+import json from "@rollup/plugin-json";
 
 const production = !process.env.ROLLUP_WATCH;
 const extensions = [".js", ".jsx", ".ts", ".tsx", ".mjs"];
@@ -43,29 +44,30 @@ export default {
       exclude: ["./node_modules/@babel/**/*", "./node_modules/core-js/**/*"],
     }),
     !production &&
-      copy({
-        targets: [
-          { src: "./src/index.html", dest: outputDir },
-          { src: "./src/sticker.tgs", dest: outputDir },
-          {
-            src: "./node_modules/@webcomponents/webcomponentsjs/bundles/",
-            dest: outputDir,
-          },
-          {
-            src: "./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js",
-            dest: outputDir,
-          },
-        ],
-      }),
+    copy({
+      targets: [
+        { src: "./src/index.html", dest: outputDir },
+        { src: "./src/sticker.tgs", dest: outputDir },
+        {
+          src: "./node_modules/@webcomponents/webcomponentsjs/bundles/",
+          dest: outputDir,
+        },
+        {
+          src: "./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js",
+          dest: outputDir,
+        },
+      ],
+    }),
     filesize(),
     !production &&
-      serve({
-        contentBase: [outputDir],
-        open: true,
-        host: "localhost",
-        port: 10001,
-      }),
+    serve({
+      contentBase: [outputDir],
+      open: true,
+      host: "localhost",
+      port: 10001,
+    }),
 
     production && terser(),
+    json(),
   ],
 };
