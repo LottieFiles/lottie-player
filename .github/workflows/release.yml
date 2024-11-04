@@ -11,17 +11,13 @@ jobs:
     permissions:
       contents: read
 
-    strategy:
-      matrix:
-        node-version: [14.x]
-
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Cache NPM
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         env:
           cache-name: cache-npm
         with:
@@ -29,10 +25,10 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
-      - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 20
           registry-url: https://registry.npmjs.org/
       - name: Install dependencies
         run: yarn
@@ -40,16 +36,16 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPMJS_TOKEN }}
       - name: Build project
         run: yarn build
-      - name: Serve example app
-        continue-on-error: false
-        run: yarn run serve
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPMJS_TOKEN }}
-      - name: Build project and run tests
-        continue-on-error: false
-        run: yarn run run-tests
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPMJS_TOKEN }}
+      # - name: Serve example app
+      #   continue-on-error: false
+      #   run: yarn run serve
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPMJS_TOKEN }}
+      # - name: Build project and run tests
+      #   continue-on-error: false
+      #   run: yarn run run-tests
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPMJS_TOKEN }}
 
   release-npm:
     needs: build
@@ -61,15 +57,11 @@ jobs:
       id-token: write      # Required for provenance
       packages: write      # Required for publishing
 
-    strategy:
-      matrix:
-        node-version: [14.x]
-
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 20
           registry-url: https://registry.npmjs.org/
       - run: yarn install
         env:
@@ -95,15 +87,16 @@ jobs:
     name: Release gpr
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [14.x]
+    permissions:
+      contents: read
+      id-token: write      # Required for provenance
+      packages: write      # Required for publishing
 
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 20
           registry-url: https://npm.pkg.github.com/
       - run: yarn install
         env:

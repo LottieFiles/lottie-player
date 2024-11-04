@@ -5,7 +5,8 @@ import { TemplateResult } from "lit/html.js";
 import * as lottie from "lottie-web/build/player/lottie";
 
 import styles from "./lottie-player.styles";
-import { LOTTIE_PLAYER_VERSION, LOTTIE_WEB_VERSION } from "./versions";
+import { version } from "../package.json";
+import { dependencies } from "../package.json";
 
 // import ResizeObserver from "resize-observer-polyfill";
 
@@ -316,8 +317,8 @@ export class LottiePlayer extends LitElement {
    */
   public getVersions(): Versions {
     return {
-      lottieWebVersion: LOTTIE_WEB_VERSION,
-      lottiePlayerVersion: LOTTIE_PLAYER_VERSION,
+      lottieWebVersion: dependencies["lottie-web"],
+      lottiePlayerVersion: version,
     };
   }
 
