@@ -74,7 +74,7 @@ Add the element `lottie-player` and set the `src` property to a URL pointing to 
   loop
   mode="normal"
   src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json"
-  style="width: 320px"
+  style={{width: "320px"}}
 >
 </lottie-player>
 ```
