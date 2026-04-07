@@ -1,4 +1,14 @@
-## lottie-player Web Component
+> [!IMPORTANT]
+> **`@lottiefiles/lottie-player` is deprecated and no longer maintained.**
+>
+> Please use [`@lottiefiles/dotlottie-wc`](https://npmjs.com/package/@lottiefiles/dotlottie-wc) instead, a modern web component for playing Lottie and dotLottie animations.
+>
+> - **npm**: https://npmjs.com/package/@lottiefiles/dotlottie-wc
+> - **GitHub**: https://github.com/lottiefiles/dotlottie-web
+
+---
+
+## lottie-player Web Component (Deprecated)
 
 This is a Web Component for easily embedding and playing Lottie animations and the Lottie-based Telegram Sticker (tgs) animations in websites.
 
