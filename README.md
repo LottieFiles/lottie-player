@@ -14,6 +14,7 @@ This is a Web Component for easily embedding and playing Lottie animations and t
 
 [![npm](https://img.shields.io/npm/v/@lottiefiles/lottie-player.svg)](https://www.npmjs.com/package/@lottiefiles/lottie-player)
 [![webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/@lottiefiles/lottie-player)
+[![security](https://secure.software/npm/badge/@lottiefiles/lottie-player)](https://secure.software/npm/packages/@lottiefiles/lottie-player)
 
 ## Demo
 
